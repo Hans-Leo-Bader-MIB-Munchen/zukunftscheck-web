@@ -4,9 +4,9 @@ Stand: 2026-07-02
 
 ## Repository
 
-- Name: mucmib/zukunftscheck-web
+- Name: Hans-Leo-Bader-MIB-Munchen/zukunftscheck-web
 - Sichtbarkeit: private
-- Branches: main, staging
+- Branches: main, staging, feature/static-shell
 
 ## Phase
 
@@ -23,6 +23,12 @@ Phase 1: technische Vorbereitung.
 - Keine Partnerweitergabe.
 - Keine Tracking- oder Marketinglogik.
 
+## Erledigter Stand
+
+- Branch Protection fuer main eingerichtet.
+- Pull-Request-Workflow getestet.
+- ZS-WEB v0.1 Static Shell nach main gemerged.
+
 ## Naechster Schritt
 
-Branch Protection fuer main in GitHub setzen. Danach minimale Staging-Struktur vorbereiten.
+Kontrollierte Vorbereitung einer Vercel-Staging-Anbindung. Keine Domain-Produktivschaltung und keine Datenerhebung.
