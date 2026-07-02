@@ -241,6 +241,7 @@ h3 {
   .three,
   .steps { grid-template-columns: 1fr; }
   .section { padding: 48px 0; }
+  .section.governance { padding: 32px 24px; }
   .steps li { min-height: auto; }
 }
 
@@ -252,6 +253,7 @@ h3 {
   .status-band {
     width: min(100% - 28px, 1120px);
   }
+  .section.governance { padding: 28px 20px; }
   h1 { font-size: clamp(2.35rem, 15vw, 4rem); }
   .stage-pill { border-radius: 18px; }
 }
