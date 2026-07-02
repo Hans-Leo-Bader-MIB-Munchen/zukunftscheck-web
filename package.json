@@ -1,0 +1,10 @@
+{
+  "name": "zukunftscheck-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static shell for the ZukunftsCheck web architecture.",
+  "scripts": {
+    "test": "echo \"Static shell: no automated tests configured yet.\"",
+    "build": "echo \"Static shell: no build step required.\""
+  }
+}
