@@ -2,3 +2,10 @@
 /* Mobile preview refinements: wrapping navigation and safe narrow-screen headings. */
 @media(max-width:760px){.site-header nav{overflow:visible;flex-wrap:wrap}.site-header nav a{flex:1 1 auto;text-align:center}.highlight{width:min(1160px,calc(100% - 24px))}}
 @media(max-width:380px){.hero,.section,.status-band,.module-page,.site-footer{width:min(1120px,calc(100% - 22px))}h1{font-size:1.95rem;overflow-wrap:anywhere}.lead{font-size:1rem}}
+
+/* Readable card widths and richer stage explanations. */
+.five{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stage-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1.1rem 0 0;padding:0;list-style:none}
+.stage-facts li{padding:1rem;border-radius:.55rem;background:var(--canvas);border:1px solid var(--line);color:var(--ink-soft)}
+.stage-facts strong{display:block;margin-bottom:.35rem;color:var(--ink)}
+@media(max-width:760px){.stage-facts{grid-template-columns:1fr}}
