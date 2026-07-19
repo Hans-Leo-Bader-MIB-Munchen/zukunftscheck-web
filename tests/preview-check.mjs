@@ -12,7 +12,7 @@ const part=read('teilnahme.html');
 const event=read('veranstaltung-hamm.html');
 const imprint=read('impressum.html');
 const privacy=read('datenschutz.html');
-const js=read('preview.js');
+const js=read('participation.js');
 const css=read('styles/main.css');
 const all=[index,part,event,js,css].join('\n');
 
@@ -43,6 +43,7 @@ for(const href of [...all.matchAll(/(?:href|src)="\/(?!\/)([^"?#]+)/g)].map(m=>m
 for(const forbidden of ['ZS-MUSTER-001','ZS-MUSTER-002','Alpenstadt']) assert.ok(!all.includes(forbidden),`Gesperrtes synthetisches Muster gefunden: ${forbidden}`);
 const vercel=fs.readFileSync(path.resolve('vercel.json'),'utf8');
 for(const header of ['Content-Security-Policy','Permissions-Policy','X-Frame-Options','X-Content-Type-Options','Referrer-Policy']) assert.ok(vercel.includes(header),`Sicherheitsheader fehlt: ${header}`);
+assert.ok(!fs.existsSync(path.join(root,'preview.js')),'Veralteter Preview-Dateiname ist noch vorhanden');
 assert.ok(fs.existsSync(path.resolve('api/submit.js')),'Formular-Endpunkt fehlt');
 const api=fs.readFileSync(path.resolve('api/submit.js'),'utf8');
 for(const phrase of ['GMAIL_USER','GMAIL_APP_PASSWORD','MAIL_TO','smtp.gmail.com','nodemailer']) assert.ok(api.includes(phrase),`Mailkonfiguration fehlt: ${phrase}`);
