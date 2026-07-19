@@ -6,5 +6,8 @@
   "scripts": {
     "test": "node tests/preview-check.mjs",
     "build": "echo \"Static shell: no build step required.\""
+  },
+  "dependencies": {
+    "nodemailer": "^9.0.3"
   }
 }

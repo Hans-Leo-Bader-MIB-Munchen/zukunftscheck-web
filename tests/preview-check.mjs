@@ -25,11 +25,14 @@ for(const phrase of ['mucmib@googlemail.com','Vercel Inc.','Standardvertragsklau
 for(const forbidden of ['Brevo','Pure Energien','Solarstromkampagne']) assert.ok(!privacy.includes(forbidden),`Fremder Kampagnenbezug gefunden: ${forbidden}`);
 for(const forbidden of ['localStorage','sessionStorage','XMLHttpRequest','sendBeacon','WebSocket','type="file"','Interne Testprüfung','Gesamtsicherung','Synthetische Demodaten']) assert.ok(!all.includes(forbidden),`Verbotener Bestandteil gefunden: ${forbidden}`);
 assert.ok(!/<form[^>]+action=/i.test(part),'Formularziel darf nicht gesetzt sein');
-assert.equal((part.match(/data-preview-form/g)||[]).length,2,'Beitrag und Kontakt müssen getrennte Formulare sein');
-assert.equal((part.match(/<form data-preview-form novalidate hidden aria-hidden="true">/g)||[]).length,2,'Beide Formulare müssen bis Formularfreigabe B ausgeblendet sein');
-assert.match(part,/Online-Beiträge und Kontaktformulare sind noch nicht aktiv/,'Öffentlicher Sperrhinweis fehlt');
+assert.equal((part.match(/data-submit-form=/g)||[]).length,2,'Beitrag und Kontakt müssen getrennte Formulare sein');
+assert.equal((part.match(/name="formStartedAt"/g)||[]).length,2,'Zeitbasierter Spamschutz fehlt');
+assert.equal((part.match(/class="honeypot"/g)||[]).length,2,'Honeypot-Spamschutz fehlt');
+assert.doesNotMatch(part,/<form[^>]+hidden/i,'Aktive Formulare dürfen nicht ausgeblendet sein');
 assert.match(js,/preventDefault\(\)/,'Absenden wird nicht abgefangen');
-assert.match(js,/übermittelt und speichert derzeit keine Daten/,'Preview-Hinweis fehlt');
+assert.match(js,/fetch\('\/api\/submit'/,'Serverseitiger Formularweg fehlt');
+assert.match(privacy,/Getrennte Formularwege/,'Datenschutzhinweis zu Formularen fehlt');
+assert.match(privacy,/Gmail/,'Hinweis zum E-Mail-Dienst fehlt');
 assert.match(css,/:focus-visible/,'sichtbarer Fokus fehlt');
 assert.equal((part.match(/class="stage-facts"/g)||[]).length,4,'Alle vier Stufen brauchen vertiefende Informationen');
 for(const phrase of ['Das Ergebnis','Die Grenze']) assert.equal((part.match(new RegExp(phrase,'g'))||[]).length,4,`Stufeninformation fehlt: ${phrase}`);
@@ -39,4 +42,8 @@ for(const href of [...all.matchAll(/(?:href|src)="\/(?!\/)([^"?#]+)/g)].map(m=>m
 for(const forbidden of ['ZS-MUSTER-001','ZS-MUSTER-002','Alpenstadt']) assert.ok(!all.includes(forbidden),`Gesperrtes synthetisches Muster gefunden: ${forbidden}`);
 const vercel=fs.readFileSync(path.resolve('vercel.json'),'utf8');
 for(const header of ['Content-Security-Policy','Permissions-Policy','X-Frame-Options','X-Content-Type-Options','Referrer-Policy']) assert.ok(vercel.includes(header),`Sicherheitsheader fehlt: ${header}`);
-console.log('ZS-WEB-022 Preview-Prüfung bestanden.');
+assert.ok(fs.existsSync(path.resolve('api/submit.js')),'Formular-Endpunkt fehlt');
+const api=fs.readFileSync(path.resolve('api/submit.js'),'utf8');
+for(const phrase of ['GMAIL_USER','GMAIL_APP_PASSWORD','MAIL_TO','smtp.gmail.com','nodemailer']) assert.ok(api.includes(phrase),`Mailkonfiguration fehlt: ${phrase}`);
+for(const secret of ['mucmib@googlemail.com']) assert.ok(!api.includes(secret),'Empfängeradresse darf nicht im Endpunkt fest codiert sein');
+console.log('ZS-WEB-Formularprüfung bestanden.');

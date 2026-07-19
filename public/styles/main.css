@@ -25,3 +25,5 @@
 .provider-logo img{display:block;width:100%;height:auto}
 @media(max-width:760px){.legal-grid{grid-template-columns:1fr}.legal-card-wide{grid-column:auto}}
 @media(max-width:380px){.legal-grid{width:min(1120px,calc(100% - 22px))}}
+.honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+button[disabled]{cursor:wait;opacity:.7}
