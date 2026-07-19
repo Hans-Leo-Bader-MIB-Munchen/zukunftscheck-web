@@ -8,72 +8,80 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-  <header class="site-header" aria-label="Kopfbereich">
-    <a class="brand" href="/" aria-label="ZukunftsCheck Start">
-      <span class="brand-mark">ZC</span>
+  <a class="skip-link" href="#main">Zum Hauptinhalt</a>
+  <header class="site-header">
+    <a class="brand" href="/index.html" aria-label="ZukunftsCheck Startseite">
+      <span class="brand-mark" aria-hidden="true">ZC</span>
       <span>ZukunftsCheck</span>
     </a>
+    <nav aria-label="Hauptnavigation">
+      <a href="/index.html">Start</a><a href="/teilnahme.html">Beteiligung</a><a href="/veranstaltung-hamm.html">Veranstaltung</a><a aria-current="page" href="/datenschutz.html">Datenschutz</a>
+    </nav>
   </header>
+  <div class="preview-bar" role="status">Veröffentlichungsvorbereitung · Online-Formulare sind noch nicht aktiv</div>
 
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
+  <main id="main" class="legal-main">
+    <section class="hero legal-hero" aria-labelledby="hero-title">
       <p class="eyebrow">Datenschutz</p>
       <h1 id="hero-title">Datenschutzerklärung.</h1>
-      <p class="lead">Informationen zur Datenverarbeitung in der internen ZukunftsCheck-Staging-Fassung.</p>
+      <p class="lead">Informationen zur Datenverarbeitung beim Aufruf des Informationsangebots ZukunftsCheck.</p>
     </section>
 
-    <section class="section split" aria-labelledby="responsible-title">
+    <div class="legal-grid">
+    <section class="legal-card" aria-labelledby="responsible-title">
       <div>
         <p class="section-label">1. Verantwortlicher</p>
         <h2 id="responsible-title">Verantwortlicher im Sinne der DSGVO</h2>
       </div>
       <p>
         <strong>Media International Bader (M.I.B.) – Hans Leo Bader</strong><br>
-        Heisenbergstr. 2b<br>
+        Heisenbergstraße 2b<br>
         80937 München<br>
-        E-Mail webmaster(at)muc-mib.de
+        E-Mail <a href="mailto:mucmib@googlemail.com">mucmib@googlemail.com</a>
       </p>
     </section>
 
-    <section class="section split" aria-labelledby="contact-title">
+    <section class="legal-card" aria-labelledby="contact-title">
       <div>
         <p class="section-label">2. Datenschutz-Kontakt</p>
         <h2 id="contact-title">Kontakt bei Datenschutzfragen</h2>
       </div>
-      <p>Für Fragen zum Datenschutz wenden Sie sich bitte an webmaster(at)muc-mib.de.</p>
+      <p>Für Fragen zum Datenschutz wenden Sie sich bitte an <a href="mailto:mucmib@googlemail.com">mucmib@googlemail.com</a>.</p>
     </section>
 
-    <section class="section" aria-labelledby="purposes-title">
+    <section class="legal-card legal-card-wide" aria-labelledby="purposes-title">
       <p class="section-label">3. Zwecke und Rechtsgrundlagen</p>
       <h2 id="purposes-title">Technische Bereitstellung der Website</h2>
-      <p>Diese Staging-Fassung verarbeitet keine Formularangaben, keine Uploads und keine aktiv eingegebenen personenbezogenen Daten. Beim Aufruf der Website können technisch notwendige Zugriffsdaten verarbeitet werden, insbesondere IP-Adresse, Datum und Uhrzeit des Abrufs, angeforderte Datei, übertragene Datenmenge, Browser- und Betriebssysteminformationen sowie Referrer-URL, soweit dies zur Bereitstellung, Sicherheit und Stabilität der Website erforderlich ist.</p>
+      <p>Die für Webfreigabe A vorbereitete Fassung verarbeitet keine Formularangaben, keine Uploads und keine aktiv eingegebenen personenbezogenen Daten. Beim Aufruf der Website können technisch notwendige Zugriffsdaten verarbeitet werden, insbesondere IP-Adresse, Datum und Uhrzeit des Abrufs, angeforderte Datei, übertragene Datenmenge, Browser- und Betriebssysteminformationen sowie Referrer-URL, soweit dies zur Bereitstellung, Sicherheit und Stabilität der Website erforderlich ist.</p>
       <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der sicheren, stabilen und missbrauchsarmen Bereitstellung der Website.</p>
     </section>
 
-    <section class="section split" aria-labelledby="hosting-title">
+    <section class="legal-card" aria-labelledby="hosting-title">
       <div>
         <p class="section-label">4. Hosting</p>
         <h2 id="hosting-title">Hosting und technische Dienstleister</h2>
       </div>
-      <p>Die technische Bereitstellung kann über externe Hosting- und Infrastruktur-Dienstleister erfolgen. Für die aktuelle interne Staging-Fassung ist insbesondere eine Bereitstellung über GitHub-Repository und Staging-Infrastruktur vorgesehen. Soweit dabei personenbezogene Daten verarbeitet werden, erfolgt dies zur technischen Bereitstellung, Absicherung und Fehlersuche.</p>
+      <p>Die Website wird technisch über die Infrastruktur von Vercel Inc. bereitgestellt. Dabei können technisch erforderliche Zugriffs- und Prozessdaten durch Vercel verarbeitet werden. Hierzu können insbesondere IP-Adresse, Datum und Uhrzeit, aufgerufene Ressourcen sowie Browser- und Betriebssysteminformationen gehören.</p>
+      <p>Vercel ist ein Anbieter mit Sitz in den USA. Soweit personenbezogene Daten in die USA übermittelt werden, stützt Vercel die Übermittlung nach eigenen Angaben unter anderem auf die Standardvertragsklauseln der Europäischen Kommission. Die für diesen Webauftritt maßgeblichen Vertragsunterlagen, konkreten Verarbeitungsorte und Speicherfristen werden vor der öffentlichen Freigabe abschließend dokumentiert.</p>
     </section>
 
-    <section class="section" aria-labelledby="no-tracking-title">
+    <section class="legal-card" aria-labelledby="no-tracking-title">
       <p class="section-label">5. Keine Formulare, kein Tracking</p>
       <h2 id="no-tracking-title">Keine aktive Datenerhebung</h2>
-      <p>Diese Fassung enthält keine Kontaktformulare, keine Upload-Funktion, keine Newsletter-Anmeldung, keine Zahlungsfunktion, keine eingebetteten Karten, keine Video-Embeds, keine Analyse- oder Werbetracking-Dienste und keine automatische Partnervermittlung.</p>
+      <p>Die Website informiert über geplante Beteiligungs- und Kontaktwege. Die Eingabeformulare sind bis zu einer gesonderten Formularfreigabe B vollständig ausgeblendet und nicht aktiv. Es bestehen keine Upload-Funktion, Newsletter-Anmeldung, Zahlungsfunktion, eingebetteten Karten, Video-Embeds, Analyse- oder Werbetracking-Dienste und keine automatische Partnervermittlung.</p>
       <p>Es werden keine personenbezogenen Daten an Fach-, Technologie-, Medien- oder Umsetzungspartner weitergegeben.</p>
     </section>
 
-    <section class="section split" aria-labelledby="cookies-title">
+    <section class="legal-card" aria-labelledby="cookies-title">
       <div>
         <p class="section-label">6. Cookies und Endgeräte</p>
         <h2 id="cookies-title">Keine nicht notwendigen Cookies</h2>
       </div>
-      <p>Nach aktuellem technischen Stand werden in dieser Staging-Fassung keine nicht notwendigen Cookies, keine localStorage-Funktionen und keine vergleichbaren Tracking-Technologien eingesetzt. Sollte sich dies vor einer späteren öffentlichen Nutzung ändern, wird die Datenschutzerklärung entsprechend angepasst und eine gegebenenfalls erforderliche Einwilligungslogik ergänzt.</p>
+      <p>Nach aktuellem technischen Stand werden keine nicht notwendigen Cookies, keine localStorage-Funktionen und keine vergleichbaren Tracking-Technologien eingesetzt. Insbesondere findet kein Werbe- oder Reichweitentracking statt. Sollte sich dies ändern, wird die Datenschutzerklärung vor der Aktivierung angepasst und eine gegebenenfalls erforderliche Einwilligungslogik ergänzt.</p>
+      <p>Die Übertragung der Website erfolgt verschlüsselt über HTTPS.</p>
     </section>
 
-    <section class="section split" aria-labelledby="duration-title">
+    <section class="legal-card" aria-labelledby="duration-title">
       <div>
         <p class="section-label">7. Speicherdauer</p>
         <h2 id="duration-title">Speicherung technischer Zugriffsdaten</h2>
@@ -81,31 +89,34 @@
       <p>Technische Zugriffsdaten werden nur so lange gespeichert, wie dies für Bereitstellung, Sicherheit, Fehleranalyse und Missbrauchserkennung erforderlich ist. Konkrete Speicherfristen hängen vom eingesetzten Hosting-Dienstleister ab und sind vor einer öffentlichen Produktivschaltung final zu prüfen.</p>
     </section>
 
-    <section class="section" aria-labelledby="rights-title">
+    <section class="legal-card legal-card-wide" aria-labelledby="rights-title">
       <p class="section-label">8. Betroffenenrechte</p>
       <h2 id="rights-title">Ihre Rechte</h2>
       <p>Sie haben nach der DSGVO insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen die Verarbeitung personenbezogener Daten. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde.</p>
-      <p>Wenden Sie sich dazu an webmaster(at)muc-mib.de.</p>
+      <p>Soweit eine Verarbeitung auf Ihrer Einwilligung beruht, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen.</p>
+      <p>Wenden Sie sich dazu an <a href="mailto:mucmib@googlemail.com">mucmib@googlemail.com</a>.</p>
     </section>
 
-    <section class="section split" aria-labelledby="changes-title">
+    <section class="legal-card legal-card-wide" aria-labelledby="changes-title">
       <div>
         <p class="section-label">9. Änderungen</p>
         <h2 id="changes-title">Aktualisierung dieser Erklärung</h2>
       </div>
       <p>Diese Datenschutzerklärung wird angepasst, wenn sich technische Funktionen, Hosting, Rechtslage oder Verarbeitungsprozesse ändern.</p>
+      <p><strong>Stand: 19. Juli 2026</strong></p>
     </section>
+    </div>
 
     <section class="status-band" aria-labelledby="status-title">
       <h2 id="status-title">Aktueller Status</h2>
-      <p>Interne Datenschutz-Staging-Fassung. Keine öffentliche Website-Freigabe. Kein Go-live. Vor öffentlicher Nutzung Hosting, Logdaten, Auftragsverarbeitung und ggf. Cookie-/Einwilligungsfragen final prüfen.</p>
+      <p>Veröffentlichungsvorbereitung für Webfreigabe A. Hosting-Vertragspartei, Verarbeitungsorte, Auftragsverarbeitung und konkrete Logdatenfristen sind noch Freigabeblocker und werden nicht als geklärt dargestellt.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <p><a href="/">Startseite</a> · <a href="/datenschutz.html" aria-current="page">Datenschutz</a> · <a href="/impressum.html">Impressum</a></p>
-    <p>ZukunftsCheck · interne redaktionelle Staging-Fassung</p>
-    <p>Keine Formulare · keine Uploads · keine Datenerhebung · kein Tracking · keine Partnerdarstellung · keine Produktivschaltung</p>
+    <p>ZukunftsCheck · Informationsangebot</p>
+    <p>Online-Formulare noch nicht aktiv · keine Uploads · kein Tracking</p>
   </footer>
 </body>
 </html>

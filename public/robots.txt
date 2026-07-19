@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# Preview-Sperre. Erst nach ausdrücklicher Webfreigabe A durch eine
+# Produktionsfassung mit freigegebener Sitemap ersetzen.
