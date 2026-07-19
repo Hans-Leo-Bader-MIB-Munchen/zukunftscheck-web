@@ -8,4 +8,4 @@
 .stage-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1.1rem 0 0;padding:0;list-style:none}
 .stage-facts li{padding:1rem;border-radius:.55rem;background:var(--canvas);border:1px solid var(--line);color:var(--ink-soft)}
 .stage-facts strong{display:block;margin-bottom:.35rem;color:var(--ink)}
-@media(max-width:760px){.stage-facts{grid-template-columns:1fr}}
+@media(max-width:760px){.five,.stage-facts{grid-template-columns:1fr}}

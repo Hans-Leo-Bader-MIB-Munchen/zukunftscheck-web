@@ -27,5 +27,6 @@ assert.match(css,/:focus-visible/,'sichtbarer Fokus fehlt');
 assert.equal((part.match(/class="stage-facts"/g)||[]).length,4,'Alle vier Stufen brauchen vertiefende Informationen');
 for(const phrase of ['Das Ergebnis','Die Grenze']) assert.equal((part.match(new RegExp(phrase,'g'))||[]).length,4,`Stufeninformation fehlt: ${phrase}`);
 assert.match(css,/\.five\{grid-template-columns:repeat\(3,/,'Fragenkarten bleiben auf Desktop zu schmal');
+assert.match(css,/@media\(max-width:760px\)\{\.five,\.stage-facts\{grid-template-columns:1fr\}\}/,'Fragenkarten wechseln mobil nicht sicher auf eine Spalte');
 for(const href of [...all.matchAll(/(?:href|src)="\/(?!\/)([^"?#]+)/g)].map(m=>m[1])) assert.ok(fs.existsSync(path.join(root,href)),`Lokales Ziel fehlt: ${href}`);
 console.log('ZS-WEB-022 Preview-Prüfung bestanden.');
