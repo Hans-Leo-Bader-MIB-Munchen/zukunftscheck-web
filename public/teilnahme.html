@@ -21,12 +21,12 @@
 <a href="/veranstaltung-hamm.html">Veranstaltung</a>
 </nav>
 </header>
-<div class="preview-bar">Veröffentlichungsvorbereitung · Online-Beiträge und Kontaktformulare sind noch nicht aktiv</div>
+<div class="preview-bar">Öffentliche Informations- und Beteiligungsseite · Übermittlung verschlüsselt</div>
 <main id="main" class="module-page">
 <section class="module-hero">
 <p class="eyebrow">Öffentliche Beteiligung · Information</p>
 <h1>Wozu möchten Sie sich beteiligen?</h1>
-<p class="lead">Informieren Sie sich über allgemeine Beteiligungsmöglichkeiten oder eine freigegebene Veranstaltung. Die Online-Übermittlung von Beiträgen und Kontakten wird noch vorbereitet.</p>
+<p class="lead">Informieren Sie sich über allgemeine Beteiligungsmöglichkeiten oder eine freigegebene Veranstaltung. Fachliche Beiträge und freiwillige Kontaktanfragen werden getrennt übermittelt.</p>
 </section>
 <section id="auswahl" aria-labelledby="auswahl-title">
 <h2 id="auswahl-title">Bezug auswählen</h2>
@@ -72,9 +72,12 @@
 <section id="beitrag" class="section" aria-labelledby="beitrag-title">
 <p class="section-label">Getrennter Datenweg 1</p>
 <h2 id="beitrag-title">Fachlicher Beitrag</h2>
-<p class="notice"><strong>Noch nicht aktiv:</strong> Die Online-Übermittlung fachlicher Beiträge wird datenschutzkonform vorbereitet. Später sollen Beiträge ohne Pflicht zur Angabe von Name, E-Mail oder Telefonnummer möglich sein.</p>
-<form data-preview-form novalidate hidden aria-hidden="true">
+<p class="notice"><strong>Ohne Kontaktdaten möglich:</strong> Der fachliche Beitrag wird getrennt von Kontaktanfragen übermittelt. Name, E-Mail und Telefonnummer werden hier nicht verlangt.</p>
+<form data-submit-form="contribution" novalidate>
+<input type="hidden" name="formType" value="contribution">
 <input type="hidden" name="eventContext">
+<input type="hidden" name="formStartedAt">
+<label class="honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
 <div class="context-panel">
 <strong>Gewählter Bezug:</strong> <span data-context-label>
 </span>
@@ -108,7 +111,8 @@
 </div>
 </fieldset>
 <p>Der Beitrag wird nicht automatisch bewertet und bedeutet keine fachliche Zustimmung oder Freigabe.</p>
-<button type="submit">Preview der Übermittlung prüfen</button>
+<label class="check"><input type="checkbox" name="privacy" required> Ich habe die <a href="/datenschutz.html">Datenschutzerklärung</a> gelesen. *</label>
+<button type="submit">Fachlichen Beitrag senden</button>
 <div class="preview-result" data-preview-result role="status" tabindex="-1" hidden>
 </div>
 </form>
@@ -117,9 +121,12 @@
 <section id="kontakt" class="section" aria-labelledby="kontakt-title">
 <p class="section-label">Getrennter Datenweg 2</p>
 <h2 id="kontakt-title">Freiwillig Kontakt aufnehmen</h2>
-<p class="notice"><strong>Noch nicht aktiv:</strong> Der Online-Kontaktweg wird getrennt vom fachlichen Beitrag vorbereitet. Derzeit werden über diese Website keine Kontaktangaben entgegengenommen.</p>
-<form data-preview-form novalidate hidden aria-hidden="true">
+<p class="notice"><strong>Freiwilliger Kontaktweg:</strong> Diese Angaben werden getrennt von fachlichen Beiträgen übermittelt und nur zur Bearbeitung Ihrer Kontaktanfrage verwendet.</p>
+<form data-submit-form="contact" novalidate>
+<input type="hidden" name="formType" value="contact">
 <input type="hidden" name="eventContext">
+<input type="hidden" name="formStartedAt">
+<label class="honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
 <div class="context-panel">
 <strong>Gewählter Bezug:</strong> <span data-context-label>
 </span>
@@ -194,8 +201,8 @@
 <textarea id="nachricht" name="message" rows="4">
 </textarea>
 <label class="check">
-<input type="checkbox" name="privacy" required> Ich habe den Preview- und Datenschutzhinweis gelesen. *</label>
-<button type="submit">Preview der Übermittlung prüfen</button>
+<input type="checkbox" name="privacy" required> Ich habe die <a href="/datenschutz.html">Datenschutzerklärung</a> gelesen. *</label>
+<button type="submit">Kontaktanfrage senden</button>
 <div class="preview-result" data-preview-result role="status" tabindex="-1" hidden>
 </div>
 </form>
@@ -287,7 +294,7 @@
 <p>
 <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a>
 </p>
-<p>ZukunftsCheck · Informationsangebot · Online-Formulare noch nicht aktiv</p>
+<p>ZukunftsCheck · Informations- und Beteiligungsangebot</p>
 </footer>
 <script src="/events.js">
 </script>
