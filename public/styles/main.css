@@ -21,5 +21,7 @@
 .legal-card p{color:var(--ink-soft);font-size:1.02rem}
 .legal-card p:last-child{margin-bottom:0}
 .legal-card a{overflow-wrap:anywhere}
+.provider-logo{margin:0 0 1.25rem;max-width:390px;border:1px solid var(--line);border-radius:.65rem;overflow:hidden;background:#fff}
+.provider-logo img{display:block;width:100%;height:auto}
 @media(max-width:760px){.legal-grid{grid-template-columns:1fr}.legal-card-wide{grid-column:auto}}
 @media(max-width:380px){.legal-grid{width:min(1120px,calc(100% - 22px))}}
