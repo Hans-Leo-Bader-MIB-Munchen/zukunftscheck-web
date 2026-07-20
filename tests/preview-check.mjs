@@ -15,6 +15,7 @@ const imprint=read('impressum.html');
 const privacy=read('datenschutz.html');
 const offers=offerPages.map(read);
 const [municipality,organisation,building,communication,decision,steering]=offers;
+const entryOffers=[municipality,organisation,building,communication,decision];
 const navPages=[index,part,event,...offers];
 const js=read('participation.js');
 const css=read('styles/main.css');
@@ -23,12 +24,19 @@ const all=[index,part,event,...offers,js,css].join('\n');
 for(const html of [index,part,event,...offers]) assert.match(html,/noindex,nofollow/,'robots-Sperre fehlt');
 for(const phrase of ['Neutrale Vorprüfung und Orientierung','Was der ZukunftsCheck ist','Was der ZukunftsCheck leistet','Erst verstehen. Dann entscheiden. Danach planen.','Welche Fragen zuerst geklärt werden','Klare Grenzen','Neutraler nächster Schritt']) assert.ok(index.includes(phrase),`Positionierungsinhalt fehlt: ${phrase}`);
 for(const phrase of ['ZukunftsCheck für unterschiedliche Aufgaben','ZukunftsCheck Kommune','ZukunftsCheck Organisation','Gebäude und Energie','Kommunikation und Veranstaltungen','ZukunftsCheck Entscheidung','Projektsteuerung']) assert.ok(index.includes(phrase),`Angebotsverlinkung fehlt: ${phrase}`);
+for(const phrase of ['Der Ablauf','Stufe 0 prüft kostenfrei die Passung','Stufe 1 und 2','nur mit gesondertem Auftrag','/teilnahme.html#stufen']) assert.ok(index.includes(phrase),`Stufenmodell auf Startseite fehlt: ${phrase}`);
 assert.match(municipality,/erstellt keine kommunale Wärmeplanung/,'Abgrenzung kommunale Wärmeplanung fehlt');
 assert.match(building,/keine Energieberatung im rechtlich oder förderrechtlich geregelten Sinn/,'Abgrenzung Energieberatung fehlt');
 assert.match(organisation,/Keine klassische Unternehmensberatung/,'Abgrenzung Unternehmensberatung fehlt');
 assert.match(decision,/Keine Rechts-, Steuer-, Finanzierungs- oder Anlageberatung/,'Abgrenzung regulierter Beratung fehlt');
 assert.match(steering,/Kein automatischer Übergang/,'Abgrenzung Projektsteuerung fehlt');
 assert.match(communication,/keine reine Veranstaltungsagentur/,'Abgrenzung Veranstaltungsagentur fehlt');
+for(const html of entryOffers){
+  assert.match(html,/href="\/teilnahme\.html#stufe-0">Stufe 0 starten<\/a>/,'Primärer Stufe-0-CTA fehlt');
+  assert.match(html,/class="text-link" href="\/projektsteuerung\.html">Projektsteuerung ansehen/,'Projektsteuerung ist nicht nachgeordnet verlinkt');
+  assert.doesNotMatch(html,/aria-current="page" href="\/index\.html#angebote"/,'Angebote ist fälschlich als aktuelle Seite markiert');
+  assert.doesNotMatch(html,/class="button" href="\/projektsteuerung\.html">Projektsteuerung ansehen/,'Projektsteuerung darf kein primärer CTA sein');
+}
 const requiredNavLinks=[['/index.html','Start'],['/index.html#angebote','Angebote'],['/projektsteuerung.html','Projektsteuerung'],['/teilnahme.html','Beteiligung'],['/veranstaltung-hamm.html','Veranstaltung']];
 for(const html of navPages){
   const nav=(html.match(/<nav aria-label="Hauptnavigation">([\s\S]*?)<\/nav>/)||[])[1]||'';
@@ -68,4 +76,4 @@ assert.ok(fs.existsSync(path.resolve('api/submit.js')),'Formular-Endpunkt fehlt'
 const api=fs.readFileSync(path.resolve('api/submit.js'),'utf8');
 for(const phrase of ['GMAIL_USER','GMAIL_APP_PASSWORD','MAIL_TO','smtp.gmail.com','nodemailer']) assert.ok(api.includes(phrase),`Mailkonfiguration fehlt: ${phrase}`);
 for(const secret of ['mucmib@googlemail.com']) assert.ok(!api.includes(secret),'Empfängeradresse darf nicht im Endpunkt fest codiert sein');
-console.log('ZS-WEB-Formular-, Angebots-, Positionierungs- und Navigationsprüfung bestanden.');
+console.log('ZS-WEB-Formular-, Angebots-, Positionierungs-, Navigations- und Handlungsführungsprüfung bestanden.');
