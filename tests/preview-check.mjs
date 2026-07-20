@@ -47,6 +47,7 @@ for(const html of navPages){
 }
 for(const html of [index,privacy,imprint,event,...offers]) assert.doesNotMatch(html,/Aktueller Status|noch nicht aktiv/,'Veralteter öffentlicher Statushinweis gefunden');
 for(const phrase of ['ALLGEMEIN','Leben mit der Energiewende','Fachlicher Beitrag','Freiwillig Kontakt aufnehmen','Stufe 0 – Passungsprüfung','Stufe 1 – Basis-ZukunftsCheck','Stufe 2 – Erweiterter ZukunftsCheck','Stufe 3 – Fachanschluss']) assert.ok(part.includes(phrase),`Teilnahmeinhalt fehlt: ${phrase}`);
+for(const phrase of ['öffentlichen ZukunftsCheck-Veranstaltungen','ersten Kontaktaufnahme für einen ZukunftsCheck']) assert.ok(part.includes(phrase),`Zielgruppenhinweis auf Beteiligungsseite fehlt: ${phrase}`);
 for(const phrase of ['21. Juli 2026','19:00 Uhr','Hochschule Hamm-Lippstadt, Hörsaal HAM 4','Marker Allee 76–78, Hamm','Energiesystem der Zukunft','Electric All-In','veranstaltung-hamm-2026.png']) assert.ok(event.includes(phrase),`Veranstaltungsangabe fehlt: ${phrase}`);
 assert.ok(!all.includes('ZS-VA-2027-HAMM-001'),'Veraltete Veranstaltungskennung gefunden');
 assert.match(imprint,/mib-logo\.png/,'MIB-Logo fehlt im Impressum');
