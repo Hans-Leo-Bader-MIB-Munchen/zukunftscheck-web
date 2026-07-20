@@ -15,6 +15,7 @@ const imprint=read('impressum.html');
 const privacy=read('datenschutz.html');
 const offers=offerPages.map(read);
 const [municipality,organisation,building,communication,decision,steering]=offers;
+const navPages=[index,part,event,...offers];
 const js=read('participation.js');
 const css=read('styles/main.css');
 const all=[index,part,event,...offers,js,css].join('\n');
@@ -28,6 +29,14 @@ assert.match(organisation,/Keine klassische Unternehmensberatung/,'Abgrenzung Un
 assert.match(decision,/Keine Rechts-, Steuer-, Finanzierungs- oder Anlageberatung/,'Abgrenzung regulierter Beratung fehlt');
 assert.match(steering,/Kein automatischer Übergang/,'Abgrenzung Projektsteuerung fehlt');
 assert.match(communication,/keine reine Veranstaltungsagentur/,'Abgrenzung Veranstaltungsagentur fehlt');
+const requiredNavLinks=[['/index.html','Start'],['/index.html#angebote','Angebote'],['/projektsteuerung.html','Projektsteuerung'],['/teilnahme.html','Beteiligung'],['/veranstaltung-hamm.html','Veranstaltung']];
+for(const html of navPages){
+  const nav=(html.match(/<nav aria-label="Hauptnavigation">([\s\S]*?)<\/nav>/)||[])[1]||'';
+  assert.ok(nav,'Hauptnavigation fehlt');
+  for(const [href,label] of requiredNavLinks) assert.ok(nav.includes(`href="${href}"`)&&nav.includes(`>${label}</a>`),`Navigationspunkt fehlt: ${label}`);
+  const positions=requiredNavLinks.map(([href])=>nav.indexOf(`href="${href}"`));
+  assert.ok(positions.every((position,index)=>index===0||position>positions[index-1]),'Reihenfolge der Hauptnavigation ist nicht einheitlich');
+}
 for(const html of [index,privacy,imprint,event,...offers]) assert.doesNotMatch(html,/Aktueller Status|noch nicht aktiv/,'Veralteter öffentlicher Statushinweis gefunden');
 for(const phrase of ['ALLGEMEIN','Leben mit der Energiewende','Fachlicher Beitrag','Freiwillig Kontakt aufnehmen','Stufe 0 – Passungsprüfung','Stufe 1 – Basis-ZukunftsCheck','Stufe 2 – Erweiterter ZukunftsCheck','Stufe 3 – Fachanschluss']) assert.ok(part.includes(phrase),`Teilnahmeinhalt fehlt: ${phrase}`);
 for(const phrase of ['21. Juli 2026','19:00 Uhr','Hochschule Hamm-Lippstadt, Hörsaal HAM 4','Marker Allee 76–78, Hamm','Energiesystem der Zukunft','Electric All-In','veranstaltung-hamm-2026.png']) assert.ok(event.includes(phrase),`Veranstaltungsangabe fehlt: ${phrase}`);
@@ -59,4 +68,4 @@ assert.ok(fs.existsSync(path.resolve('api/submit.js')),'Formular-Endpunkt fehlt'
 const api=fs.readFileSync(path.resolve('api/submit.js'),'utf8');
 for(const phrase of ['GMAIL_USER','GMAIL_APP_PASSWORD','MAIL_TO','smtp.gmail.com','nodemailer']) assert.ok(api.includes(phrase),`Mailkonfiguration fehlt: ${phrase}`);
 for(const secret of ['mucmib@googlemail.com']) assert.ok(!api.includes(secret),'Empfängeradresse darf nicht im Endpunkt fest codiert sein');
-console.log('ZS-WEB-Formular-, Angebots- und Positionierungsprüfung bestanden.');
+console.log('ZS-WEB-Formular-, Angebots-, Positionierungs- und Navigationsprüfung bestanden.');
