@@ -4,7 +4,8 @@ import assert from 'node:assert/strict';
 
 const root=path.resolve('public');
 const read=name=>fs.readFileSync(path.join(root,name),'utf8');
-const pages=['index.html','teilnahme.html','veranstaltung-hamm.html','impressum.html','datenschutz.html','404.html','robots.txt','mib-logo.png'];
+const offerPages=['kommune.html','organisation.html','gebaeude-energie.html','kommunikation-veranstaltungen.html','entscheidung.html','projektsteuerung.html'];
+const pages=['index.html','teilnahme.html','veranstaltung-hamm.html','impressum.html','datenschutz.html','404.html','robots.txt','mib-logo.png',...offerPages];
 for(const page of pages) assert.ok(fs.existsSync(path.join(root,page)),`${page} fehlt`);
 
 const index=read('index.html');
@@ -12,13 +13,15 @@ const part=read('teilnahme.html');
 const event=read('veranstaltung-hamm.html');
 const imprint=read('impressum.html');
 const privacy=read('datenschutz.html');
+const offers=offerPages.map(read);
 const js=read('participation.js');
 const css=read('styles/main.css');
-const all=[index,part,event,js,css].join('\n');
+const all=[index,part,event,...offers,js,css].join('\n');
 
-for(const html of [index,part,event]) assert.match(html,/noindex,nofollow/,'robots-Sperre fehlt');
+for(const html of [index,part,event,...offers]) assert.match(html,/noindex,nofollow/,'robots-Sperre fehlt');
 for(const phrase of ['Neutrale Erstklärung','Was der ZukunftsCheck ist','Räume sind nicht nur Flächen','Was der ZukunftsCheck leistet','Welche Fragen zuerst geklärt werden','Für wen das Format gedacht ist','Wie die Erstklärung abläuft','Räume erfüllen Funktionen','Welche Informationen genügen','Klare Grenzen für saubere Entscheidungen','Mögliche spätere Übergabepunkte','Neutraler nächster Schritt']) assert.ok(index.includes(phrase),`Bestandsinhalt fehlt: ${phrase}`);
-for(const html of [index,privacy,imprint,event]) assert.doesNotMatch(html,/Aktueller Status|noch nicht aktiv/,'Veralteter öffentlicher Statushinweis gefunden');
+for(const phrase of ['ZukunftsCheck für unterschiedliche Aufgaben','ZukunftsCheck Kommune','ZukunftsCheck Organisation','Gebäude und Energie','Kommunikation und Veranstaltungen','ZukunftsCheck Entscheidung','Projektsteuerung']) assert.ok(index.includes(phrase),`Angebotsverlinkung fehlt: ${phrase}`);
+for(const html of [index,privacy,imprint,event,...offers]) assert.doesNotMatch(html,/Aktueller Status|noch nicht aktiv/,'Veralteter öffentlicher Statushinweis gefunden');
 for(const phrase of ['ALLGEMEIN','Leben mit der Energiewende','Fachlicher Beitrag','Freiwillig Kontakt aufnehmen','Stufe 0 – Passungsprüfung','Stufe 1 – Basis-ZukunftsCheck','Stufe 2 – Erweiterter ZukunftsCheck','Stufe 3 – Fachanschluss']) assert.ok(part.includes(phrase),`Teilnahmeinhalt fehlt: ${phrase}`);
 for(const phrase of ['21. Juli 2026','19:00 Uhr','Hochschule Hamm-Lippstadt, Hörsaal HAM 4','Marker Allee 76–78, Hamm','Energiesystem der Zukunft','Electric All-In','veranstaltung-hamm-2026.png']) assert.ok(event.includes(phrase),`Veranstaltungsangabe fehlt: ${phrase}`);
 assert.ok(!all.includes('ZS-VA-2027-HAMM-001'),'Veraltete Veranstaltungskennung gefunden');
@@ -49,4 +52,4 @@ assert.ok(fs.existsSync(path.resolve('api/submit.js')),'Formular-Endpunkt fehlt'
 const api=fs.readFileSync(path.resolve('api/submit.js'),'utf8');
 for(const phrase of ['GMAIL_USER','GMAIL_APP_PASSWORD','MAIL_TO','smtp.gmail.com','nodemailer']) assert.ok(api.includes(phrase),`Mailkonfiguration fehlt: ${phrase}`);
 for(const secret of ['mucmib@googlemail.com']) assert.ok(!api.includes(secret),'Empfängeradresse darf nicht im Endpunkt fest codiert sein');
-console.log('ZS-WEB-Formularprüfung bestanden.');
+console.log('ZS-WEB-Formular- und Angebotsseitenprüfung bestanden.');
