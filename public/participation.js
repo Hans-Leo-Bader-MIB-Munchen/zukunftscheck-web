@@ -45,4 +45,9 @@
   paint();
   const section=params.get('section')||location.hash.slice(1);
   if(section)requestAnimationFrame(()=>document.getElementById(section)?.scrollIntoView());
+  if(!document.querySelector('.menu-toggle')){
+    const navigationScript=document.createElement('script');
+    navigationScript.src='/scripts/mobile-navigation.js';
+    document.head.appendChild(navigationScript);
+  }
 })();
