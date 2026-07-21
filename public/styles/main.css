@@ -30,3 +30,26 @@ button[disabled]{cursor:wait;opacity:.7}
 @media(max-width:760px){.legal-hero h1{font-size:clamp(1.7rem,7.2vw,2.4rem);overflow-wrap:normal;word-break:normal;hyphens:none}}
 .event-poster{margin:1.5rem auto 2rem;max-width:640px}
 .event-poster img{display:block;width:100%;height:auto;border-radius:.8rem;box-shadow:var(--shadow)}
+
+/* Compact, accessible mobile navigation. */
+.menu-toggle{display:none}
+@media(max-width:760px){
+  html{scroll-padding-top:5.5rem}
+  .site-header{position:sticky;top:0;min-height:68px;padding:.7rem 1rem;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.75rem}
+  .brand{min-width:0}
+  .brand span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .menu-toggle{display:inline-flex;width:auto;min-height:44px;gap:.55rem;padding:.55rem .75rem;border:1px solid var(--line);background:#fff;color:var(--ink)}
+  .menu-toggle:hover{background:var(--blue-soft)}
+  .menu-toggle>span[aria-hidden=true]{position:relative;width:1.25rem;height:2px;background:currentColor;transition:background .2s ease}
+  .menu-toggle>span[aria-hidden=true]::before,.menu-toggle>span[aria-hidden=true]::after{content:"";position:absolute;left:0;width:1.25rem;height:2px;background:currentColor;transition:transform .2s ease,top .2s ease}
+  .menu-toggle>span[aria-hidden=true]::before{top:-.4rem}
+  .menu-toggle>span[aria-hidden=true]::after{top:.4rem}
+  .site-header.menu-open .menu-toggle>span[aria-hidden=true]{background:transparent}
+  .site-header.menu-open .menu-toggle>span[aria-hidden=true]::before{top:0;transform:rotate(45deg)}
+  .site-header.menu-open .menu-toggle>span[aria-hidden=true]::after{top:0;transform:rotate(-45deg)}
+  .site-header nav{display:none;grid-column:1/-1;width:100%;padding:.35rem 0 .2rem;border-top:1px solid var(--line);overflow:visible;flex-direction:column;flex-wrap:nowrap}
+  .site-header.menu-open nav{display:flex}
+  .site-header nav a{display:block;width:100%;padding:.72rem .8rem;text-align:left;border-radius:.45rem}
+  .hero{padding-top:2.3rem}
+}
+@media(max-width:380px){.menu-toggle-label{display:none}.menu-toggle{padding:.7rem}}
