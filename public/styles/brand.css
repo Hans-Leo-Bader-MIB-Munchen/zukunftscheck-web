@@ -6,3 +6,29 @@
 .brand-mark {
   font-size: 1rem;
 }
+
+/* Keep the previous wrapped navigation on pages that do not yet load the mobile menu script. */
+@media (max-width: 760px) {
+  .site-header:not(:has(.menu-toggle)) {
+    position: static;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-header:not(:has(.menu-toggle)) nav {
+    display: flex;
+    width: 100%;
+    overflow: visible;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: 0;
+    padding: 0;
+  }
+
+  .site-header:not(:has(.menu-toggle)) nav a {
+    width: auto;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
