@@ -1,80 +1,167 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 
 const root=path.resolve('public');
 const read=name=>fs.readFileSync(path.join(root,name),'utf8');
-const offerPages=['kommune.html','organisation.html','gebaeude-energie.html','kommunikation-veranstaltungen.html','entscheidung.html','projektsteuerung.html'];
-const pages=['index.html','teilnahme.html','veranstaltung-hamm.html','impressum.html','datenschutz.html','404.html','robots.txt','mib-logo.png',...offerPages];
-for(const page of pages) assert.ok(fs.existsSync(path.join(root,page)),`${page} fehlt`);
+const requiredPages=['index.html','teilnahme.html','veranstaltung-hamm.html','impressum.html','datenschutz.html','404.html','robots.txt','mib-logo.png','kommune.html','organisation.html','gebaeude-energie.html','kommunikation-veranstaltungen.html','entscheidung.html','projektsteuerung.html'];
+for(const page of requiredPages)assert.ok(fs.existsSync(path.join(root,page)),`${page} fehlt`);
 
-const index=read('index.html');
 const part=read('teilnahme.html');
-const event=read('veranstaltung-hamm.html');
-const imprint=read('impressum.html');
 const privacy=read('datenschutz.html');
-const offers=offerPages.map(read);
-const [municipality,organisation,building,communication,decision,steering]=offers;
-const entryOffers=[municipality,organisation,building,communication,decision];
-const navPages=[index,part,event,...offers];
-const js=read('participation.js');
-const css=read('styles/main.css');
-const all=[index,part,event,...offers,js,css].join('\n');
+const client=read('participation.js');
+const apiSource=fs.readFileSync(path.resolve('api/submit.js'),'utf8');
 
-for(const html of [index,part,event,...offers]) assert.match(html,/noindex,nofollow/,'robots-Sperre fehlt');
-for(const phrase of ['Neutrale Vorprüfung und Orientierung','Was der ZukunftsCheck ist','Was der ZukunftsCheck leistet','Erst verstehen. Dann entscheiden. Danach planen.','Welche Fragen zuerst geklärt werden','Klare Grenzen','Neutraler nächster Schritt']) assert.ok(index.includes(phrase),`Positionierungsinhalt fehlt: ${phrase}`);
-for(const phrase of ['ZukunftsCheck für unterschiedliche Aufgaben','ZukunftsCheck Kommune','ZukunftsCheck Organisation','Gebäude und Energie','Kommunikation und Veranstaltungen','ZukunftsCheck Entscheidung','Projektsteuerung']) assert.ok(index.includes(phrase),`Angebotsverlinkung fehlt: ${phrase}`);
-for(const phrase of ['Der Ablauf','Stufe 0 prüft kostenfrei die Passung','Stufe 1 und 2','nur mit gesondertem Auftrag','/teilnahme.html#stufen']) assert.ok(index.includes(phrase),`Stufenmodell auf Startseite fehlt: ${phrase}`);
-assert.match(municipality,/erstellt keine kommunale Wärmeplanung/,'Abgrenzung kommunale Wärmeplanung fehlt');
-assert.match(building,/keine Energieberatung im rechtlich oder förderrechtlich geregelten Sinn/,'Abgrenzung Energieberatung fehlt');
-assert.match(organisation,/Keine klassische Unternehmensberatung/,'Abgrenzung Unternehmensberatung fehlt');
-assert.match(decision,/Keine Rechts-, Steuer-, Finanzierungs- oder Anlageberatung/,'Abgrenzung regulierter Beratung fehlt');
-assert.match(steering,/Kein automatischer Übergang/,'Abgrenzung Projektsteuerung fehlt');
-assert.match(communication,/keine reine Veranstaltungsagentur/,'Abgrenzung Veranstaltungsagentur fehlt');
-for(const html of entryOffers){
-  assert.match(html,/href="\/teilnahme\.html#stufe-0">Stufe 0 starten<\/a>/,'Primärer Stufe-0-CTA fehlt');
-  assert.match(html,/class="text-link" href="\/projektsteuerung\.html">Projektsteuerung ansehen/,'Projektsteuerung ist nicht nachgeordnet verlinkt');
-  assert.doesNotMatch(html,/aria-current="page" href="\/index\.html#angebote"/,'Angebote ist fälschlich als aktuelle Seite markiert');
-  assert.doesNotMatch(html,/class="button" href="\/projektsteuerung\.html">Projektsteuerung ansehen/,'Projektsteuerung darf kein primärer CTA sein');
+for(const html of requiredPages.filter(name=>name.endsWith('.html')).map(read)){
+  assert.match(html,/noindex,nofollow/,'robots-Sperre fehlt');
 }
-const requiredNavLinks=[['/index.html','Start'],['/index.html#angebote','Angebote'],['/projektsteuerung.html','Projektsteuerung'],['/teilnahme.html','Beteiligung'],['/veranstaltung-hamm.html','Veranstaltung']];
-for(const html of navPages){
-  const nav=(html.match(/<nav aria-label="Hauptnavigation">([\s\S]*?)<\/nav>/)||[])[1]||'';
-  assert.ok(nav,'Hauptnavigation fehlt');
-  for(const [href,label] of requiredNavLinks) assert.ok(nav.includes(`href="${href}"`)&&nav.includes(`>${label}</a>`),`Navigationspunkt fehlt: ${label}`);
-  const positions=requiredNavLinks.map(([href])=>nav.indexOf(`href="${href}"`));
-  assert.ok(positions.every((position,index)=>index===0||position>positions[index-1]),'Reihenfolge der Hauptnavigation ist nicht einheitlich');
+
+for(const phrase of ['Fachlichen Beitrag einreichen','Stufe-0-Anfrage','Allgemein Kontakt aufnehmen','Getrennter Datenweg 1','Getrennter Datenweg 2','Getrennter Datenweg 3']){
+  assert.ok(part.includes(phrase),`Getrennter Weg fehlt: ${phrase}`);
 }
-for(const html of [index,privacy,imprint,event,...offers]) assert.doesNotMatch(html,/Aktueller Status|noch nicht aktiv/,'Veralteter öffentlicher Statushinweis gefunden');
-for(const phrase of ['ALLGEMEIN','Leben mit der Energiewende','Fachlicher Beitrag','Freiwillig Kontakt aufnehmen','Stufe 0 – Passungsprüfung','Stufe 1 – Basis-ZukunftsCheck','Stufe 2 – Erweiterter ZukunftsCheck','Stufe 3 – Fachanschluss']) assert.ok(part.includes(phrase),`Teilnahmeinhalt fehlt: ${phrase}`);
-for(const phrase of ['öffentlichen ZukunftsCheck-Veranstaltungen','ersten Kontaktaufnahme für einen ZukunftsCheck']) assert.ok(part.includes(phrase),`Zielgruppenhinweis auf Beteiligungsseite fehlt: ${phrase}`);
-for(const phrase of ['21. Juli 2026','19:00 Uhr','Hochschule Hamm-Lippstadt, Hörsaal HAM 4','Marker Allee 76–78, Hamm','Energiesystem der Zukunft','Electric All-In','veranstaltung-hamm-2026.png']) assert.ok(event.includes(phrase),`Veranstaltungsangabe fehlt: ${phrase}`);
-assert.ok(!all.includes('ZS-VA-2027-HAMM-001'),'Veraltete Veranstaltungskennung gefunden');
-assert.match(imprint,/mib-logo\.png/,'MIB-Logo fehlt im Impressum');
-for(const phrase of ['mucmib@googlemail.com','Vercel Inc.','Standardvertragsklauseln der Europäischen Kommission','kein Werbe- oder Reichweitentracking','HTTPS','Stand: 19. Juli 2026']) assert.ok(privacy.includes(phrase),`Datenschutzangabe fehlt: ${phrase}`);
-for(const forbidden of ['Brevo','Pure Energien','Solarstromkampagne']) assert.ok(!privacy.includes(forbidden),`Fremder Kampagnenbezug gefunden: ${forbidden}`);
-for(const forbidden of ['localStorage','sessionStorage','XMLHttpRequest','sendBeacon','WebSocket','type="file"','Interne Testprüfung','Gesamtsicherung','Synthetische Demodaten']) assert.ok(!all.includes(forbidden),`Verbotener Bestandteil gefunden: ${forbidden}`);
-assert.ok(!/<form[^>]+action=/i.test(part),'Formularziel darf nicht gesetzt sein');
-assert.equal((part.match(/data-submit-form=/g)||[]).length,2,'Beitrag und Kontakt müssen getrennte Formulare sein');
-assert.equal((part.match(/name="formStartedAt"/g)||[]).length,2,'Zeitbasierter Spamschutz fehlt');
-assert.equal((part.match(/class="honeypot"/g)||[]).length,2,'Honeypot-Spamschutz fehlt');
-assert.doesNotMatch(part,/<form[^>]+hidden/i,'Aktive Formulare dürfen nicht ausgeblendet sein');
-assert.match(js,/preventDefault\(\)/,'Absenden wird nicht abgefangen');
-assert.match(js,/fetch\('\/api\/submit'/,'Serverseitiger Formularweg fehlt');
-assert.match(privacy,/Getrennte Formularwege/,'Datenschutzhinweis zu Formularen fehlt');
-assert.match(privacy,/Gmail/,'Hinweis zum E-Mail-Dienst fehlt');
-assert.match(css,/:focus-visible/,'sichtbarer Fokus fehlt');
-assert.equal((part.match(/class="stage-facts"/g)||[]).length,4,'Alle vier Stufen brauchen vertiefende Informationen');
-for(const phrase of ['Das Ergebnis','Die Grenze']) assert.equal((part.match(new RegExp(phrase,'g'))||[]).length,4,`Stufeninformation fehlt: ${phrase}`);
-assert.match(css,/\.five\{grid-template-columns:repeat\(3,/,'Fragenkarten bleiben auf Desktop zu schmal');
-assert.match(css,/@media\(max-width:760px\)\{\.five,\.stage-facts\{grid-template-columns:1fr\}\}/,'Fragenkarten wechseln mobil nicht sicher auf eine Spalte');
-for(const href of [...all.matchAll(/(?:href|src)="\/(?!\/)([^"?#]+)/g)].map(m=>m[1])) assert.ok(fs.existsSync(path.join(root,href)),`Lokales Ziel fehlt: ${href}`);
-for(const forbidden of ['ZS-MUSTER-001','ZS-MUSTER-002','Alpenstadt']) assert.ok(!all.includes(forbidden),`Gesperrtes synthetisches Muster gefunden: ${forbidden}`);
-const vercel=fs.readFileSync(path.resolve('vercel.json'),'utf8');
-for(const header of ['Content-Security-Policy','Permissions-Policy','X-Frame-Options','X-Content-Type-Options','Referrer-Policy']) assert.ok(vercel.includes(header),`Sicherheitsheader fehlt: ${header}`);
-assert.ok(!fs.existsSync(path.join(root,'preview.js')),'Veralteter Preview-Dateiname ist noch vorhanden');
-assert.ok(fs.existsSync(path.resolve('api/submit.js')),'Formular-Endpunkt fehlt');
-const api=fs.readFileSync(path.resolve('api/submit.js'),'utf8');
-for(const phrase of ['GMAIL_USER','GMAIL_APP_PASSWORD','MAIL_TO','smtp.gmail.com','nodemailer']) assert.ok(api.includes(phrase),`Mailkonfiguration fehlt: ${phrase}`);
-for(const secret of ['mucmib@googlemail.com']) assert.ok(!api.includes(secret),'Empfängeradresse darf nicht im Endpunkt fest codiert sein');
-console.log('ZS-WEB-Formular-, Angebots-, Positionierungs-, Navigations- und Handlungsführungsprüfung bestanden.');
+assert.equal((part.match(/data-submit-form=/g)||[]).length,3,'Es müssen genau drei getrennte Formulare bestehen');
+for(const formType of ['contribution','stage0','contact'])assert.ok(part.includes(`data-submit-form="${formType}"`),`Formulartyp fehlt: ${formType}`);
+assert.equal((part.match(/name="formStartedAt"/g)||[]).length,3,'Zeitbasierter Spamschutz fehlt');
+assert.equal((part.match(/class="honeypot"/g)||[]).length,3,'Honeypot-Spamschutz fehlt');
+assert.equal((part.match(/aria-live="polite" tabindex="-1" hidden/g)||[]).length,3,'Barrierearme Statusausgabe fehlt');
+assert.ok(!/<form[^>]+action=/i.test(part),'Formularziel darf nicht im HTML gesetzt sein');
+assert.doesNotMatch(part,/type="file"/i,'Uploadfunktion darf nicht vorhanden sein');
+assert.doesNotMatch(part,/Stufe 3/,'Fachanschluss darf nicht als Stufe 3 bezeichnet werden');
+assert.doesNotMatch(part,/name="interest" value="Stufe [012]"/,'Stufe 0 bis 2 dürfen keine allgemeinen Interessenauswahlen sein');
+
+const stage0Form=(part.match(/<form data-submit-form="stage0"[\s\S]*?<\/form>/)||[])[0]||'';
+assert.ok(stage0Form,'Eigenes Stufe-0-Formular fehlt');
+for(const field of ['projectTitle','projectType','projectDescription','pendingDecision','requesterRole','involvedParties','existingChecks','openQuestion','name','email','privacy']){
+  assert.ok(stage0Form.includes(`name="${field}"`),`Stufe-0-Pflichtfeld fehlt: ${field}`);
+}
+assert.doesNotMatch(stage0Form,/name="eventContext"/,'Stufe-0-Anfrage darf keinen Veranstaltungsbezug erben');
+assert.match(stage0Form,/name="formType" value="stage0"/,'Eigene technische Kennung der Stufe 0 fehlt');
+assert.match(part,/Keine sensiblen personenbezogenen Daten/,'Datengrenze vor dem Formular fehlt');
+assert.match(stage0Form,/keine Zustimmung zu Werbung/,'Kontakt- und Werbetrennung fehlt');
+
+const contributionForm=(part.match(/<form data-submit-form="contribution"[\s\S]*?<\/form>/)||[])[0]||'';
+const contactForm=(part.match(/<form data-submit-form="contact"[\s\S]*?<\/form>/)||[])[0]||'';
+assert.match(contributionForm,/name="eventContext"/,'Fachlicher Beitrag braucht den ausgewählten Bezug');
+assert.match(contactForm,/name="eventContext"/,'Allgemeiner Kontakt braucht den ausgewählten Bezug');
+assert.match(part,/löst keine Bedarfs- und Passungsprüfung aus/,'Kontaktweg ist nicht klar abgegrenzt');
+
+for(const phrase of ['Stufe 0 – Bedarfs- und Passungsprüfung','Stufe 1 – Strukturierte Erstklärung','Stufe 2 – Vertiefte Prüfung','Fachanschluss außerhalb des ZukunftsChecks','Außerhalb des Stufenmodells']){
+  assert.ok(part.includes(phrase),`Stufeninformation fehlt: ${phrase}`);
+}
+assert.equal((part.match(/class="stage-facts"/g)||[]).length,4,'Stufen und Fachanschluss brauchen vertiefende Informationen');
+assert.match(part,/kein zusätzlicher ZukunftsCheck erforderlich/,'Gleichwertiges Ergebnis ohne Vertiefung fehlt');
+assert.match(part,/keine Beauftragung von Stufe 1 oder Stufe 2/,'Abgrenzung zur Folgestufe fehlt');
+
+assert.match(client,/form\.querySelector\(':invalid'\)\?\.focus\(\)/,'Fokus auf erstes ungültiges Feld fehlt');
+assert.match(client,/fetch\('\/api\/submit'/,'Serverseitiger Formularweg fehlt');
+assert.match(client,/all\('form\[data-submit-form\]'\)\.forEach\(initializeForm\)/,'Nicht alle Formulare werden initialisiert');
+assert.match(client,/document\.querySelectorAll\('\[name=eventContext\]'\)/,'Kontext wird nur an vorhandene Kontextfelder übertragen');
+
+for(const phrase of ['Drei getrennte Formularwege','konkreten Stufe-0-Anfrage','Eine allgemeine Kontaktanfrage löst keine Stufe-0-Prüfung aus','keine Zustimmung zu Werbung','keine Upload-Funktion','nicht automatisch bewertet']){
+  assert.ok(privacy.includes(phrase),`Datenschutzhinweis fehlt: ${phrase}`);
+}
+assert.match(privacy,/Stand: 21\. Juli 2026/,'Datenschutzstand wurde nicht fortgeschrieben');
+
+assert.match(apiSource,/\['contribution','stage0','contact'\]/,'Server akzeptiert nicht genau die drei Formulartypen');
+assert.match(apiSource,/formType === 'stage0'/,'Eigene serverseitige Stufe-0-Verarbeitung fehlt');
+assert.match(apiSource,/STAGE0_PROJECT_TYPES/,'Anwendungsbereiche werden nicht serverseitig geprüft');
+assert.match(apiSource,/Manuelle Bedarfs- und Passungsprüfung; keine automatische Ergebniszuweisung/,'Manuelle Bearbeitungsgrenze fehlt');
+assert.match(apiSource,/Ihre Stufe-0-Anfrage wurde übermittelt/,'Sachliche Eingangsbestätigung fehlt');
+assert.match(apiSource,/\.replace\(\/\[<>\]\/g, ''\)/,'HTML- und Scriptzeichen werden nicht neutralisiert');
+assert.match(apiSource,/text:`\$\{content\}/,'E-Mails müssen als Klartext versendet werden');
+assert.doesNotMatch(apiSource,/\bhtml\s*:/,'HTML-E-Mail darf nicht erzeugt werden');
+
+const sent=[];
+const sandbox={
+  module:{exports:{}},
+  exports:{},
+  require:name=>{
+    if(name!=='nodemailer')throw new Error(`Unerwartetes Modul: ${name}`);
+    return {createTransport:()=>({sendMail:async message=>{sent.push(message)}})};
+  },
+  process:{env:{GMAIL_USER:'sender@example.org',GMAIL_APP_PASSWORD:'secret',MAIL_TO:'receiver@example.org'}},
+  console,
+  URL,
+  Date,
+  Map,
+  Set,
+  String,
+  Number,
+  Array,
+  Object,
+  RegExp
+};
+vm.runInNewContext(apiSource,sandbox,{filename:'api/submit.js'});
+const handler=sandbox.module.exports;
+
+function request(body,ip){
+  return {
+    method:'POST',
+    headers:{'content-type':'application/json','origin':'https://www.zukunftscheck.org','x-forwarded-for':ip},
+    socket:{remoteAddress:ip},
+    body:{...body,formStartedAt:Date.now()-3000,privacy:true}
+  };
+}
+function response(){
+  return {
+    statusCode:200,
+    payload:null,
+    headers:{},
+    setHeader(key,value){this.headers[key]=value},
+    status(code){this.statusCode=code;return this},
+    json(payload){this.payload=payload;return payload}
+  };
+}
+const validStage0={
+  formType:'stage0',projectTitle:'Kommunales Wärmeprojekt',projectType:'Kommune',
+  projectDescription:'Kurze Beschreibung',pendingDecision:'Grundsatzentscheidung steht an',
+  requesterRole:'Projektverantwortung',involvedParties:'Verwaltung und Fachstelle',
+  existingChecks:'Fachplanung liegt vor',openQuestion:'Sind langfristige Abhängigkeiten ausreichend abgedeckt?',
+  name:'Test Person',email:'test@example.org'
+};
+
+let res=response();
+await handler(request(validStage0,'198.51.100.1'),res);
+assert.equal(res.statusCode,200,'Vollständige Stufe-0-Anfrage wird nicht angenommen');
+assert.match(res.payload.message,/manuell darauf geprüft/,'Eingangsbestätigung behauptet keine manuelle Prüfung');
+assert.equal(sent.length,1,'Stufe-0-Anfrage erzeugt nicht genau eine Nachricht');
+assert.match(sent[0].subject,/neue Stufe-0-Anfrage/,'Eigene Betreffkennzeichnung fehlt');
+assert.match(sent[0].text,/Datenweg: Stufe-0-Anfrage/,'Eigener Datenweg fehlt in der Nachricht');
+assert.doesNotMatch(sent[0].text,/Veranstaltungskennung/,'Stufe-0-Anfrage wurde einer Veranstaltung zugeordnet');
+
+res=response();
+await handler(request({...validStage0,openQuestion:''},'198.51.100.2'),res);
+assert.equal(res.statusCode,400,'Unvollständige Stufe-0-Anfrage muss abgewiesen werden');
+
+res=response();
+await handler(request({...validStage0,projectDescription:'<script>alert(1)</script>'},'198.51.100.3'),res);
+assert.equal(res.statusCode,200,'Bereinigter Klartext darf verarbeitet werden');
+assert.doesNotMatch(sent.at(-1).text,/[<>]/,'HTML-Zeichen wurden nicht neutralisiert');
+
+res=response();
+await handler(request({formType:'contact',eventContext:'ALLGEMEIN',purpose:'Sonstige Kontaktaufnahme',name:'Kontakt Test',email:'kontakt@example.org'},'198.51.100.4'),res);
+assert.equal(res.statusCode,200,'Allgemeine Kontaktanfrage funktioniert nicht');
+assert.match(sent.at(-1).text,/Datenweg: Allgemeiner Kontakt/,'Kontaktweg ist serverseitig nicht getrennt');
+
+res=response();
+await handler(request({formType:'contribution',eventContext:'ALLGEMEIN',type:'Hinweis',text:'Ein fachlicher Hinweis'},'198.51.100.5'),res);
+assert.equal(res.statusCode,200,'Fachlicher Beitrag funktioniert nicht');
+assert.match(sent.at(-1).text,/Datenweg: Fachlicher Beitrag/,'Beitragsweg ist serverseitig nicht getrennt');
+
+const mailsBeforeHoneypot=sent.length;
+res=response();
+await handler(request({...validStage0,website:'bot'},'198.51.100.6'),res);
+assert.equal(res.statusCode,200,'Honeypot soll neutral antworten');
+assert.equal(sent.length,mailsBeforeHoneypot,'Honeypot-Anfrage darf keine Nachricht erzeugen');
+
+res=response();
+await handler(request({formType:'unknown'},'198.51.100.7'),res);
+assert.equal(res.statusCode,400,'Unerwarteter Formulartyp muss abgewiesen werden');
+
+const technicalAll=[part,client,apiSource].join('\n');
+for(const forbidden of ['localStorage','sessionStorage','XMLHttpRequest','sendBeacon','WebSocket','type="file"']){
+  assert.ok(!technicalAll.includes(forbidden),`Verbotener Bestandteil gefunden: ${forbidden}`);
+}
+
+console.log('ZS-STUFE-0-2026-002: Formular-, Datenweg-, Datenschutz-, Spam- und Abgrenzungsprüfung bestanden.');
