@@ -32,3 +32,24 @@
     text-align: center;
   }
 }
+
+/* German heading hyphenation: avoid arbitrary mid-word breaks while retaining safe wrapping. */
+h1,
+h2,
+h3 {
+  overflow-wrap: normal;
+  word-break: normal;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+@media (max-width: 380px) {
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: normal;
+    word-break: normal;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+}
