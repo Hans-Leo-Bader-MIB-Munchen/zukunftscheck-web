@@ -46,7 +46,7 @@ assert.match(contributionForm,/name="eventContext"/,'Fachlicher Beitrag braucht 
 assert.match(contactForm,/name="eventContext"/,'Allgemeiner Kontakt braucht den ausgewählten Bezug');
 assert.match(part,/löst keine Bedarfs- und Passungsprüfung aus/,'Kontaktweg ist nicht klar abgegrenzt');
 
-for(const phrase of ['Stufe 0 – Bedarfs- und Passungsprüfung','Stufe 1 – Strukturierte Erstklärung','Stufe 2 – Vertiefte Prüfung','Fachanschluss außerhalb des ZukunftsChecks','Außerhalb des Stufenmodells']){
+for(const phrase of ['Stufe 0 – Eignung und offene Frage klären','Stufe 1 – Strukturierter Basischeck','Stufe 2 – Erweiterter Check','in methodischer Weiterentwicklung','Außerhalb des Stufenmodells']){
   assert.ok(part.includes(phrase),`Stufeninformation fehlt: ${phrase}`);
 }
 assert.equal((part.match(/class="stage-facts"/g)||[]).length,4,'Stufen und Fachanschluss brauchen vertiefende Informationen');
