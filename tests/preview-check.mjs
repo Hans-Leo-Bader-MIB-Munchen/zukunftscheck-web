@@ -44,7 +44,7 @@ const contributionForm=(part.match(/<form data-submit-form="contribution"[\s\S]*
 const contactForm=(part.match(/<form data-submit-form="contact"[\s\S]*?<\/form>/)||[])[0]||'';
 assert.match(contributionForm,/name="eventContext"/,'Fachlicher Beitrag braucht den ausgewählten Bezug');
 assert.match(contactForm,/name="eventContext"/,'Allgemeiner Kontakt braucht den ausgewählten Bezug');
-assert.match(part,/löst keine Bedarfs- und Passungsprüfung aus/,'Kontaktweg ist nicht klar abgegrenzt');
+assert.match(part,/Eine Kontaktanfrage löst keine Prüfung der Eignung für den ZukunftsCheck aus/,'Kontaktweg ist nicht klar abgegrenzt');
 
 for(const phrase of ['Stufe 0 – Eignung und offene Frage klären','Stufe 1 – Strukturierter Basischeck','Stufe 2 – Erweiterter Check','in methodischer Weiterentwicklung','Außerhalb des Stufenmodells']){
   assert.ok(part.includes(phrase),`Stufeninformation fehlt: ${phrase}`);
