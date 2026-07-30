@@ -4,6 +4,8 @@
 
   if (!header || !nav) return;
 
+  nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
+
   const button = document.createElement('button');
   button.className = 'menu-toggle';
   button.type = 'button';
