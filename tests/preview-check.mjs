@@ -40,10 +40,11 @@ assert.match(contributionForm,/name="eventContext"/,'Fachlicher Beitrag braucht 
 assert.match(contactForm,/name="eventContext"/,'Allgemeiner Kontakt braucht den ausgewählten Bezug');
 assert.match(part,/Eine Kontaktanfrage löst keine Prüfung der Eignung für den ZukunftsCheck aus/,'Kontaktweg ist nicht klar abgegrenzt');
 
-for(const phrase of ['Stufe 0 – Begrenzte Passungsprüfung','Stufe 1 – Strukturierte Orientierungs- und Zusammenhangsprüfung','Stufe 2 – Kern-Modul-Ansatz','nicht operativ freigegeben','Außerhalb des Stufenmodells'])assert.ok(part.includes(phrase),`Stufeninformation fehlt: ${phrase}`);
+for(const phrase of ['Stufe 0 – Kurze erste Einordnung','Stufe 1 – Strukturierte Orientierungs- und Zusammenhangsprüfung','Stufe 2 – Kern-Modul-Ansatz','nicht operativ freigegeben','Außerhalb des Stufenmodells'])assert.ok(part.includes(phrase),`Stufeninformation fehlt: ${phrase}`);
 assert.equal((part.match(/class="stage-facts"/g)||[]).length,3,'Stufe 0, Stufe 1 und Fachanschluss brauchen vertiefende Informationen');
-assert.match(part,/begrenzte Passungsantwort/,'Stufe-0-Ergebnisform fehlt');
-assert.match(part,/begründete Nichtpassung/,'Stufe-0-Nichtpassung fehlt');
+assert.match(part,/kurze Rückmeldung zur Eignung/,'Verständliche Stufe-0-Ergebnisform fehlt');
+assert.match(part,/nicht der passende Weg/,'Verständliche negative Stufe-0-Rückmeldung fehlt');
+assert.doesNotMatch(part,/Passungsprüfung|Passungsantwort|Nichtpassung/,'Sperrige interne Stufe-0-Begriffe dürfen auf der Beteiligungsseite nicht sichtbar sein');
 assert.match(part,/keine Beauftragung von Stufe 1 oder Stufe 2/,'Abgrenzung zur Folgestufe fehlt');
 assert.match(part,/strukturierte, dokumentenbasierte und begrenzte/i,'Stufe 1 ist nicht ausreichend beschrieben');
 assert.match(part,/keine operativ, pilotpraktisch oder produktiv freigegebene Stufe/i,'Stufe-2-Status fehlt');
@@ -55,7 +56,8 @@ assert.doesNotMatch(part,/Stufe 2 – Erweiterter Check/,'Veraltete Stufe-2-Beze
 assert.doesNotMatch(part,/gegenstandsabhängige Prüfmodule/,'Nicht bestätigte Prüfmodule vorhanden');
 assert.doesNotMatch(client,/correctStageStatus/,'Fachtexte dürfen nicht mehr dynamisch überschrieben werden');
 
-assert.match(home,/knappe, begrenzte und manuelle Passungsprüfung/i,'Startseite beschreibt Stufe 0 nicht korrekt');
+assert.match(home,/kurze, begrenzte und manuelle erste Einordnung/i,'Startseite beschreibt Stufe 0 nicht verständlich');
+assert.doesNotMatch(home,/Passungsprüfung|Passungsantwort|Nichtpassung/,'Sperrige interne Stufe-0-Begriffe dürfen auf der Startseite nicht sichtbar sein');
 assert.match(home,/strukturierte, dokumentenbasierte und begrenzte Orientierungs- und Zusammenhangsprüfung/i,'Startseite unterbeschreibt Stufe 1');
 assert.match(home,/konzeptionell bestätigter Kern-Modul-Ansatz/i,'Startseite beschreibt Stufe 2 nicht korrekt');
 assert.match(home,/weder vollständig ausdifferenziert noch operativ, pilotpraktisch oder produktiv freigegeben/i,'Startseite überdehnt Stufe 2');
@@ -71,7 +73,7 @@ assert.match(privacy,/Stand: 21\. Juli 2026/,'Datenschutzstand wurde nicht fortg
 assert.match(apiSource,/\['contribution','stage0','contact'\]/,'Server akzeptiert nicht genau die drei Formulartypen');
 assert.match(apiSource,/formType === 'stage0'/,'Eigene serverseitige Stufe-0-Verarbeitung fehlt');
 assert.match(apiSource,/STAGE0_PROJECT_TYPES/,'Anwendungsbereiche werden nicht serverseitig geprüft');
-assert.match(apiSource,/Manuelle Bedarfs- und Passungsprüfung; keine automatische Ergebniszuweisung/,'Manuelle Bearbeitungsgrenze fehlt');
+assert.match(apiSource,/Manuelle Bedarfs- und Passungsprüfung; keine automatische Ergebniszuweisung/,'Interne manuelle Bearbeitungsgrenze fehlt');
 assert.match(apiSource,/Ihre Stufe-0-Anfrage wurde übermittelt/,'Sachliche Eingangsbestätigung fehlt');
 assert.match(apiSource,/\.replace\(\/\[<>\]\/g, ''\)/,'HTML- und Scriptzeichen werden nicht neutralisiert');
 assert.match(apiSource,/text:`\$\{content\}/,'E-Mails müssen als Klartext versendet werden');
