@@ -4,6 +4,13 @@
 
   if (!header || !nav) return;
 
+  if (!document.querySelector('link[href="/styles/rfn-editorial-theme.css"]')) {
+    const themeStylesheet = document.createElement('link');
+    themeStylesheet.rel = 'stylesheet';
+    themeStylesheet.href = '/styles/rfn-editorial-theme.css';
+    document.head.appendChild(themeStylesheet);
+  }
+
   nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
 
   const button = document.createElement('button');
@@ -43,4 +50,17 @@
   window.addEventListener('resize', () => {
     if (window.innerWidth > 760) closeMenu();
   });
+
+  const applicationGrid = document.querySelector('#angebote .cards.three');
+  if (applicationGrid && applicationGrid.children.length === 6) {
+    if (!document.querySelector('link[href="/styles/anwendungsfelder.css"]')) {
+      const stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = '/styles/anwendungsfelder.css';
+      document.head.appendChild(stylesheet);
+    }
+
+    applicationGrid.classList.add('applications-grid');
+    applicationGrid.children[5].classList.add('project-control-card');
+  }
 })();
