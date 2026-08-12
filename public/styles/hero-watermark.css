@@ -52,6 +52,31 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
   margin: 0;
 }
 
+/* Beteiligungsseite: kompakterer Hero, deshalb eigene Skalierung. */
+body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark {
+  right: -34px;
+  bottom: -54px;
+  width: 280px;
+  height: 280px;
+  opacity: .14;
+}
+
+body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top {
+  left: -24px;
+  top: 14px;
+  width: 145px;
+  height: 145px;
+  opacity: .08;
+}
+
+body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-center {
+  left: 58%;
+  top: 48%;
+  width: min(590px, 52vw);
+  height: min(590px, 52vw);
+  opacity: .045;
+}
+
 @media (max-width: 1000px) {
   .hero-watermark {
     right: -42px;
@@ -73,6 +98,29 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
     width: min(680px, 82vw);
     height: min(680px, 82vw);
     opacity: .05;
+  }
+
+  body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark {
+    right: -30px;
+    bottom: -44px;
+    width: 235px;
+    height: 235px;
+    opacity: .13;
+  }
+
+  body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top {
+    left: -22px;
+    top: 12px;
+    width: 125px;
+    height: 125px;
+    opacity: .075;
+  }
+
+  body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-center {
+    left: 60%;
+    width: min(500px, 68vw);
+    height: min(500px, 68vw);
+    opacity: .042;
   }
 }
 
@@ -97,5 +145,29 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
     width: 112vw;
     height: 112vw;
     opacity: .045;
+  }
+
+  body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark {
+    right: -26px;
+    bottom: -28px;
+    width: 175px;
+    height: 175px;
+    opacity: .12;
+  }
+
+  body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top {
+    left: -18px;
+    top: 8px;
+    width: 98px;
+    height: 98px;
+    opacity: .07;
+  }
+
+  body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-center {
+    left: 62%;
+    top: 47%;
+    width: 92vw;
+    height: 92vw;
+    opacity: .038;
   }
 }
