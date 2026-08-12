@@ -65,6 +65,7 @@ h3 {
 /* Beteiligungsseite: oben kampagnenartig, darunter bewusst funktional und linksbündig. */
 body:has(.module-page form[data-submit-form]) .module-page {
   overflow: visible;
+  padding-top: 0 !important;
 }
 
 body:has(.module-page form[data-submit-form]) .module-hero {
