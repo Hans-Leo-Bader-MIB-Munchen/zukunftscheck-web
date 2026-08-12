@@ -4,6 +4,13 @@
 
   if (!header || !nav) return;
 
+  if (!document.querySelector('link[href="/styles/rfn-editorial-theme.css"]')) {
+    const themeStylesheet = document.createElement('link');
+    themeStylesheet.rel = 'stylesheet';
+    themeStylesheet.href = '/styles/rfn-editorial-theme.css';
+    document.head.appendChild(themeStylesheet);
+  }
+
   nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
 
   const button = document.createElement('button');
