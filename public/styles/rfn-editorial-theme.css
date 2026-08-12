@@ -21,15 +21,18 @@
 html{scroll-padding-top:8.5rem}
 body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 
-.site-header,.section,.status-band,.module-page,.site-footer{
+.section,.status-band,.module-page,.site-footer{
   width:min(var(--desktop-content),calc(100% - 80px));
   margin-left:auto;
   margin-right:auto;
 }
 
 .site-header{
+  width:100%;
+  max-width:none;
+  margin:0;
   min-height:104px;
-  padding:0;
+  padding:0 max(var(--desktop-gutter),calc((100vw - var(--desktop-content))/2));
   background:#fff;
   border-bottom:0;
   box-shadow:none;
@@ -38,10 +41,10 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif;
 .site-header::after{
   content:"";
   position:absolute;
-  left:50%;
+  left:0;
+  right:0;
   bottom:-38px;
-  transform:translateX(-50%);
-  width:100vw;
+  width:100%;
   height:38px;
   background:var(--zs-blue);
   border-top:4px solid var(--zs-gold);
@@ -65,7 +68,6 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif;
 }
 .site-header nav a:hover::after,.site-header nav a[aria-current=page]::after{right:0}
 
-/* Rechte-der-Natur-Herologik: Vollbreite Farbe, ruhige Typografie, diagonaler weißer Anschnitt. */
 .hero{
   position:relative;
   width:100%;
@@ -288,7 +290,8 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif;
 }
 
 @media(max-width:900px){
-  .site-header,.section,.status-band,.module-page,.site-footer{width:min(100% - 32px,var(--desktop-content))}
+  .section,.status-band,.module-page,.site-footer{width:min(100% - 32px,var(--desktop-content))}
+  .site-header{padding-left:16px;padding-right:16px}
   .hero h1{font-size:clamp(2.35rem,7.8vw,3.35rem)!important;line-height:1.02!important}
   .section h2,.hero-card h2{font-size:clamp(1.6rem,4.9vw,2.2rem)!important;line-height:1.12!important}
   .module-hero h1,.legal-hero h1{font-size:clamp(2.35rem,7.8vw,3.35rem)!important}
@@ -297,7 +300,7 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif;
 
 @media(max-width:760px){
   html{scroll-padding-top:5.5rem}
-  .site-header{min-height:72px;padding:.7rem 0}
+  .site-header{min-height:72px;padding:.7rem 16px}
   .site-header::after{height:8px;bottom:-8px;border-top:0}
   .brand-mark{width:42px;height:42px}
   .menu-toggle{border-radius:999px}
