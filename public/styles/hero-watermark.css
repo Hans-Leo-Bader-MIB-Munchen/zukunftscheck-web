@@ -52,13 +52,25 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
   margin: 0;
 }
 
+/* Beteiligungsseite: die allgemeine Hero-Regel setzt direkte Kinder auf position:relative/z-index:1.
+   Diese Wasserzeichen müssen davon ausdrücklich ausgenommen bleiben. */
+body:has(.module-page form[data-submit-form]) .module-hero > :is(.hero-watermark, .hero-watermark-top, .hero-watermark-center) {
+  position: absolute !important;
+  z-index: 0 !important;
+  display: block !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+}
+
 /* Beteiligungsseite: kompakterer Hero, deshalb eigene Skalierung. */
 body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark {
   right: -34px;
   bottom: -54px;
   width: 280px;
   height: 280px;
-  opacity: .14;
+  opacity: .18;
 }
 
 body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top {
@@ -66,7 +78,7 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
   top: 14px;
   width: 145px;
   height: 145px;
-  opacity: .08;
+  opacity: .10;
 }
 
 body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-center {
@@ -74,7 +86,8 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
   top: 48%;
   width: min(590px, 52vw);
   height: min(590px, 52vw);
-  opacity: .045;
+  transform: translate(-50%, -50%);
+  opacity: .06;
 }
 
 @media (max-width: 1000px) {
@@ -105,7 +118,7 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
     bottom: -44px;
     width: 235px;
     height: 235px;
-    opacity: .13;
+    opacity: .17;
   }
 
   body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top {
@@ -113,14 +126,14 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
     top: 12px;
     width: 125px;
     height: 125px;
-    opacity: .075;
+    opacity: .095;
   }
 
   body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-center {
     left: 60%;
     width: min(500px, 68vw);
     height: min(500px, 68vw);
-    opacity: .042;
+    opacity: .055;
   }
 }
 
@@ -152,7 +165,7 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
     bottom: -28px;
     width: 175px;
     height: 175px;
-    opacity: .12;
+    opacity: .16;
   }
 
   body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top {
@@ -160,7 +173,7 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
     top: 8px;
     width: 98px;
     height: 98px;
-    opacity: .07;
+    opacity: .09;
   }
 
   body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-center {
@@ -168,6 +181,6 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-cen
     top: 47%;
     width: 92vw;
     height: 92vw;
-    opacity: .038;
+    opacity: .05;
   }
 }
