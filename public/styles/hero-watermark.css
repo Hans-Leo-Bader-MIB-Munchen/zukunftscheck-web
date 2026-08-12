@@ -1,4 +1,4 @@
-/* ZukunftsCheck – offene ZC-Doppelbogen-Wasserzeichen in dunklen Hero-Bereichen. */
+/* ZukunftsCheck – Wasserzeichen aus der freigegebenen Kreis-/Dreieck-Grafik. */
 .hero,
 body:has(.module-page form[data-submit-form]) .module-hero {
   isolation: isolate;
@@ -10,26 +10,25 @@ body:has(.module-page form[data-submit-form]) .module-hero {
   position: absolute;
   z-index: 0;
   pointer-events: none;
-  background: url('/assets/zc-watermark-open.svg') center / contain no-repeat;
+  background: url('/assets/Kreis_DreiEck.png') center / contain no-repeat;
 }
 
-/* Großes Wasserzeichen rechts unten – sichtbar, aber klar als Hintergrund. */
+/* Hauptmotiv rechts unten. */
 .hero-watermark {
-  right: -42px;
-  bottom: -54px;
-  width: 330px;
-  height: 330px;
-  opacity: .16;
+  right: -52px;
+  bottom: -62px;
+  width: 350px;
+  height: 350px;
+  opacity: .18;
 }
 
-/* Kleineres Echo links oben – deutlich sichtbar, aber schwächer. */
+/* Kleineres Echo links oben. */
 .hero-watermark-top {
-  left: -28px;
-  top: 18px;
-  width: 175px;
-  height: 175px;
-  opacity: .11;
-  transform: rotate(-6deg);
+  left: -34px;
+  top: 12px;
+  width: 180px;
+  height: 180px;
+  opacity: .10;
 }
 
 .hero > .hero-watermark,
@@ -42,36 +41,36 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
 
 @media (max-width: 1000px) {
   .hero-watermark {
-    right: -34px;
-    bottom: -44px;
-    width: 285px;
-    height: 285px;
-    opacity: .15;
+    right: -42px;
+    bottom: -50px;
+    width: 295px;
+    height: 295px;
+    opacity: .17;
   }
 
   .hero-watermark-top {
-    left: -24px;
-    top: 16px;
+    left: -28px;
+    top: 10px;
     width: 155px;
     height: 155px;
-    opacity: .10;
+    opacity: .09;
   }
 }
 
 @media (max-width: 640px) {
   .hero-watermark {
-    right: -28px;
-    bottom: -32px;
-    width: 210px;
-    height: 210px;
-    opacity: .14;
+    right: -32px;
+    bottom: -36px;
+    width: 220px;
+    height: 220px;
+    opacity: .16;
   }
 
   .hero-watermark-top {
-    left: -18px;
-    top: 12px;
+    left: -22px;
+    top: 8px;
     width: 125px;
     height: 125px;
-    opacity: .09;
+    opacity: .08;
   }
 }
