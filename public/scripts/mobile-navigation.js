@@ -32,6 +32,13 @@
       watermarkTop.setAttribute('aria-hidden', 'true');
       hero.appendChild(watermarkTop);
     }
+
+    if (!hero.querySelector(':scope > .hero-watermark-center')) {
+      const watermarkCenter = document.createElement('span');
+      watermarkCenter.className = 'hero-watermark-center';
+      watermarkCenter.setAttribute('aria-hidden', 'true');
+      hero.appendChild(watermarkCenter);
+    }
   });
 
   nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
