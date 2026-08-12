@@ -267,7 +267,7 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
   overflow: hidden;
   background: transparent url('/assets/Box_Startseite.png') center / contain no-repeat !important;
   border: 0 !important;
-  border-radius: 0 !important;
+  border-radius: 28px !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
 }
