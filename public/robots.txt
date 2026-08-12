@@ -1,5 +1,24 @@
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
 User-agent: *
 Disallow: /
 
 # Die Website wird derzeit bewusst über direkte Links und QR-Codes geteilt
 # und noch nicht für die Suchmaschinenindexierung freigegeben.
+# Social-Preview-Crawler duerfen die Seiten und Open-Graph-Bilder abrufen.
