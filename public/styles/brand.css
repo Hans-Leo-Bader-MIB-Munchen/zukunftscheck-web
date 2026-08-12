@@ -255,3 +255,44 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
     font-size: 1.55rem !important;
   }
 }
+
+/* Startseiten-Hero-Test mit eigens vorbereitetem Webausschnitt. */
+.hero[aria-labelledby="hero-title"] .hero-card {
+  margin-top: 40px;
+  overflow: hidden;
+  padding-top: 0 !important;
+  background: #123b56 !important;
+  border-color: rgba(255,255,255,.22) !important;
+  backdrop-filter: none;
+}
+
+.hero[aria-labelledby="hero-title"] .hero-card::before {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  width: calc(100% + 64px);
+  height: 178px;
+  margin: -1px -32px 24px;
+  background: url('/assets/ZC_Web_Teil.png') center top / cover no-repeat;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+}
+
+.hero[aria-labelledby="hero-title"] .hero-card h2,
+.hero[aria-labelledby="hero-title"] .hero-card p,
+.hero[aria-labelledby="hero-title"] .hero-card .text-link {
+  color: #fff;
+}
+
+@media (max-width: 1000px) {
+  .hero[aria-labelledby="hero-title"] .hero-card {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero[aria-labelledby="hero-title"] .hero-card::before {
+    width: calc(100% + 50px);
+    height: 150px;
+    margin: -1px -25px 22px;
+  }
+}
