@@ -1,7 +1,8 @@
-/* ZukunftsCheck – subtiles ZC-Kreiszeichen in dunklen Hero-Bereichen. */
+/* ZukunftsCheck – offene ZC-Doppelbogen-Wasserzeichen in dunklen Hero-Bereichen. */
 .hero,
 body:has(.module-page form[data-submit-form]) .module-hero {
   isolation: isolate;
+  overflow: hidden;
 }
 
 .hero-watermark,
@@ -9,55 +10,67 @@ body:has(.module-page form[data-submit-form]) .module-hero {
   position: absolute;
   z-index: 0;
   pointer-events: none;
+  border-radius: 50%;
 }
 
-/* Großes Wasserzeichen rechts unten. */
+/* Großes Wasserzeichen rechts unten: offene Doppelbogen-Struktur mit freier Pfeilspitze. */
 .hero-watermark {
   right: -88px;
   bottom: -112px;
   width: 360px;
   height: 360px;
-  border: 28px solid rgba(151, 199, 229, .085);
-  border-radius: 50%;
+  background: conic-gradient(
+    from 318deg,
+    rgba(151,199,229,.10) 0deg 292deg,
+    transparent 292deg 348deg,
+    rgba(151,199,229,.10) 348deg 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
+  mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
 }
 
 .hero-watermark::before {
   content: "";
   position: absolute;
   inset: 54px;
-  border: 22px solid rgba(151, 199, 229, .055);
   border-radius: 50%;
+  background: conic-gradient(
+    from 318deg,
+    rgba(151,199,229,.07) 0deg 292deg,
+    transparent 292deg 348deg,
+    rgba(151,199,229,.07) 348deg 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
+  mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
 }
 
 .hero-watermark::after {
   content: "";
   position: absolute;
-  right: -48px;
-  top: 136px;
+  right: 10px;
+  top: 72px;
   width: 58px;
   height: 58px;
-  background: rgba(151, 199, 229, .085);
+  background: rgba(151,199,229,.10);
   clip-path: polygon(0 0, 100% 50%, 0 100%);
-  transform: rotate(8deg);
+  transform: rotate(-10deg);
 }
 
-/* Kleineres Echo links oben – bewusst mit sichtbarer Öffnung zum rechten oberen Quadranten. */
+/* Kleineres Echo links oben – gleiche offene Struktur, bewusst zurückhaltender. */
 .hero-watermark-top {
   left: -86px;
   top: 42px;
   width: 270px;
   height: 270px;
-  border-radius: 50%;
-  background:
-    conic-gradient(
-      from 302deg,
-      rgba(151,199,229,.085) 0deg 300deg,
-      transparent 300deg 348deg,
-      rgba(151,199,229,.085) 348deg 360deg
-    );
-  -webkit-mask: radial-gradient(circle, transparent 0 56%, #000 57% 69%, transparent 70% 100%);
-  mask: radial-gradient(circle, transparent 0 56%, #000 57% 69%, transparent 70% 100%);
-  opacity: .72;
+  background: conic-gradient(
+    from 318deg,
+    rgba(151,199,229,.075) 0deg 292deg,
+    transparent 292deg 348deg,
+    rgba(151,199,229,.075) 348deg 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
+  mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
+  opacity: .78;
   transform: rotate(-7deg);
 }
 
@@ -66,27 +79,26 @@ body:has(.module-page form[data-submit-form]) .module-hero {
   position: absolute;
   inset: 52px;
   border-radius: 50%;
-  background:
-    conic-gradient(
-      from 302deg,
-      rgba(151,199,229,.055) 0deg 300deg,
-      transparent 300deg 348deg,
-      rgba(151,199,229,.055) 348deg 360deg
-    );
-  -webkit-mask: radial-gradient(circle, transparent 0 51%, #000 52% 66%, transparent 67% 100%);
-  mask: radial-gradient(circle, transparent 0 51%, #000 52% 66%, transparent 67% 100%);
+  background: conic-gradient(
+    from 318deg,
+    rgba(151,199,229,.05) 0deg 292deg,
+    transparent 292deg 348deg,
+    rgba(151,199,229,.05) 348deg 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
+  mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
 }
 
 .hero-watermark-top::after {
   content: "";
   position: absolute;
-  right: 8px;
-  top: 21px;
+  right: 6px;
+  top: 52px;
   width: 34px;
   height: 34px;
-  background: rgba(151,199,229,.09);
+  background: rgba(151,199,229,.08);
   clip-path: polygon(0 0, 100% 50%, 0 100%);
-  transform: rotate(-18deg);
+  transform: rotate(-12deg);
 }
 
 .hero > .hero-watermark,
@@ -103,17 +115,15 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
     bottom: -108px;
     width: 310px;
     height: 310px;
-    border-width: 24px;
   }
 
   .hero-watermark::before {
     inset: 46px;
-    border-width: 19px;
   }
 
   .hero-watermark::after {
-    right: -42px;
-    top: 116px;
+    right: 8px;
+    top: 62px;
     width: 50px;
     height: 50px;
   }
@@ -130,8 +140,8 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
   }
 
   .hero-watermark-top::after {
-    right: 7px;
-    top: 18px;
+    right: 5px;
+    top: 44px;
     width: 30px;
     height: 30px;
   }
@@ -143,18 +153,16 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
     bottom: -78px;
     width: 240px;
     height: 240px;
-    border-width: 18px;
-    opacity: .8;
+    opacity: .82;
   }
 
   .hero-watermark::before {
     inset: 36px;
-    border-width: 15px;
   }
 
   .hero-watermark::after {
-    right: -34px;
-    top: 88px;
+    right: 6px;
+    top: 48px;
     width: 40px;
     height: 40px;
   }
@@ -164,7 +172,7 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
     top: 26px;
     width: 180px;
     height: 180px;
-    opacity: .62;
+    opacity: .65;
   }
 
   .hero-watermark-top::before {
@@ -172,8 +180,8 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
   }
 
   .hero-watermark-top::after {
-    right: 5px;
-    top: 14px;
+    right: 4px;
+    top: 34px;
     width: 24px;
     height: 24px;
   }
