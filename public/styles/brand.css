@@ -258,10 +258,11 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
 
 /* Startseiten-Hero-Test mit eigens vorbereitetem Webausschnitt. */
 .hero[aria-labelledby="hero-title"] .hero-card {
+  position: relative;
   margin-top: 40px;
   overflow: hidden;
   padding-top: 0 !important;
-  background: #123b56 !important;
+  background: #00264e !important;
   border-color: rgba(255,255,255,.22) !important;
   backdrop-filter: none;
 }
@@ -274,7 +275,22 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
   height: 178px;
   margin: -1px -32px 24px;
   background: url('/assets/ZC_Web_Teil.png') center top / cover no-repeat;
-  border-bottom: 1px solid rgba(255,255,255,.14);
+  border-bottom: 0;
+}
+
+/* Die gelbe Bilddiagonale wird am rechten Rand optisch bis zur Kartenkante fortgesetzt. */
+.hero[aria-labelledby="hero-title"] .hero-card::after {
+  content: "";
+  position: absolute;
+  top: 174px;
+  right: -2px;
+  width: 96px;
+  height: 5px;
+  background: #d59b00;
+  transform: rotate(4.2deg);
+  transform-origin: right center;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero[aria-labelledby="hero-title"] .hero-card h2,
@@ -294,5 +310,11 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
     width: calc(100% + 50px);
     height: 150px;
     margin: -1px -25px 22px;
+  }
+
+  .hero[aria-labelledby="hero-title"] .hero-card::after {
+    top: 146px;
+    width: 78px;
+    height: 4px;
   }
 }
