@@ -126,6 +126,34 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
 }
 .split{grid-template-columns:1.05fr .95fr;gap:80px}
 
+/* Redaktionelle Mittelachse wie bei Rechte der Natur: normale Inhaltsabschnitte werden
+   als eigenständige Aussage inszeniert; echte Split-Abschnitte bleiben zweispaltig. */
+.section:not(.split):not(.cta){text-align:center}
+.section:not(.split):not(.cta)>.section-label,
+.section:not(.split):not(.cta)>h2,
+.section:not(.split):not(.cta)>.section-intro{
+  margin-left:auto;
+  margin-right:auto;
+}
+.section:not(.split):not(.cta)>h2{max-width:1080px}
+.section:not(.split):not(.cta)>.section-intro{max-width:860px}
+.section:not(.split):not(.cta)>.cards,
+.section:not(.split):not(.cta)>.event-grid,
+.section:not(.split):not(.cta)>.stage-grid,
+.section:not(.split):not(.cta)>.path-grid{text-align:left}
+
+/* Definition als ruhiger, zentrierter Leitsatz statt klassischer linker Zweispalte. */
+#definition{
+  display:block;
+  max-width:1180px;
+  text-align:center;
+  padding-top:clamp(6rem,9vw,9rem);
+  padding-bottom:clamp(6rem,9vw,9rem);
+}
+#definition>div,#definition>p{max-width:980px;margin-left:auto;margin-right:auto}
+#definition h2{max-width:1050px;margin-left:auto;margin-right:auto;font-size:clamp(3rem,5.8vw,6rem)}
+#definition>p{font-size:clamp(1.25rem,2.1vw,1.65rem);line-height:1.6}
+
 .cards,.event-grid,.stage-grid,.path-grid{gap:18px;margin-top:3rem}
 .card,.event-card,.stage-card,.stage-detail,form,.notice,.context-panel{
   border:1px solid var(--zs-line);
@@ -152,6 +180,13 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
 .highlight p{color:#e5eef3}
 .highlight h2{color:#fff}
 
+/* Die großen dunklen Übergangsbänder erhalten eine klarere Kampagnen-Komposition. */
+.highlight.split{grid-template-columns:1fr;gap:28px;text-align:center}
+.highlight.split>div{max-width:1060px;margin-left:auto;margin-right:auto}
+.highlight.split h2{max-width:1060px;margin-left:auto;margin-right:auto;font-size:clamp(3rem,5.7vw,6rem)}
+.highlight.split>div:last-child{max-width:900px}
+.highlight.split>div:last-child p{font-size:clamp(1.15rem,1.8vw,1.4rem);line-height:1.65}
+
 #angebote{padding-top:8rem;padding-bottom:8rem}
 #angebote .section-intro{margin-bottom:1.5rem}
 #angebote .applications-grid>.card{background:#fff;min-height:300px}
@@ -170,6 +205,10 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
   background:#fff!important;color:#765700!important;border:1px solid rgba(213,155,0,.35);
 }
 
+/* Arbeitsweise: Überschrift und Fünferlogik als zentrierter redaktioneller Block. */
+#arbeitsweise>h2{max-width:980px}
+#arbeitsweise .cards{margin-left:auto;margin-right:auto}
+
 .cta{
   width:min(1308px,calc(100% - 72px));
   margin:100px auto;
@@ -178,9 +217,13 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
   background:var(--zs-blue-soft);
   color:var(--zs-ink);
   border:2px solid var(--zs-blue);
+  text-align:center;
+  flex-direction:column;
+  justify-content:center;
 }
-.cta h2{font-size:clamp(2.7rem,5vw,5.2rem);font-weight:500;letter-spacing:-.05em}
-.cta p{color:var(--zs-ink-soft)}
+.cta>div{max-width:900px;margin:0 auto}
+.cta h2{max-width:900px;margin-left:auto;margin-right:auto;font-size:clamp(2.7rem,5vw,5.2rem);font-weight:500;letter-spacing:-.05em}
+.cta p{max-width:760px;margin-left:auto;margin-right:auto;color:var(--zs-ink-soft)}
 .cta .button{background:var(--zs-blue)}
 
 .site-footer{
@@ -190,13 +233,14 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
 }
 
 .module-page{padding-top:90px;padding-bottom:110px}
-.module-hero{max-width:980px}
+.module-hero{max-width:980px;margin-left:auto;margin-right:auto;text-align:center}
 .module-hero h1,.legal-hero h1{
   font-size:clamp(3.6rem,6.8vw,6.7rem);
   line-height:.94;
   letter-spacing:-.055em;
   font-weight:500;
 }
+.module-hero .lead{margin-left:auto;margin-right:auto}
 .context-panel,.notice{border-left:0;border-top:5px solid var(--zs-blue);padding:24px 28px}
 .stage-card,.stage-detail,.path-card,.legal-card{border-radius:22px;box-shadow:none}
 
@@ -220,11 +264,13 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
   .hero-card{border-radius:24px;padding:26px}
   .section{padding:4.5rem 0}
   .section h2{font-size:clamp(2.5rem,11vw,4rem)}
+  #definition h2,.highlight.split h2{font-size:clamp(2.6rem,11vw,4.2rem)}
   .card{min-height:auto;padding:25px}
   .card h3{margin-top:38px}
   .highlight{padding:4.5rem 24px}
   .cta{width:min(100% - 24px,1308px);margin:70px auto;padding:42px 26px;border-radius:24px}
   .site-footer{gap:16px}
+  .module-hero{text-align:left}
 }
 
 @media(max-width:380px){
