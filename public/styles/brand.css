@@ -270,7 +270,7 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
   width: calc(100% + 64px);
   height: 178px;
   margin: -1px -32px 24px;
-  background: url('/assets/ZC_Open_Graph.png') center 18% / cover no-repeat;
+  background: url('/assets/ZC_Open_Graph.png') center top / cover no-repeat;
   border-bottom: 1px solid rgba(255,255,255,.18);
 }
 
