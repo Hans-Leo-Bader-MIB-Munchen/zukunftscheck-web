@@ -2,7 +2,6 @@
 .hero,
 body:has(.module-page form[data-submit-form]) .module-hero {
   isolation: isolate;
-  overflow: hidden;
 }
 
 .hero-watermark,
@@ -10,95 +9,28 @@ body:has(.module-page form[data-submit-form]) .module-hero {
   position: absolute;
   z-index: 0;
   pointer-events: none;
-  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%2397c7e5'%3E%3Ccircle cx='180' cy='180' r='135' stroke-width='28' stroke-opacity='.18' stroke-dasharray='710 138' transform='rotate(-52 180 180)'/%3E%3Ccircle cx='180' cy='180' r='88' stroke-width='22' stroke-opacity='.12' stroke-dasharray='470 83' transform='rotate(-52 180 180)'/%3E%3C/g%3E%3Cpath d='M305 76 L348 104 L307 132 Z' fill='%2397c7e5' fill-opacity='.18'/%3E%3C/svg%3E");
 }
 
-/* Großes Wasserzeichen rechts unten: offene Doppelbogen-Struktur mit freier Pfeilspitze. */
+/* Großes Wasserzeichen rechts unten. */
 .hero-watermark {
   right: -88px;
   bottom: -112px;
   width: 360px;
   height: 360px;
-  background: conic-gradient(
-    from 318deg,
-    rgba(151,199,229,.10) 0deg 292deg,
-    transparent 292deg 348deg,
-    rgba(151,199,229,.10) 348deg 360deg
-  );
-  -webkit-mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
-  mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
 }
 
-.hero-watermark::before {
-  content: "";
-  position: absolute;
-  inset: 54px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 318deg,
-    rgba(151,199,229,.07) 0deg 292deg,
-    transparent 292deg 348deg,
-    rgba(151,199,229,.07) 348deg 360deg
-  );
-  -webkit-mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
-  mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
-}
-
-.hero-watermark::after {
-  content: "";
-  position: absolute;
-  right: 10px;
-  top: 72px;
-  width: 58px;
-  height: 58px;
-  background: rgba(151,199,229,.10);
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-  transform: rotate(-10deg);
-}
-
-/* Kleineres Echo links oben – gleiche offene Struktur, bewusst zurückhaltender. */
+/* Kleineres Echo links oben. */
 .hero-watermark-top {
-  left: -86px;
-  top: 42px;
-  width: 270px;
-  height: 270px;
-  background: conic-gradient(
-    from 318deg,
-    rgba(151,199,229,.075) 0deg 292deg,
-    transparent 292deg 348deg,
-    rgba(151,199,229,.075) 348deg 360deg
-  );
-  -webkit-mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
-  mask: radial-gradient(circle, transparent 0 72%, #000 73% 84%, transparent 85% 100%);
-  opacity: .78;
-  transform: rotate(-7deg);
-}
-
-.hero-watermark-top::before {
-  content: "";
-  position: absolute;
-  inset: 52px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 318deg,
-    rgba(151,199,229,.05) 0deg 292deg,
-    transparent 292deg 348deg,
-    rgba(151,199,229,.05) 348deg 360deg
-  );
-  -webkit-mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
-  mask: radial-gradient(circle, transparent 0 67%, #000 68% 82%, transparent 83% 100%);
-}
-
-.hero-watermark-top::after {
-  content: "";
-  position: absolute;
-  right: 6px;
-  top: 52px;
-  width: 34px;
-  height: 34px;
-  background: rgba(151,199,229,.08);
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-  transform: rotate(-12deg);
+  left: -70px;
+  top: 22px;
+  width: 250px;
+  height: 250px;
+  opacity: .72;
+  transform: rotate(-8deg);
 }
 
 .hero > .hero-watermark,
@@ -111,78 +43,34 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
 
 @media (max-width: 1000px) {
   .hero-watermark {
-    right: -92px;
-    bottom: -108px;
+    right: -82px;
+    bottom: -98px;
     width: 310px;
     height: 310px;
   }
 
-  .hero-watermark::before {
-    inset: 46px;
-  }
-
-  .hero-watermark::after {
-    right: 8px;
-    top: 62px;
-    width: 50px;
-    height: 50px;
-  }
-
   .hero-watermark-top {
-    left: -76px;
-    top: 34px;
-    width: 230px;
-    height: 230px;
-  }
-
-  .hero-watermark-top::before {
-    inset: 44px;
-  }
-
-  .hero-watermark-top::after {
-    right: 5px;
-    top: 44px;
-    width: 30px;
-    height: 30px;
+    left: -62px;
+    top: 18px;
+    width: 215px;
+    height: 215px;
   }
 }
 
 @media (max-width: 640px) {
   .hero-watermark {
-    right: -84px;
-    bottom: -78px;
-    width: 240px;
-    height: 240px;
-    opacity: .82;
-  }
-
-  .hero-watermark::before {
-    inset: 36px;
-  }
-
-  .hero-watermark::after {
-    right: 6px;
-    top: 48px;
-    width: 40px;
-    height: 40px;
+    right: -68px;
+    bottom: -66px;
+    width: 230px;
+    height: 230px;
+    opacity: .9;
   }
 
   .hero-watermark-top {
-    left: -62px;
-    top: 26px;
-    width: 180px;
-    height: 180px;
-    opacity: .65;
-  }
-
-  .hero-watermark-top::before {
-    inset: 34px;
-  }
-
-  .hero-watermark-top::after {
-    right: 4px;
-    top: 34px;
-    width: 24px;
-    height: 24px;
+    left: -50px;
+    top: 14px;
+    width: 165px;
+    height: 165px;
+    opacity: .58;
   }
 }
