@@ -1,0 +1,88 @@
+/* ZukunftsCheck – subtiles ZC-Kreiszeichen in dunklen Hero-Bereichen. */
+.hero,
+body:has(.module-page form[data-submit-form]) .module-hero {
+  isolation: isolate;
+}
+
+.hero-watermark {
+  position: absolute;
+  right: -88px;
+  bottom: -112px;
+  width: 360px;
+  height: 360px;
+  z-index: 0;
+  border: 28px solid rgba(151, 199, 229, .085);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-watermark::before {
+  content: "";
+  position: absolute;
+  inset: 54px;
+  border: 22px solid rgba(151, 199, 229, .055);
+  border-radius: 50%;
+}
+
+.hero-watermark::after {
+  content: "";
+  position: absolute;
+  right: -48px;
+  top: 136px;
+  width: 58px;
+  height: 58px;
+  background: rgba(151, 199, 229, .085);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: rotate(8deg);
+}
+
+.hero > .hero-watermark,
+body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark {
+  max-width: none;
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .hero-watermark {
+    right: -92px;
+    bottom: -108px;
+    width: 310px;
+    height: 310px;
+    border-width: 24px;
+  }
+
+  .hero-watermark::before {
+    inset: 46px;
+    border-width: 19px;
+  }
+
+  .hero-watermark::after {
+    right: -42px;
+    top: 116px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-watermark {
+    right: -84px;
+    bottom: -78px;
+    width: 240px;
+    height: 240px;
+    border-width: 18px;
+    opacity: .8;
+  }
+
+  .hero-watermark::before {
+    inset: 36px;
+    border-width: 15px;
+  }
+
+  .hero-watermark::after {
+    right: -34px;
+    top: 88px;
+    width: 40px;
+    height: 40px;
+  }
+}
