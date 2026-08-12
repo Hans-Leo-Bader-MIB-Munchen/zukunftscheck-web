@@ -278,13 +278,13 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
   border-bottom: 0;
 }
 
-/* Die kräftige gelbe Diagonale folgt exakt der vorhandenen Bildlinie. */
+/* Die kräftige gelbe Diagonale folgt der vorhandenen Bildlinie und läuft sicher über beide Kartenkanten hinaus. */
 .hero[aria-labelledby="hero-title"] .hero-card::after {
   content: "";
   position: absolute;
-  left: -3%;
-  right: -3%;
-  top: 149px;
+  left: -8%;
+  right: -8%;
+  top: 157px;
   height: 8px;
   background: #d59b00;
   transform: rotate(3.7deg);
@@ -318,9 +318,9 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
   }
 
   .hero[aria-labelledby="hero-title"] .hero-card::after {
-    top: 127px;
+    top: 134px;
     height: 7px;
-    left: -4%;
-    right: -4%;
+    left: -9%;
+    right: -9%;
   }
 }
