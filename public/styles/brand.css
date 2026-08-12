@@ -260,15 +260,17 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
 .hero[aria-labelledby="hero-title"] .hero-card {
   position: relative;
   display: block;
-  margin-top: 40px;
+  width: min(100%, 500px);
+  justify-self: end;
+  margin-top: 34px;
   padding: 0 !important;
   min-height: 0 !important;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   background: transparent url('/assets/Box_Startseite.png') center / contain no-repeat !important;
   border: 0 !important;
-  border-radius: 28px !important;
-  box-shadow: none !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,.10) !important;
   backdrop-filter: none !important;
 }
 
@@ -309,9 +311,18 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
 
 @media (max-width: 1000px) {
   .hero[aria-labelledby="hero-title"] .hero-card {
-    margin-top: 0;
-    width: min(100%, 560px);
+    width: min(100%, 520px);
     justify-self: center;
+    margin-top: 10px;
+    border-radius: 20px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero[aria-labelledby="hero-title"] .hero-card {
+    width: 100%;
+    margin-top: 6px;
+    border-radius: 18px !important;
   }
 }
 
