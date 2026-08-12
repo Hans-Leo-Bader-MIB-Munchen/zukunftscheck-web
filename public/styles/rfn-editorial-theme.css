@@ -21,6 +21,8 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
 
 .site-header,.hero,.section,.status-band,.module-page,.site-footer{
   width:min(1380px,calc(100% - 72px));
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .site-header{
@@ -170,6 +172,8 @@ body{background:#fff;color:var(--zs-ink);font-family:Arial,Helvetica,sans-serif}
 
 .highlight{
   width:100%;max-width:none;
+  margin-left:0;
+  margin-right:0;
   border-radius:0;
   padding:clamp(5rem,8vw,7rem) max(36px,calc((100vw - 1308px)/2));
   background:var(--zs-ink);
