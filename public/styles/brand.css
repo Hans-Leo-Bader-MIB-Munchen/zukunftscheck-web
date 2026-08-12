@@ -278,16 +278,16 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
   border-bottom: 0;
 }
 
-/* Eine einzige durchgehende gelbe Diagonale trennt Bild und Stufe-0-Fläche. */
+/* Die kräftige gelbe Diagonale folgt exakt der vorhandenen Bildlinie. */
 .hero[aria-labelledby="hero-title"] .hero-card::after {
   content: "";
   position: absolute;
   left: -3%;
   right: -3%;
-  top: 140px;
+  top: 149px;
   height: 8px;
   background: #d59b00;
-  transform: rotate(3.9deg);
+  transform: rotate(3.7deg);
   transform-origin: center;
   pointer-events: none;
   z-index: 2;
@@ -318,7 +318,7 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
   }
 
   .hero[aria-labelledby="hero-title"] .hero-card::after {
-    top: 119px;
+    top: 127px;
     height: 7px;
     left: -4%;
     right: -4%;
