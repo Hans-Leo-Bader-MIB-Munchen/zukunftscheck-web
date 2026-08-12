@@ -6,7 +6,8 @@ body:has(.module-page form[data-submit-form]) .module-hero {
 }
 
 .hero-watermark,
-.hero-watermark-top {
+.hero-watermark-top,
+.hero-watermark-center {
   position: absolute;
   z-index: 0;
   pointer-events: none;
@@ -31,10 +32,22 @@ body:has(.module-page form[data-submit-form]) .module-hero {
   opacity: .10;
 }
 
+/* Sehr großes, ruhiges Hintergrundmotiv in der Mitte. */
+.hero-watermark-center {
+  left: 50%;
+  top: 50%;
+  width: min(820px, 72vw);
+  height: min(820px, 72vw);
+  transform: translate(-50%, -50%);
+  opacity: .055;
+}
+
 .hero > .hero-watermark,
 .hero > .hero-watermark-top,
+.hero > .hero-watermark-center,
 body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark,
-body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top {
+body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top,
+body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-center {
   max-width: none;
   margin: 0;
 }
@@ -55,6 +68,12 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
     height: 155px;
     opacity: .09;
   }
+
+  .hero-watermark-center {
+    width: min(680px, 82vw);
+    height: min(680px, 82vw);
+    opacity: .05;
+  }
 }
 
 @media (max-width: 640px) {
@@ -72,5 +91,11 @@ body:has(.module-page form[data-submit-form]) .module-hero > .hero-watermark-top
     width: 125px;
     height: 125px;
     opacity: .08;
+  }
+
+  .hero-watermark-center {
+    width: 112vw;
+    height: 112vw;
+    opacity: .045;
   }
 }
