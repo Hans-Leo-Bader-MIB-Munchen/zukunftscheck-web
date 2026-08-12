@@ -11,6 +11,21 @@
     document.head.appendChild(themeStylesheet);
   }
 
+  if (!document.querySelector('link[href="/styles/hero-watermark.css"]')) {
+    const watermarkStylesheet = document.createElement('link');
+    watermarkStylesheet.rel = 'stylesheet';
+    watermarkStylesheet.href = '/styles/hero-watermark.css';
+    document.head.appendChild(watermarkStylesheet);
+  }
+
+  document.querySelectorAll('.hero, .module-hero').forEach(hero => {
+    if (hero.querySelector(':scope > .hero-watermark')) return;
+    const watermark = document.createElement('span');
+    watermark.className = 'hero-watermark';
+    watermark.setAttribute('aria-hidden', 'true');
+    hero.appendChild(watermark);
+  });
+
   nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
 
   const button = document.createElement('button');
