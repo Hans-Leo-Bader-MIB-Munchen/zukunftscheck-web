@@ -41,6 +41,26 @@
     }
   });
 
+  const homepageHeroCard = document.querySelector('.hero[aria-labelledby="hero-title"] .hero-card');
+  if (homepageHeroCard) {
+    homepageHeroCard.querySelector('.text-link')?.remove();
+
+    if (homepageHeroCard.tagName !== 'A') {
+      const heroLink = document.createElement('a');
+      heroLink.href = '/teilnahme.html#stufe-0';
+      heroLink.className = homepageHeroCard.className;
+      heroLink.setAttribute('aria-label', 'Stufe 0 ansehen');
+      heroLink.style.marginBottom = '0';
+      heroLink.style.textDecoration = 'none';
+
+      while (homepageHeroCard.firstChild) {
+        heroLink.appendChild(homepageHeroCard.firstChild);
+      }
+
+      homepageHeroCard.replaceWith(heroLink);
+    }
+  }
+
   nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
 
   const button = document.createElement('button');
