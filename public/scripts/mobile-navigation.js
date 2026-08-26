@@ -62,6 +62,14 @@
   }
 
   nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
+  if (!nav.querySelector('a[href="/veranstaltungen.html"]')) {
+    const eventLink = document.createElement('a');
+    eventLink.href = '/veranstaltungen.html';
+    eventLink.textContent = 'Veranstaltungen';
+    const participationLink = nav.querySelector('a[href="/teilnahme.html"]');
+    participationLink?.after(eventLink);
+    if (!participationLink) nav.appendChild(eventLink);
+  }
 
   const button = document.createElement('button');
   button.className = 'menu-toggle';
