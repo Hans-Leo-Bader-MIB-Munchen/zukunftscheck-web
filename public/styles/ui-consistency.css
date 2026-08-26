@@ -1,0 +1,106 @@
+/* ZukunftsCheck – zentrale UI-Konsistenzschicht 2026-08-26.
+   Nur visuelle Normalisierung; keine Inhalts-, Formular- oder Funktionslogik. */
+:root{
+  --ui-content:1240px;
+  --ui-gutter:40px;
+  --ui-section-y:82px;
+  --ui-radius:18px;
+  --ui-radius-lg:24px;
+}
+
+/* Einheitliche Inhaltsbreiten. */
+.section,.status-band,.module-page,.site-footer{
+  width:min(var(--ui-content),calc(100% - (2 * var(--ui-gutter))));
+  margin-inline:auto;
+}
+
+/* Einheitliche Abschnittslogik. */
+.section{padding:var(--ui-section-y) 0}
+.section + .section{border-top:1px solid rgba(18,59,86,.17)}
+.section-label{margin-bottom:14px}
+.section h2{margin-top:0}
+
+/* Drei klar unterscheidbare Flächenfamilien. */
+.card,.event-card,.stage-card,.path-card,.legal-card{
+  border-radius:var(--ui-radius)!important;
+  box-shadow:none!important;
+}
+.context-panel,.notice,.stage-detail,form{
+  border-radius:var(--ui-radius)!important;
+  box-shadow:none!important;
+}
+.cards.three>.card{height:100%}
+
+/* Highlights: eine gemeinsame Vollbreiten-Logik. */
+.highlight{
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  border-radius:0!important;
+  padding:88px max(var(--ui-gutter),calc((100vw - var(--ui-content))/2))!important;
+}
+.highlight.split{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:24px!important;
+  text-align:center!important;
+}
+.highlight.split>div,.highlight.split>p{
+  max-width:900px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* CTA: immer als begrenzte Abschlusskarte, nicht als zweiter Hero. */
+.cta{
+  width:min(var(--ui-content),calc(100% - (2 * var(--ui-gutter))))!important;
+  max-width:var(--ui-content)!important;
+  margin:72px auto!important;
+  padding:52px 56px!important;
+  border-radius:var(--ui-radius-lg)!important;
+  text-align:center!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+}
+.cta>div{max-width:820px;margin-inline:auto}
+.cta h2,.cta p{margin-left:auto!important;margin-right:auto!important}
+
+/* Projektsteuerung: die beiden hervorgehobenen Bereiche visuell sauber trennen. */
+.projektsteuerung-grundsatz{
+  background:#123b56!important;
+  color:#fff!important;
+  border-top:8px solid #0877a8!important;
+}
+.projektsteuerung-grundsatz .section-label{color:#b9dff0!important}
+.projektsteuerung-grundsatz h2{color:#fff!important}
+.projektsteuerung-grundsatz p{color:#e5eef3!important}
+.projektsteuerung-grundsatz>div,
+.projektsteuerung-grundsatz>p{
+  max-width:900px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+
+/* Eventübersicht: zentrale statt seitenabhängiger Höhenlogik. */
+.events-upcoming{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.events-upcoming .card{display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;padding:1.5rem}
+.events-upcoming .event-badge{min-height:3.6rem;justify-content:center;margin-bottom:.9rem}
+.events-upcoming .card h2{display:flex;align-items:center;justify-content:center;min-height:3.5em;margin:.2rem 0 1rem}
+.events-upcoming .card p{min-height:4.9em;margin:.2rem 0 1.1rem}
+.events-upcoming .card .text-link{margin-top:auto}
+
+/* Footer überall gleiche Geometrie. */
+.site-footer{padding:42px 0 55px!important}
+
+@media(max-width:900px){
+  :root{--ui-gutter:24px;--ui-section-y:68px}
+}
+@media(max-width:760px){
+  :root{--ui-gutter:16px;--ui-section-y:62px}
+  .highlight{padding:68px 24px!important}
+  .cta{width:min(100% - 24px,var(--ui-content))!important;margin:60px auto!important;padding:38px 24px!important;border-radius:22px!important}
+  .events-upcoming{grid-template-columns:1fr}
+  .events-upcoming .card h2,.events-upcoming .card p{min-height:0}
+}
