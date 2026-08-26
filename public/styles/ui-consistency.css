@@ -29,7 +29,20 @@
   border-radius:var(--ui-radius)!important;
   box-shadow:none!important;
 }
-.cards.three>.card{height:100%}
+
+/* Normale Inhaltskarten bleiben lesefreundlich linksbündig.
+   Eine ältere Veranstaltungsregel in main.css hatte versehentlich alle Dreierraster zentriert. */
+.cards.three>.card{
+  height:100%;
+  align-items:stretch!important;
+  text-align:left!important;
+}
+.cards.three>.card h2,
+.cards.three>.card h3,
+.cards.three>.card p,
+.cards.three>.card .text-link{
+  text-align:left!important;
+}
 
 /* Highlights: eine gemeinsame Vollbreiten-Logik. */
 .highlight{
@@ -85,17 +98,88 @@
 
 /* Eventübersicht: zentrale statt seitenabhängiger Höhenlogik. */
 .events-upcoming{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
-.events-upcoming .card{display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;padding:1.5rem}
+.events-upcoming .card{
+  display:flex;
+  flex-direction:column;
+  align-items:center!important;
+  text-align:center!important;
+  height:100%;
+  padding:1.5rem;
+}
 .events-upcoming .event-badge{min-height:3.6rem;justify-content:center;margin-bottom:.9rem}
-.events-upcoming .card h2{display:flex;align-items:center;justify-content:center;min-height:3.5em;margin:.2rem 0 1rem}
-.events-upcoming .card p{min-height:4.9em;margin:.2rem 0 1.1rem}
-.events-upcoming .card .text-link{margin-top:auto}
+.events-upcoming .card h2{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:3.5em;
+  margin:.2rem 0 1rem;
+  text-align:center!important;
+}
+.events-upcoming .card p{min-height:4.9em;margin:.2rem 0 1.1rem;text-align:center!important}
+.events-upcoming .card .text-link{margin-top:auto;text-align:center!important}
+
+/* Event-Detailseiten: gleiche Breite, gleiche Typohierarchie und ruhiges Faktenraster. */
+.event-detail{
+  width:min(900px,100%);
+  max-width:900px!important;
+  margin-inline:auto;
+  padding-top:10px;
+}
+.event-detail>h1{
+  max-width:850px;
+  margin:0 auto;
+  text-align:center;
+  font-size:clamp(2.35rem,4vw,3.65rem)!important;
+  line-height:1.03!important;
+  letter-spacing:-.035em!important;
+}
+.event-detail>.eyebrow,
+.event-detail>.lead{
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+.event-detail>.lead{max-width:760px}
+.event-poster{max-width:560px!important;margin:34px auto 42px!important}
+.event-poster img{border-radius:var(--ui-radius)!important;box-shadow:none!important;border:1px solid rgba(18,59,86,.17)}
+.event-facts{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  margin:0 0 32px!important;
+}
+.event-facts li{
+  min-height:92px;
+  padding:16px 18px!important;
+  border-radius:14px!important;
+  background:#f4f7f9!important;
+  border:1px solid rgba(18,59,86,.17)!important;
+  text-align:center;
+}
+.stage-detail{
+  padding:28px 30px!important;
+  margin:18px 0!important;
+  border:1px solid rgba(18,59,86,.17)!important;
+  background:#fff!important;
+}
+.stage-detail h2{margin-top:0!important;font-size:clamp(1.5rem,2.2vw,2rem)!important}
+.event-detail>.notice{margin:22px 0!important;padding:20px 24px!important}
+.event-detail>.button-row{justify-content:center;margin-top:24px}
+
+/* Legal-Seiten auf dasselbe horizontale Raster bringen. */
+.legal-grid{
+  width:min(var(--ui-content),calc(100% - (2 * var(--ui-gutter))))!important;
+  max-width:var(--ui-content)!important;
+  gap:18px!important;
+}
+.legal-card{padding:30px!important}
+.legal-hero{width:min(var(--ui-content),calc(100% - (2 * var(--ui-gutter))))!important;max-width:var(--ui-content)!important}
 
 /* Footer überall gleiche Geometrie. */
 .site-footer{padding:42px 0 55px!important}
 
 @media(max-width:900px){
   :root{--ui-gutter:24px;--ui-section-y:68px}
+  .event-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 @media(max-width:760px){
   :root{--ui-gutter:16px;--ui-section-y:62px}
@@ -103,4 +187,12 @@
   .cta{width:min(100% - 24px,var(--ui-content))!important;margin:60px auto!important;padding:38px 24px!important;border-radius:22px!important}
   .events-upcoming{grid-template-columns:1fr}
   .events-upcoming .card h2,.events-upcoming .card p{min-height:0}
+  .event-detail>h1{text-align:left;font-size:clamp(2rem,8vw,2.8rem)!important}
+  .event-detail>.eyebrow,.event-detail>.lead{text-align:left;margin-left:0;margin-right:0}
+  .event-poster{max-width:100%!important;margin:26px auto 32px!important}
+  .event-facts{grid-template-columns:1fr!important}
+  .event-facts li{min-height:0;text-align:left}
+  .stage-detail{padding:22px!important}
+  .event-detail>.button-row{justify-content:flex-start}
+  .legal-card{padding:24px!important}
 }
