@@ -85,4 +85,5 @@ body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-ca
 
 @media(max-width:760px){
   #angebote .applications-grid>.project-control-card{padding-top:4.4rem!important}
+  #definition-title .desktop-definition-break{display:none}
 }
