@@ -34,10 +34,27 @@ assert.match(consistency,/\.event-facts\{/,'Event-Faktenraster ist nicht zentral
 assert.match(consistency,/\.cards\.three>\.card/,'Normale Drei-Karten-Raster werden nicht zentral kontrolliert');
 assert.match(consistency,/text-align:left!important/,'Normale Inhaltskarten werden nicht linksbündig zurückgesetzt');
 
-assert.match(colorBalance,/\.card \.text-link/,'Zentrierregel für Kartenlinks fehlt');
+for(const selector of [
+  '.cards.three>.card .text-link',
+  '#angebote .applications-grid>.card .text-link',
+  '.card>.text-link',
+  '.hero-card>.text-link',
+  '.path-card>.text-link',
+  '.stage-card>.text-link',
+  '.event-card>.text-link',
+  '.legal-card>.text-link',
+  '.event-card>a:not(.button):not(.secondary)',
+  '.card>.button',
+  '.hero-card>.button',
+  '.path-card>.button',
+  '.stage-card>.button',
+  '.event-card>.button',
+  '.legal-card>.button'
+]) assert.ok(colorBalance.includes(selector),`Globale Kartenaktionsregel fehlt: ${selector}`);
 assert.match(colorBalance,/width:100%!important/,'Mehrzeilige Kartenlinks spannen nicht die Kartenbreite auf');
-assert.match(colorBalance,/align-self:stretch!important/,'Kartenlinks werden nicht über die verfügbare Breite gestreckt');
-assert.match(colorBalance,/text-align:center!important/,'Kartenlinks werden nicht mittig ausgerichtet');
+assert.match(colorBalance,/align-self:stretch!important/,'Textlinks werden nicht über die verfügbare Breite gestreckt');
+assert.match(colorBalance,/align-self:center!important/,'Button-Links werden nicht als Element zentriert');
+assert.match(colorBalance,/text-align:center!important/,'Kartenaktionen werden nicht mittig ausgerichtet');
 
 assert.match(events,/class="cards events-upcoming"/,'Kommende Veranstaltungen nutzen kein eigenes Raster');
 assert.equal((events.match(/class="badge event-badge"/g)||[]).length,2,'Die zwei Oktobertermine brauchen zweizeilige Termin-Badges');
