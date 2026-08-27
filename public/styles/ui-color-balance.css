@@ -49,12 +49,14 @@ body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-ca
 .events-upcoming .card:nth-child(2){background:var(--ui-card-blue)!important}
 
 /* Nur die Aktionslinks innerhalb von Boxen werden mittig gesetzt.
+   Der Linkbereich spannt die Kartenbreite auf, damit auch mehrzeilige Links sauber zentriert sind.
    Überschriften und Fließtext bleiben bewusst linksbündig. */
 .card .text-link,
 .path-card .text-link,
 .stage-card .text-link,
 .event-card .text-link{
-  align-self:center!important;
+  width:100%!important;
+  align-self:stretch!important;
   text-align:center!important;
 }
 
