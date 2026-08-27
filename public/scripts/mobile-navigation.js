@@ -84,6 +84,24 @@
     );
   }
 
+  const stagesTitle = document.querySelector('#stages-title');
+  if (stagesTitle && !stagesTitle.querySelector('.desktop-stages-break')) {
+    stagesTitle.replaceChildren(
+      document.createTextNode('Von der kostenfreien ersten Einordnung'),
+      Object.assign(document.createElement('br'), { className: 'desktop-stages-break' }),
+      document.createTextNode('zum passenden nächsten Schritt.')
+    );
+  }
+
+  const limitsTitle = document.querySelector('#limits-title');
+  if (limitsTitle && !limitsTitle.querySelector('.desktop-limits-break')) {
+    limitsTitle.replaceChildren(
+      document.createTextNode('Der ZukunftsCheck bleibt vor Fachplanung,'),
+      Object.assign(document.createElement('br'), { className: 'desktop-limits-break' }),
+      document.createTextNode('Umsetzung und spezialisierten Beratungsleistungen.')
+    );
+  }
+
   /* Globale Navigation: auf allen Inhaltsseiten dieselben fünf Hauptziele. */
   const currentPath = window.location.pathname;
   const navItems = [
