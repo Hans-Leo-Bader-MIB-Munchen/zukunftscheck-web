@@ -177,6 +177,111 @@
 /* Footer überall gleiche Geometrie. */
 .site-footer{padding:42px 0 55px!important}
 
+/* -----------------------------------------------------------------
+   Runde 3: ruhige Kartenarchitektur.
+   Farbe führt nur noch über Akzentlinien; normale Kartenflächen bleiben weiß.
+   ----------------------------------------------------------------- */
+.card,.path-card,.stage-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  overflow:hidden;
+  background:#fff!important;
+  border:1px solid rgba(18,59,86,.18)!important;
+  border-top:5px solid #0877a8!important;
+  padding:28px!important;
+}
+
+/* Alte wechselnde Vollflächenfarben aus dem redaktionellen Theme neutralisieren. */
+.card:nth-child(3n+2),
+.card:nth-child(3n+3),
+#angebote .applications-grid>.card,
+#angebote .applications-grid>.card:nth-child(2),
+#angebote .applications-grid>.card:nth-child(3),
+#angebote .applications-grid>.card:nth-child(4),
+#angebote .applications-grid>.card:nth-child(5){
+  background:#fff!important;
+}
+
+/* Akzentfarben bleiben erhalten, aber nur als obere Linie. */
+.card:nth-child(3n+2){border-top-color:#075f87!important}
+.card:nth-child(3n+3){border-top-color:#26733c!important}
+#angebote .applications-grid>.card:nth-child(1),
+#angebote .applications-grid>.card:nth-child(2),
+#angebote .applications-grid>.card:nth-child(5){border-top-color:#0877a8!important}
+#angebote .applications-grid>.card:nth-child(3),
+#angebote .applications-grid>.card:nth-child(4){border-top-color:#26733c!important}
+
+/* Titel-, Text- und Aktionszonen werden innerhalb einer Kartenfamilie ausgerichtet. */
+.card h2,.card h3,.path-card h2,.path-card h3,.stage-card h2,.stage-card h3{
+  margin-top:0!important;
+  margin-bottom:16px!important;
+  min-height:2.45em;
+  display:flex;
+  align-items:flex-start;
+}
+.card p,.path-card p,.stage-card p{
+  margin-top:0;
+  margin-bottom:22px!important;
+  line-height:1.58;
+}
+.card .text-link,.card .button,
+.path-card .text-link,.path-card .button,
+.stage-card .text-link,.stage-card .button{
+  margin-top:auto!important;
+  align-self:flex-start;
+}
+
+/* Anwendungsfelder: alle Karten wirken als eine Familie. */
+#angebote .applications-grid>.card{
+  min-height:300px!important;
+  padding:30px 28px!important;
+}
+#angebote .applications-grid>.card h3{
+  min-height:2.4em;
+  margin-bottom:18px!important;
+}
+#angebote .applications-grid>.card p{
+  margin-bottom:24px!important;
+}
+
+/* Die getrennte Projektsteuerungsleistung darf weiterhin hervorgehoben werden,
+   aber als kontrollierte Sonderkarte statt als sechste bunte Inhaltskarte. */
+#angebote .applications-grid>.project-control-card{
+  background:#fffaf0!important;
+  border:1px solid rgba(213,155,0,.38)!important;
+  border-top:5px solid #d59b00!important;
+}
+
+/* Beteiligung: drei gleichwertige Aktionskarten mit identischer Geometrie. */
+body:has(.module-page form[data-submit-form]) .module-page .cards.three{
+  align-items:stretch!important;
+}
+body:has(.module-page form[data-submit-form]) .module-page .path-card{
+  min-height:300px;
+  padding:28px!important;
+  background:#fff!important;
+  border-top-color:#0877a8!important;
+}
+body:has(.module-page form[data-submit-form]) .module-page .path-card h2{
+  min-height:2.2em;
+}
+body:has(.module-page form[data-submit-form]) .module-page .path-card .button{
+  min-width:220px;
+  justify-content:center;
+  text-align:center;
+}
+
+/* Dreier-Informationskarten wie Arbeitsweise/Leistungsbeschreibung kompakter,
+   aber mit identischer Unterkante und Aktionsausrichtung. */
+.cards.three{
+  align-items:stretch;
+}
+.cards.three>.card{
+  min-height:280px;
+}
+
 @media(max-width:900px){
   :root{--ui-gutter:24px;--ui-section-y:68px}
   .event-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -195,4 +300,23 @@
   .stage-detail{padding:22px!important}
   .event-detail>.button-row{justify-content:flex-start}
   .legal-card{padding:24px!important}
+
+  .card,.path-card,.stage-card{
+    min-height:0!important;
+    padding:24px!important;
+  }
+  .card h2,.card h3,.path-card h2,.path-card h3,.stage-card h2,.stage-card h3{
+    min-height:0!important;
+  }
+  #angebote .applications-grid>.card{
+    min-height:0!important;
+    padding:24px!important;
+  }
+  body:has(.module-page form[data-submit-form]) .module-page .path-card{
+    min-height:0!important;
+  }
+  body:has(.module-page form[data-submit-form]) .module-page .path-card .button{
+    min-width:0;
+    width:100%;
+  }
 }
