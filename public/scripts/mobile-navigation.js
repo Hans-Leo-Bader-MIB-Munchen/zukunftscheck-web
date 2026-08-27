@@ -25,6 +25,13 @@
     document.head.appendChild(consistencyStylesheet);
   }
 
+  if (!document.querySelector('link[href="/styles/ui-color-balance.css"]')) {
+    const colorBalanceStylesheet = document.createElement('link');
+    colorBalanceStylesheet.rel = 'stylesheet';
+    colorBalanceStylesheet.href = '/styles/ui-color-balance.css';
+    document.head.appendChild(colorBalanceStylesheet);
+  }
+
   document.querySelectorAll('.hero, .module-hero').forEach(hero => {
     if (!hero.querySelector(':scope > .hero-watermark')) {
       const watermark = document.createElement('span');
