@@ -75,6 +75,15 @@
     }
   }
 
+  const definitionTitle = document.querySelector('#definition-title');
+  if (definitionTitle && !definitionTitle.querySelector('.desktop-definition-break')) {
+    definitionTitle.replaceChildren(
+      document.createTextNode('Orientierung, Strukturierung und Klärung'),
+      Object.assign(document.createElement('br'), { className: 'desktop-definition-break' }),
+      document.createTextNode('des nächsten belastbaren Schritts.')
+    );
+  }
+
   /* Globale Navigation: auf allen Inhaltsseiten dieselben fünf Hauptziele. */
   const currentPath = window.location.pathname;
   const navItems = [

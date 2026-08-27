@@ -16,6 +16,7 @@ for(const page of pages)assert.ok(fs.existsSync(path.join(root,page)),`${page} f
 
 const nav=read('scripts/mobile-navigation.js');
 const consistency=read('styles/ui-consistency.css');
+const colorBalance=read('styles/ui-color-balance.css');
 const events=read('veranstaltungen.html');
 const participation=read('participation.js');
 
@@ -32,6 +33,28 @@ assert.match(consistency,/\.event-detail\{/,'Event-Detailseiten haben keine geme
 assert.match(consistency,/\.event-facts\{/,'Event-Faktenraster ist nicht zentral normalisiert');
 assert.match(consistency,/\.cards\.three>\.card/,'Normale Drei-Karten-Raster werden nicht zentral kontrolliert');
 assert.match(consistency,/text-align:left!important/,'Normale Inhaltskarten werden nicht linksbündig zurückgesetzt');
+
+for(const selector of [
+  '.cards.three>.card .text-link',
+  '#angebote .applications-grid>.card .text-link',
+  '.card>.text-link',
+  '.hero-card>.text-link',
+  '.path-card>.text-link',
+  '.stage-card>.text-link',
+  '.event-card>.text-link',
+  '.legal-card>.text-link',
+  '.event-card>a:not(.button):not(.secondary)',
+  '.card>.button',
+  '.hero-card>.button',
+  '.path-card>.button',
+  '.stage-card>.button',
+  '.event-card>.button',
+  '.legal-card>.button'
+]) assert.ok(colorBalance.includes(selector),`Globale Kartenaktionsregel fehlt: ${selector}`);
+assert.match(colorBalance,/width:100%!important/,'Mehrzeilige Kartenlinks spannen nicht die Kartenbreite auf');
+assert.match(colorBalance,/align-self:stretch!important/,'Textlinks werden nicht über die verfügbare Breite gestreckt');
+assert.match(colorBalance,/align-self:center!important/,'Button-Links werden nicht als Element zentriert');
+assert.match(colorBalance,/text-align:center!important/,'Kartenaktionen werden nicht mittig ausgerichtet');
 
 assert.match(events,/class="cards events-upcoming"/,'Kommende Veranstaltungen nutzen kein eigenes Raster');
 assert.equal((events.match(/class="badge event-badge"/g)||[]).length,2,'Die zwei Oktobertermine brauchen zweizeilige Termin-Badges');

@@ -48,6 +48,42 @@ body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-ca
 .events-upcoming .card:nth-child(1){background:var(--ui-card-neutral)!important}
 .events-upcoming .card:nth-child(2){background:var(--ui-card-blue)!important}
 
+/* Einheitliche Aktionsausrichtung in allen Boxen.
+   Textlinks spannen die Kartenbreite auf und werden auch bei Zeilenumbruch sauber zentriert.
+   Als Button gestaltete Links bleiben kompakt, sitzen aber mittig.
+   Ueberschriften und Fliesstext bleiben linksbuendig. */
+.cards.three>.card .text-link,
+#angebote .applications-grid>.card .text-link,
+.card>.text-link,
+.hero-card>.text-link,
+.path-card>.text-link,
+.stage-card>.text-link,
+.event-card>.text-link,
+.legal-card>.text-link,
+.event-card>a:not(.button):not(.secondary){
+  display:block!important;
+  width:100%!important;
+  align-self:stretch!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+
+.cards.three>.card>.button,
+#angebote .applications-grid>.card>.button,
+.card>.button,
+.hero-card>.button,
+.path-card>.button,
+.stage-card>.button,
+.event-card>.button,
+.legal-card>.button{
+  align-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+
 @media(max-width:760px){
   #angebote .applications-grid>.project-control-card{padding-top:4.4rem!important}
+  #definition-title .desktop-definition-break{display:none}
 }
