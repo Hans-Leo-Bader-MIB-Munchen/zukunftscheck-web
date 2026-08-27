@@ -51,7 +51,7 @@ assert.match(part,/keine operativ, pilotpraktisch oder produktiv freigegebene St
 assert.match(part,/profilübergreifenden Grundmodulkern/i,'Grundmodulkern fehlt');
 assert.match(part,/noch nicht abgeschlossene konzeptionelle Differenzierung möglicher Anwendungsprofile/i,'Vorläufigkeit der Anwendungsprofile fehlt');
 assert.match(part,/abschließend entwickelte oder freigegebene Vertiefungsmodule/i,'Grenze der Vertiefungsmodule fehlt');
-assert.match(part,/keine abschließend beschlossene allgemeine Ergebnisbezeichnung/i,'Offene Stufe-2-Ergebnisbezeichnung fehlt');
+assert.match(part,/eine abschließend beschlossene allgemeine Ergebnisbezeichnung/i,'Offene Stufe-2-Ergebnisbezeichnung fehlt');
 assert.doesNotMatch(part,/Stufe 2 – Erweiterter Check/,'Veraltete Stufe-2-Bezeichnung vorhanden');
 assert.doesNotMatch(part,/gegenstandsabhängige Prüfmodule/,'Nicht bestätigte Prüfmodule vorhanden');
 assert.doesNotMatch(client,/correctStageStatus/,'Fachtexte dürfen nicht mehr dynamisch überschrieben werden');
