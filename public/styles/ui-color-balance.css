@@ -1,0 +1,53 @@
+/* ZukunftsCheck – Farbbalance nach UI-Konsistenzrunde 3.
+   Ziel: ruhige, aber klar erkennbare Farbfamilien ohne flächige Unruhe. */
+
+:root{
+  --ui-card-neutral:#f7fafc;
+  --ui-card-blue:#e8f3f8;
+  --ui-card-green:#edf7ef;
+  --ui-card-gold:#fff7e6;
+}
+
+/* Normale Dreiergruppen: Farbe bleibt sichtbar, aber deutlich ruhiger als zuvor. */
+.cards.three>.card:nth-child(3n+1){background:var(--ui-card-neutral)!important}
+.cards.three>.card:nth-child(3n+2){background:var(--ui-card-blue)!important}
+.cards.three>.card:nth-child(3n+3){background:var(--ui-card-green)!important}
+
+/* Anwendungsfelder: bewusste fachliche Farbfamilien. */
+#angebote .applications-grid>.card:nth-child(1){background:var(--ui-card-neutral)!important}
+#angebote .applications-grid>.card:nth-child(2){background:var(--ui-card-blue)!important}
+#angebote .applications-grid>.card:nth-child(3){background:var(--ui-card-green)!important}
+#angebote .applications-grid>.card:nth-child(4){background:var(--ui-card-green)!important}
+#angebote .applications-grid>.card:nth-child(5){background:var(--ui-card-blue)!important}
+
+/* Projektsteuerung bleibt sichtbar eigenständig, aber kontrolliert. */
+#angebote .applications-grid>.project-control-card{
+  background:var(--ui-card-gold)!important;
+  border:1px solid rgba(213,155,0,.42)!important;
+  border-top:5px solid #d59b00!important;
+  padding-top:4.7rem!important;
+}
+#angebote .applications-grid>.project-control-card::before{
+  top:1.15rem!important;
+  left:1.75rem!important;
+  background:#fff!important;
+  border:1px solid rgba(213,155,0,.38)!important;
+  color:#6d5200!important;
+}
+#angebote .applications-grid>.project-control-card h3{
+  min-height:0!important;
+  margin-top:0!important;
+}
+
+/* Beteiligung: gleiche Geometrie, aber subtile Differenzierung der drei Wege. */
+body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-card:nth-child(1){background:var(--ui-card-neutral)!important}
+body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-card:nth-child(2){background:var(--ui-card-blue)!important}
+body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-card:nth-child(3){background:var(--ui-card-green)!important}
+
+/* Eventkarten dürfen sich leicht absetzen, ohne wieder stark bunt zu werden. */
+.events-upcoming .card:nth-child(1){background:var(--ui-card-neutral)!important}
+.events-upcoming .card:nth-child(2){background:var(--ui-card-blue)!important}
+
+@media(max-width:760px){
+  #angebote .applications-grid>.project-control-card{padding-top:4.4rem!important}
+}

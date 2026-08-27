@@ -18,6 +18,20 @@
     document.head.appendChild(watermarkStylesheet);
   }
 
+  if (!document.querySelector('link[href="/styles/ui-consistency.css"]')) {
+    const consistencyStylesheet = document.createElement('link');
+    consistencyStylesheet.rel = 'stylesheet';
+    consistencyStylesheet.href = '/styles/ui-consistency.css';
+    document.head.appendChild(consistencyStylesheet);
+  }
+
+  if (!document.querySelector('link[href="/styles/ui-color-balance.css"]')) {
+    const colorBalanceStylesheet = document.createElement('link');
+    colorBalanceStylesheet.rel = 'stylesheet';
+    colorBalanceStylesheet.href = '/styles/ui-color-balance.css';
+    document.head.appendChild(colorBalanceStylesheet);
+  }
+
   document.querySelectorAll('.hero, .module-hero').forEach(hero => {
     if (!hero.querySelector(':scope > .hero-watermark')) {
       const watermark = document.createElement('span');
@@ -61,15 +75,23 @@
     }
   }
 
-  nav.querySelectorAll('a[href="/veranstaltung-hamm.html"]').forEach(link => link.remove());
-  if (!nav.querySelector('a[href="/veranstaltungen.html"]')) {
-    const eventLink = document.createElement('a');
-    eventLink.href = '/veranstaltungen.html';
-    eventLink.textContent = 'Veranstaltungen';
-    const participationLink = nav.querySelector('a[href="/teilnahme.html"]');
-    participationLink?.after(eventLink);
-    if (!participationLink) nav.appendChild(eventLink);
-  }
+  /* Globale Navigation: auf allen Inhaltsseiten dieselben fünf Hauptziele. */
+  const currentPath = window.location.pathname;
+  const navItems = [
+    { href: '/index.html', label: 'Start', active: currentPath === '/' || currentPath === '/index.html' },
+    { href: '/index.html#angebote', label: 'Anwendungsfelder', active: ['/kommune.html','/organisation.html','/gebaeude-energie.html','/kommunikation-veranstaltungen.html','/entscheidung.html'].includes(currentPath) },
+    { href: '/projektsteuerung.html', label: 'Projektsteuerung', active: currentPath === '/projektsteuerung.html' },
+    { href: '/teilnahme.html', label: 'Beteiligung', active: currentPath === '/teilnahme.html' },
+    { href: '/veranstaltungen.html', label: 'Veranstaltungen', active: currentPath === '/veranstaltungen.html' || currentPath.startsWith('/veranstaltung-') }
+  ];
+
+  nav.replaceChildren(...navItems.map(item => {
+    const link = document.createElement('a');
+    link.href = item.href;
+    link.textContent = item.label;
+    if (item.active) link.setAttribute('aria-current', 'page');
+    return link;
+  }));
 
   const button = document.createElement('button');
   button.className = 'menu-toggle';

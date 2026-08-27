@@ -8,6 +8,7 @@
     const grid=document.querySelector('.event-grid');
     if(!grid)return;
     const known=new Set(all('[data-event-card]').map(element=>element.dataset.eventCard));
+    const completedCard=grid.querySelector('[data-event-card="ZS-VA-2026-HAMM-001"]');
     events.filter(item=>item.id!=='ALLGEMEIN'&&!known.has(item.id)).forEach(item=>{
       const article=document.createElement('article');
       article.className='event-card';
@@ -32,7 +33,8 @@
         link.textContent='Veranstaltungsinformationen';
         article.append(link);
       }
-      grid.append(article);
+      if(completedCard)grid.insertBefore(article,completedCard);
+      else grid.append(article);
     });
   }
 
