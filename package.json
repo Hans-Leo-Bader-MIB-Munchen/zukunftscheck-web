@@ -4,7 +4,7 @@
   "private": true,
   "description": "Static shell for the ZukunftsCheck web architecture.",
   "scripts": {
-    "test": "node tests/preview-check.mjs",
+    "test": "node tests/preview-check.mjs && node tests/ui-consistency-check.mjs",
     "build": "echo \"Static shell: no build step required.\""
   },
   "dependencies": {
