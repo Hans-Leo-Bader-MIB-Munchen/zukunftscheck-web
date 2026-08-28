@@ -2,6 +2,7 @@
   if (!document.querySelector('script[data-zs-site-presentation]')) {
     const presentationScript = document.createElement('script');
     presentationScript.src = '/scripts/site-presentation.js';
+    presentationScript.async = false;
     presentationScript.dataset.zsSitePresentation = '';
     document.head.appendChild(presentationScript);
   }
