@@ -45,6 +45,10 @@ function isProduction(){
   return String(process.env.VERCEL_ENV||process.env.NODE_ENV||'development').toLowerCase()==='production';
 }
 
+function turnstileRequired(){
+  return Boolean(process.env.VERCEL_ENV)||isProduction();
+}
+
 async function verifyTurnstile(token,client){
   const production=isProduction();
   const secret=production?process.env.TURNSTILE_SECRET_KEY:(process.env.TURNSTILE_SECRET_KEY||TEST_TURNSTILE_SECRET);
@@ -97,16 +101,18 @@ module.exports = async function handler(req, res) {
   }
 
   const client = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
-  const turnstileToken=clean(body.turnstileToken,'turnstileToken');
-  if(!turnstileToken){
-    return res.status(400).json({ok:false,message:'Bitte schließen Sie die Sicherheitsprüfung gegen automatisierte Anfragen ab.'});
-  }
-  const turnstile=await verifyTurnstile(turnstileToken,client);
-  if(!turnstile.configured){
-    return res.status(503).json({ok:false,message:'Die Sicherheitsprüfung ist derzeit nicht verfügbar.'});
-  }
-  if(!turnstile.success){
-    return res.status(403).json({ok:false,message:'Die Sicherheitsprüfung war nicht erfolgreich. Bitte versuchen Sie es erneut.'});
+  if(turnstileRequired()){
+    const turnstileToken=clean(body.turnstileToken,'turnstileToken');
+    if(!turnstileToken){
+      return res.status(400).json({ok:false,message:'Bitte schließen Sie die Sicherheitsprüfung gegen automatisierte Anfragen ab.'});
+    }
+    const turnstile=await verifyTurnstile(turnstileToken,client);
+    if(!turnstile.configured){
+      return res.status(503).json({ok:false,message:'Die Sicherheitsprüfung ist derzeit nicht verfügbar.'});
+    }
+    if(!turnstile.success){
+      return res.status(403).json({ok:false,message:'Die Sicherheitsprüfung war nicht erfolgreich. Bitte versuchen Sie es erneut.'});
+    }
   }
 
   const now=Date.now();
