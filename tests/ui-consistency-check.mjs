@@ -26,13 +26,28 @@ for(const label of ['Start','Anwendungsfelder','Projektsteuerung','Beteiligung',
   assert.ok(nav.includes(`label: '${label}'`),`Globale Navigation fehlt: ${label}`);
 }
 assert.match(nav,/nav\.replaceChildren/,'Navigation wird nicht zentral normalisiert');
-assert.match(nav,/site-presentation\.js/,'T2a-Bootstrap für getrennte Präsentationslogik fehlt');
-assert.match(nav,/presentationScript\.async\s*=\s*false/,'T2a-Präsentationsscript muss deterministisch und nicht async geladen werden');
+assert.ok(!nav.includes('site-presentation.js'),'T2b: mobile-navigation.js darf keinen Präsentations-Bootstrap mehr enthalten');
+assert.ok(!nav.includes('createElement(\'script\')'),'T2b: mobile-navigation.js darf keine Script-Ladeorchestrierung enthalten');
 
 for(const marker of ['hero-watermark','desktop-definition-break','desktop-stages-break','desktop-limits-break','anwendungsfelder.css','project-control-card']){
   assert.ok(!nav.includes(marker),`Fachfremde Präsentationslogik verbleibt in mobile-navigation.js: ${marker}`);
   assert.ok(presentation.includes(marker),`Ausgelagerte Präsentationslogik fehlt in site-presentation.js: ${marker}`);
 }
+
+for(const page of pages){
+  const html=read(page);
+  const presentationTag='<script src="/scripts/site-presentation.js" defer></script>';
+  const navigationTag='<script src="/scripts/mobile-navigation.js" defer></script>';
+  const presentationIndex=html.indexOf(presentationTag);
+  const navigationIndex=html.indexOf(navigationTag);
+  assert.ok(presentationIndex>=0,`${page}: statischer Präsentations-Einstieg fehlt`);
+  assert.ok(navigationIndex>=0,`${page}: statischer Navigations-Einstieg fehlt`);
+  assert.ok(presentationIndex<navigationIndex,`${page}: Script-Reihenfolge muss Präsentation vor Navigation laden`);
+  assert.equal((html.match(/\/scripts\/site-presentation\.js/g)||[]).length,1,`${page}: Präsentationsscript muss genau einmal eingebunden sein`);
+  assert.equal((html.match(/\/scripts\/mobile-navigation\.js/g)||[]).length,1,`${page}: Navigationsscript muss genau einmal eingebunden sein`);
+}
+assert.ok(!participation.includes('mobile-navigation.js'),'T2b: participation.js darf Navigation nicht mehr dynamisch nachladen');
+assert.ok(!participation.includes('site-presentation.js'),'T2b: participation.js darf Präsentation nicht dynamisch nachladen');
 
 const staticStyles=[
   '/styles/brand-base.css',
@@ -88,13 +103,11 @@ assert.equal((events.match(/class="badge event-badge"/g)||[]).length,2,'Die zwei
 for(const title of ['All-Electric-In: Deutschland wird Electric State','All-Electric-In: Die Praxis'])assert.ok(events.includes(title),`Veranstaltungstitel fehlt: ${title}`);
 
 assert.match(participation,/insertBefore\(article,completedCard\)/,'Kommende Veranstaltungen werden nicht vor der abgeschlossenen Hamm-Veranstaltung einsortiert');
-assert.match(participation,/mobile-navigation\.js/,'Beteiligungsseite lädt weiterhin den gemeinsamen Navigationspfad');
 
 for(const page of ['veranstaltung-walsrode.html','veranstaltung-altenwahlingen.html','veranstaltung-hamm.html']){
   const html=read(page);
   assert.match(html,/class="event-detail"/,`${page}: Event-Detailcontainer fehlt`);
   assert.match(html,/class="event-facts"/,`${page}: Faktenraster fehlt`);
-  assert.match(html,/scripts\/mobile-navigation\.js/,`${page}: globale Navigation fehlt`);
 }
 
-console.log('ZS-WEB-UI: T2a-Verantwortungstrennung, deterministischer Präsentations-Bootstrap, statische CSS-Ladung sowie Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
+console.log('ZS-WEB-UI: T2b statische Script-Orchestrierung, Verantwortungstrennung, CSS-Ladung sowie Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
