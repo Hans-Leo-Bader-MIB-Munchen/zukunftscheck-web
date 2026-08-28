@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 
+const TEST_TURNSTILE_SECRET='1x0000000000000000000000000000000AA';
 const LIMITS = {
   text:10000, topic:300, source:500, location:300, perspective:1000,
   name:200, email:320, phone:100, organization:300, organizationType:200,
@@ -7,7 +8,7 @@ const LIMITS = {
   projectTitle:200, projectType:200, projectDescription:3000,
   pendingDecision:2000, requesterRole:500, involvedParties:2000,
   existingChecks:3000, openQuestion:2000, projectStage:200,
-  timeframe:300, additionalContext:2000
+  timeframe:300, additionalContext:2000, turnstileToken:2048
 };
 
 const clean = (value, key) => String(value ?? '')
@@ -32,10 +33,57 @@ const attempts = new Map();
 function allowedOrigin(origin) {
   try {
     const host = new URL(origin).hostname;
-    return host === 'zukunftscheck.org' || host === 'www.zukunftscheck.org' || host.endsWith('.vercel.app');
+    if (host === 'zukunftscheck.org' || host === 'www.zukunftscheck.org') return true;
+    if (host === 'zukunftscheck-web.vercel.app') return true;
+    return host.startsWith('zukunftscheck-') && host.endsWith('-hans-leo-baders-projects.vercel.app');
   } catch {
     return false;
   }
+}
+
+function isProduction(){
+  return String(process.env.VERCEL_ENV||process.env.NODE_ENV||'development').toLowerCase()==='production';
+}
+
+function turnstileRequired(){
+  return Boolean(process.env.VERCEL_ENV)||isProduction();
+}
+
+async function verifyTurnstile(token,client){
+  const production=isProduction();
+  const secret=production?process.env.TURNSTILE_SECRET_KEY:(process.env.TURNSTILE_SECRET_KEY||TEST_TURNSTILE_SECRET);
+  if(!secret)return {configured:false,success:false};
+
+  const payload=new URLSearchParams();
+  payload.set('secret',secret);
+  payload.set('response',token);
+  if(client&&client!=='unknown')payload.set('remoteip',client);
+
+  try{
+    const response=await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:payload.toString()
+    });
+    if(!response.ok)return {configured:true,success:false};
+    const result=await response.json();
+    if(!result.success)return {configured:true,success:false};
+    if(production&&!['zukunftscheck.org','www.zukunftscheck.org'].includes(result.hostname)){
+      return {configured:true,success:false};
+    }
+    return {configured:true,success:true};
+  }catch{
+    return {configured:true,success:false};
+  }
+}
+
+function exceedsRateLimit(client,now){
+  const recentDay=(attempts.get(client)||[]).filter(time=>now-time<86400000);
+  const recentTenMinutes=recentDay.filter(time=>now-time<600000);
+  if(recentTenMinutes.length>=5||recentDay.length>=20)return true;
+  recentDay.push(now);
+  attempts.set(client,recentDay);
+  return false;
 }
 
 module.exports = async function handler(req, res) {
@@ -44,18 +92,32 @@ module.exports = async function handler(req, res) {
   if (!req.headers['content-type']?.includes('application/json')) return res.status(415).json({ok:false,message:'Ungültiges Datenformat.'});
   if (!allowedOrigin(req.headers.origin)) return res.status(403).json({ok:false,message:'Anfrage nicht zulässig.'});
 
-  const client = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
-  const now = Date.now();
-  const recent = (attempts.get(client) || []).filter(time => now-time < 600000);
-  if (recent.length >= 5) return res.status(429).json({ok:false,message:'Zu viele Anfragen. Bitte versuchen Sie es später erneut.'});
-  recent.push(now);
-  attempts.set(client,recent);
-
   const body = req.body || {};
   if (body.website) return res.status(200).json({ok:true,message:'Vielen Dank.'});
+
   const started = Number(body.formStartedAt);
   if (!Number.isFinite(started) || Date.now()-started < 2000 || Date.now()-started > 86400000) {
     return res.status(400).json({ok:false,message:'Bitte laden Sie die Seite neu und versuchen Sie es erneut.'});
+  }
+
+  const client = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
+  if(turnstileRequired()){
+    const turnstileToken=clean(body.turnstileToken,'turnstileToken');
+    if(!turnstileToken){
+      return res.status(400).json({ok:false,message:'Bitte schließen Sie die Sicherheitsprüfung gegen automatisierte Anfragen ab.'});
+    }
+    const turnstile=await verifyTurnstile(turnstileToken,client);
+    if(!turnstile.configured){
+      return res.status(503).json({ok:false,message:'Die Sicherheitsprüfung ist derzeit nicht verfügbar.'});
+    }
+    if(!turnstile.success){
+      return res.status(403).json({ok:false,message:'Die Sicherheitsprüfung war nicht erfolgreich. Bitte versuchen Sie es erneut.'});
+    }
+  }
+
+  const now=Date.now();
+  if(exceedsRateLimit(client,now)){
+    return res.status(429).json({ok:false,message:'Zu viele Anfragen. Bitte versuchen Sie es später erneut.'});
   }
 
   const formType = ['contribution','stage0','contact'].includes(body.formType) ? body.formType : '';

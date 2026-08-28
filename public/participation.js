@@ -54,20 +54,90 @@
     }));
   }
 
+  function waitForTurnstile(timeout=10000){
+    if(window.turnstile)return Promise.resolve(window.turnstile);
+    return new Promise((resolve,reject)=>{
+      const started=Date.now();
+      const timer=setInterval(()=>{
+        if(window.turnstile){
+          clearInterval(timer);
+          resolve(window.turnstile);
+        }else if(Date.now()-started>timeout){
+          clearInterval(timer);
+          reject(new Error('Sicherheitsprüfung konnte nicht geladen werden.'));
+        }
+      },100);
+    });
+  }
+
+  async function initializeTurnstile(){
+    const forms=all('form[data-submit-form]');
+    if(!forms.length)return;
+    try{
+      const configResponse=await fetch('/api/turnstile-config',{headers:{'Accept':'application/json'}});
+      const config=await configResponse.json();
+      if(!configResponse.ok||!config.siteKey)throw new Error(config.message||'Sicherheitsprüfung ist derzeit nicht verfügbar.');
+
+      if(!document.querySelector('script[data-turnstile-script]')){
+        const script=document.createElement('script');
+        script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        script.async=true;
+        script.defer=true;
+        script.dataset.turnstileScript='';
+        document.head.appendChild(script);
+      }
+
+      const turnstile=await waitForTurnstile();
+      forms.forEach(form=>{
+        const button=form.querySelector('button[type=submit]');
+        if(!button||form.dataset.turnstileWidgetId)return;
+        const slot=document.createElement('div');
+        slot.className='turnstile-slot';
+        slot.setAttribute('aria-label','Sicherheitsprüfung gegen automatisierte Anfragen');
+        button.parentNode.insertBefore(slot,button);
+        const widgetId=turnstile.render(slot,{
+          sitekey:config.siteKey,
+          theme:'auto',
+          callback:token=>{ form.dataset.turnstileToken=token; },
+          'expired-callback':()=>{ form.dataset.turnstileToken=''; },
+          'error-callback':()=>{ form.dataset.turnstileToken=''; }
+        });
+        form.dataset.turnstileWidgetId=String(widgetId);
+      });
+    }catch(error){
+      forms.forEach(form=>{
+        const button=form.querySelector('button[type=submit]');
+        const target=form.querySelector('[data-preview-result]');
+        if(button)button.disabled=true;
+        if(target){
+          target.hidden=false;
+          target.textContent=error.message||'Sicherheitsprüfung ist derzeit nicht verfügbar.';
+        }
+      });
+    }
+  }
+
   function initializeForm(form){
     const startedField=form.elements.formStartedAt;
     if(startedField)startedField.value=Date.now();
 
     form.addEventListener('submit',async event=>{
       event.preventDefault();
+      const target=form.querySelector('[data-preview-result]');
+      const button=form.querySelector('button[type=submit]');
+
       if(!form.checkValidity()){
         form.reportValidity();
         form.querySelector(':invalid')?.focus();
         return;
       }
+      if(!form.dataset.turnstileToken){
+        target.hidden=false;
+        target.textContent='Bitte schließen Sie zuerst die Sicherheitsprüfung gegen automatisierte Anfragen ab.';
+        target.focus();
+        return;
+      }
 
-      const target=form.querySelector('[data-preview-result]');
-      const button=form.querySelector('button[type=submit]');
       button.disabled=true;
       target.hidden=false;
       target.textContent='Ihre Angaben werden übermittelt …';
@@ -84,6 +154,7 @@
       });
       data.privacy=form.elements.privacy.checked;
       data.formStartedAt=Number(data.formStartedAt);
+      data.turnstileToken=form.dataset.turnstileToken;
 
       try{
         const response=await fetch('/api/submit',{
@@ -95,9 +166,13 @@
         if(!response.ok)throw new Error(result.message||'Übermittlung fehlgeschlagen.');
         target.textContent=result.message;
         form.reset();
+        form.dataset.turnstileToken='';
         if(startedField)startedField.value=Date.now();
+        if(window.turnstile&&form.dataset.turnstileWidgetId)window.turnstile.reset(form.dataset.turnstileWidgetId);
         paint();
       }catch(error){
+        form.dataset.turnstileToken='';
+        if(window.turnstile&&form.dataset.turnstileWidgetId)window.turnstile.reset(form.dataset.turnstileWidgetId);
         target.textContent=error.message||'Die Übermittlung ist fehlgeschlagen. Bitte versuchen Sie es später erneut.';
       }finally{
         button.disabled=false;
@@ -108,6 +183,7 @@
   renderEventCards();
   bindEventSelection();
   all('form[data-submit-form]').forEach(initializeForm);
+  initializeTurnstile();
   paint();
 
   const section=params.get('section')||location.hash.slice(1);
