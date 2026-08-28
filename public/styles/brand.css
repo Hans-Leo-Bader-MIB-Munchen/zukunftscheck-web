@@ -514,3 +514,11 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
     border-radius: 18px !important;
   }
 }
+
+/* Beteiligungsseite: Desktop-Titel bewusst einzeilig, kleinere Viewports bleiben unverändert. */
+@media (min-width: 1200px) {
+  body:has(.module-page form[data-submit-form]) .module-hero h1 {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
