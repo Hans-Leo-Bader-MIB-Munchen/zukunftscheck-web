@@ -4,34 +4,6 @@
 
   if (!header || !nav) return;
 
-  if (!document.querySelector('link[href="/styles/rfn-editorial-theme.css"]')) {
-    const themeStylesheet = document.createElement('link');
-    themeStylesheet.rel = 'stylesheet';
-    themeStylesheet.href = '/styles/rfn-editorial-theme.css';
-    document.head.appendChild(themeStylesheet);
-  }
-
-  if (!document.querySelector('link[href="/styles/hero-watermark.css"]')) {
-    const watermarkStylesheet = document.createElement('link');
-    watermarkStylesheet.rel = 'stylesheet';
-    watermarkStylesheet.href = '/styles/hero-watermark.css';
-    document.head.appendChild(watermarkStylesheet);
-  }
-
-  if (!document.querySelector('link[href="/styles/ui-consistency.css"]')) {
-    const consistencyStylesheet = document.createElement('link');
-    consistencyStylesheet.rel = 'stylesheet';
-    consistencyStylesheet.href = '/styles/ui-consistency.css';
-    document.head.appendChild(consistencyStylesheet);
-  }
-
-  if (!document.querySelector('link[href="/styles/ui-color-balance.css"]')) {
-    const colorBalanceStylesheet = document.createElement('link');
-    colorBalanceStylesheet.rel = 'stylesheet';
-    colorBalanceStylesheet.href = '/styles/ui-color-balance.css';
-    document.head.appendChild(colorBalanceStylesheet);
-  }
-
   document.querySelectorAll('.hero, .module-hero').forEach(hero => {
     if (!hero.querySelector(':scope > .hero-watermark')) {
       const watermark = document.createElement('span');

@@ -15,6 +15,7 @@ const pages=[
 for(const page of pages)assert.ok(fs.existsSync(path.join(root,page)),`${page} fehlt`);
 
 const nav=read('scripts/mobile-navigation.js');
+const brandManifest=read('styles/brand.css');
 const consistency=read('styles/ui-consistency.css');
 const colorBalance=read('styles/ui-color-balance.css');
 const events=read('veranstaltungen.html');
@@ -24,7 +25,25 @@ for(const label of ['Start','Anwendungsfelder','Projektsteuerung','Beteiligung',
   assert.ok(nav.includes(`label: '${label}'`),`Globale Navigation fehlt: ${label}`);
 }
 assert.match(nav,/nav\.replaceChildren/,'Navigation wird nicht zentral normalisiert');
-assert.match(nav,/ui-consistency\.css/,'Zentrale UI-Konsistenzschicht wird nicht geladen');
+
+const staticStyles=[
+  '/styles/brand-base.css',
+  '/styles/rfn-editorial-theme.css',
+  '/styles/hero-watermark.css',
+  '/styles/ui-consistency.css',
+  '/styles/ui-color-balance.css'
+];
+let previousIndex=-1;
+for(const stylesheet of staticStyles){
+  const index=brandManifest.indexOf(stylesheet);
+  assert.ok(index>=0,`Statisches Stylesheet fehlt im brand.css-Manifest: ${stylesheet}`);
+  assert.ok(index>previousIndex,`CSS-Ladereihenfolge ist nicht deterministisch: ${stylesheet}`);
+  previousIndex=index;
+}
+for(const stylesheet of staticStyles.slice(1)){
+  assert.ok(!nav.includes(stylesheet),`Globale CSS-Grundarchitektur darf nicht per JavaScript geladen werden: ${stylesheet}`);
+}
+assert.ok(fs.existsSync(path.join(root,'styles','brand-base.css')),'brand-base.css fehlt');
 
 assert.match(consistency,/\.highlight\{/,'Globale Highlight-Regel fehlt');
 assert.match(consistency,/\.cta\{/,'Globale CTA-Regel fehlt');
@@ -69,4 +88,4 @@ for(const page of ['veranstaltung-walsrode.html','veranstaltung-altenwahlingen.h
   assert.match(html,/scripts\/mobile-navigation\.js/,`${page}: globale Navigation fehlt`);
 }
 
-console.log('ZS-WEB-UI: Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
+console.log('ZS-WEB-UI: statische CSS-Ladung sowie Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
