@@ -15,6 +15,7 @@ const pages=[
 for(const page of pages)assert.ok(fs.existsSync(path.join(root,page)),`${page} fehlt`);
 
 const nav=read('scripts/mobile-navigation.js');
+const presentation=read('scripts/site-presentation.js');
 const brandManifest=read('styles/brand.css');
 const consistency=read('styles/ui-consistency.css');
 const colorBalance=read('styles/ui-color-balance.css');
@@ -25,6 +26,13 @@ for(const label of ['Start','Anwendungsfelder','Projektsteuerung','Beteiligung',
   assert.ok(nav.includes(`label: '${label}'`),`Globale Navigation fehlt: ${label}`);
 }
 assert.match(nav,/nav\.replaceChildren/,'Navigation wird nicht zentral normalisiert');
+assert.match(nav,/site-presentation\.js/,'T2a-Bootstrap für getrennte Präsentationslogik fehlt');
+assert.match(nav,/presentationScript\.async\s*=\s*false/,'T2a-Präsentationsscript muss deterministisch und nicht async geladen werden');
+
+for(const marker of ['hero-watermark','desktop-definition-break','desktop-stages-break','desktop-limits-break','anwendungsfelder.css','project-control-card']){
+  assert.ok(!nav.includes(marker),`Fachfremde Präsentationslogik verbleibt in mobile-navigation.js: ${marker}`);
+  assert.ok(presentation.includes(marker),`Ausgelagerte Präsentationslogik fehlt in site-presentation.js: ${marker}`);
+}
 
 const staticStyles=[
   '/styles/brand-base.css',
@@ -80,6 +88,7 @@ assert.equal((events.match(/class="badge event-badge"/g)||[]).length,2,'Die zwei
 for(const title of ['All-Electric-In: Deutschland wird Electric State','All-Electric-In: Die Praxis'])assert.ok(events.includes(title),`Veranstaltungstitel fehlt: ${title}`);
 
 assert.match(participation,/insertBefore\(article,completedCard\)/,'Kommende Veranstaltungen werden nicht vor der abgeschlossenen Hamm-Veranstaltung einsortiert');
+assert.match(participation,/mobile-navigation\.js/,'Beteiligungsseite lädt weiterhin den gemeinsamen Navigationspfad');
 
 for(const page of ['veranstaltung-walsrode.html','veranstaltung-altenwahlingen.html','veranstaltung-hamm.html']){
   const html=read(page);
@@ -88,4 +97,4 @@ for(const page of ['veranstaltung-walsrode.html','veranstaltung-altenwahlingen.h
   assert.match(html,/scripts\/mobile-navigation\.js/,`${page}: globale Navigation fehlt`);
 }
 
-console.log('ZS-WEB-UI: statische CSS-Ladung sowie Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
+console.log('ZS-WEB-UI: T2a-Verantwortungstrennung, deterministischer Präsentations-Bootstrap, statische CSS-Ladung sowie Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
