@@ -27,6 +27,7 @@ for(const label of ['Start','Anwendungsfelder','Projektsteuerung','Beteiligung',
 }
 assert.match(nav,/nav\.replaceChildren/,'Navigation wird nicht zentral normalisiert');
 assert.match(nav,/site-presentation\.js/,'T2a-Bootstrap für getrennte Präsentationslogik fehlt');
+assert.match(nav,/presentationScript\.async\s*=\s*false/,'T2a-Präsentationsscript muss deterministisch und nicht async geladen werden');
 
 for(const marker of ['hero-watermark','desktop-definition-break','desktop-stages-break','desktop-limits-break','anwendungsfelder.css','project-control-card']){
   assert.ok(!nav.includes(marker),`Fachfremde Präsentationslogik verbleibt in mobile-navigation.js: ${marker}`);
@@ -96,4 +97,4 @@ for(const page of ['veranstaltung-walsrode.html','veranstaltung-altenwahlingen.h
   assert.match(html,/scripts\/mobile-navigation\.js/,`${page}: globale Navigation fehlt`);
 }
 
-console.log('ZS-WEB-UI: T2a-Verantwortungstrennung, statische CSS-Ladung sowie Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
+console.log('ZS-WEB-UI: T2a-Verantwortungstrennung, deterministischer Präsentations-Bootstrap, statische CSS-Ladung sowie Navigations-, Raster-, Karten- und Event-Konsistenzprüfung bestanden.');
