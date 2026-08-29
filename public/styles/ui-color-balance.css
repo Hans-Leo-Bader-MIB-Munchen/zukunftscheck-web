@@ -83,8 +83,9 @@ body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-ca
   text-align:center!important;
 }
 
-/* Dunkler Rechtsentwicklungsblock: Link muss auf der Fläche klar lesbar bleiben. */
-section[aria-labelledby="rechtsentwicklung-title"] .text-link{
+/* Dunkle Startseiten-Hervorhebungen: Textlinks müssen auf der Fläche klar lesbar bleiben. */
+section[aria-labelledby="rechtsentwicklung-title"] .text-link,
+section[aria-labelledby="stages-title"] .text-link{
   color:#fff!important;
   text-decoration-color:rgba(255,255,255,.72)!important;
 }
