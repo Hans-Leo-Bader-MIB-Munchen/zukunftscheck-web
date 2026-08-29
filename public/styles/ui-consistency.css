@@ -141,7 +141,7 @@
 }
 .event-detail>.lead{max-width:760px}
 .event-poster{max-width:560px!important;margin:34px auto 42px!important}
-.event-poster img{border-radius:var(--ui-radius)!important;box-shadow:none!important;border:1px solid rgba(18,59,86,.17)}
+.event-poster img{border-radius:var(--ui-radius)!important;box-shadow:none;border:1px solid rgba(18,59,86,.17)}
 .event-facts{
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
   gap:12px!important;
