@@ -1,0 +1,112 @@
+/* Startseite: Arbeitsweise-Karten – freigegebene UI-Variante 2026-08-29. */
+#arbeitsweise .section-label,
+#arbeitsweise #questions-title{
+  text-align:center;
+}
+
+#arbeitsweise #questions-title{
+  max-width:980px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:34px;
+}
+
+#arbeitsweise .cards.five{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:28px;
+  margin-top:0;
+  align-items:stretch;
+}
+
+#arbeitsweise .cards.five>.card{
+  grid-column:span 2;
+  position:relative;
+  min-height:300px;
+  padding:42px 34px 34px!important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+#arbeitsweise .cards.five>.card:nth-child(4){grid-column:2 / span 2}
+#arbeitsweise .cards.five>.card:nth-child(5){grid-column:4 / span 2}
+
+#arbeitsweise .cards.five>.card .card-number{
+  position:absolute;
+  top:22px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:0;
+  display:block;
+  margin:0;
+  color:rgba(8,119,168,.10);
+  font-size:clamp(5.8rem,8vw,8rem);
+  line-height:.82;
+  letter-spacing:-.06em;
+  font-weight:800;
+  pointer-events:none;
+}
+
+#arbeitsweise .cards.five>.card:nth-child(3) .card-number{
+  color:rgba(38,115,60,.11);
+}
+
+#arbeitsweise .cards.five>.card h3,
+#arbeitsweise .cards.five>.card p{
+  position:relative;
+  z-index:1;
+  width:100%;
+  text-align:center!important;
+}
+
+#arbeitsweise .cards.five>.card h3{
+  min-height:0!important;
+  margin:84px 0 18px!important;
+  display:block!important;
+  font-size:clamp(1.45rem,2vw,1.8rem);
+  line-height:1.1;
+}
+
+#arbeitsweise .cards.five>.card p{
+  max-width:330px;
+  margin:0 auto!important;
+  line-height:1.6;
+}
+
+#arbeitsweise .cards.five>.card:nth-child(3){
+  border-top-color:var(--green)!important;
+}
+
+@media(max-width:900px){
+  #arbeitsweise .cards.five{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:22px;
+  }
+  #arbeitsweise .cards.five>.card,
+  #arbeitsweise .cards.five>.card:nth-child(4){
+    grid-column:auto;
+  }
+  #arbeitsweise .cards.five>.card:nth-child(5){
+    grid-column:1 / -1;
+    width:calc(50% - 11px);
+    justify-self:center;
+  }
+}
+
+@media(max-width:760px){
+  #arbeitsweise #questions-title{margin-bottom:26px}
+  #arbeitsweise .cards.five{grid-template-columns:1fr;gap:18px}
+  #arbeitsweise .cards.five>.card,
+  #arbeitsweise .cards.five>.card:nth-child(4),
+  #arbeitsweise .cards.five>.card:nth-child(5){
+    grid-column:auto;
+    width:100%;
+    min-height:250px;
+    padding:34px 24px 28px!important;
+  }
+  #arbeitsweise .cards.five>.card h3{margin-top:70px!important}
+}
