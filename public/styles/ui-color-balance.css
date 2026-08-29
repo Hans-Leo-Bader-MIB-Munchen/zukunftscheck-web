@@ -83,9 +83,16 @@ body:has(.module-page form[data-submit-form]) .module-page .cards.three>.path-ca
   text-align:center!important;
 }
 
+/* Dunkler Rechtsentwicklungsblock: Link muss auf der Fläche klar lesbar bleiben. */
+section[aria-labelledby="rechtsentwicklung-title"] .text-link{
+  color:#fff!important;
+  text-decoration-color:rgba(255,255,255,.72)!important;
+}
+
 @media(max-width:760px){
   #angebote .applications-grid>.project-control-card{padding-top:4.4rem!important}
   #definition-title .desktop-definition-break,
   #stages-title .desktop-stages-break,
-  #limits-title .desktop-limits-break{display:none}
+  #limits-title .desktop-limits-break,
+  #rechtsentwicklung-title .desktop-rechtsentwicklung-break{display:none}
 }
