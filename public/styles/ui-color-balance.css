@@ -90,6 +90,8 @@ section[aria-labelledby="stages-title"] .text-link{
   text-decoration-color:rgba(255,255,255,.72)!important;
 }
 
+.mobile-offers-break{display:none}
+
 @media(max-width:760px){
   #angebote .applications-grid>.project-control-card{padding-top:4.4rem!important}
   #definition-title .desktop-definition-break,
@@ -97,8 +99,11 @@ section[aria-labelledby="stages-title"] .text-link{
   #limits-title .desktop-limits-break,
   #rechtsentwicklung-title .desktop-rechtsentwicklung-break{display:none}
 
+  .mobile-offers-break{display:block}
+
   /* Mobile Titel sollen natürlich umbrechen, aber keine unschönen Worttrennungen erzeugen. */
-  #stages-title{
+  #stages-title,
+  #offers-title{
     hyphens:none;
     word-break:normal;
     overflow-wrap:normal;
