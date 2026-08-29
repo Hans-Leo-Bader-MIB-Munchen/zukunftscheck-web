@@ -78,6 +78,17 @@
     );
   }
 
+  const rechtsentwicklungTitle = document.querySelector('#rechtsentwicklung-title');
+  if (rechtsentwicklungTitle && !rechtsentwicklungTitle.querySelector('.desktop-rechtsentwicklung-break')) {
+    rechtsentwicklungTitle.replaceChildren(
+      document.createTextNode('Was geschieht, wenn bestehende Regeln,'),
+      Object.assign(document.createElement('br'), { className: 'desktop-rechtsentwicklung-break' }),
+      document.createTextNode('Zuständigkeiten oder Verfahren'),
+      Object.assign(document.createElement('br'), { className: 'desktop-rechtsentwicklung-break' }),
+      document.createTextNode('erkennbare Probleme nicht lösen?')
+    );
+  }
+
   const applicationGrid = document.querySelector('#angebote .cards.three');
   if (applicationGrid && applicationGrid.children.length === 6) {
     if (!document.querySelector('link[href="/styles/anwendungsfelder.css"]')) {
