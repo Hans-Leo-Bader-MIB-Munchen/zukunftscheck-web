@@ -69,6 +69,15 @@
     );
   }
 
+  const questionsTitle = document.querySelector('#questions-title');
+  if (questionsTitle && !questionsTitle.querySelector('.desktop-questions-break')) {
+    questionsTitle.replaceChildren(
+      document.createTextNode('Am Anfang stehen Ziel, Rolle,'),
+      Object.assign(document.createElement('br'), { className: 'desktop-questions-break' }),
+      document.createTextNode('Zuständigkeit und Entscheidungsbedarf.')
+    );
+  }
+
   const applicationGrid = document.querySelector('#angebote .cards.three');
   if (applicationGrid && applicationGrid.children.length === 6) {
     if (!document.querySelector('link[href="/styles/anwendungsfelder.css"]')) {
