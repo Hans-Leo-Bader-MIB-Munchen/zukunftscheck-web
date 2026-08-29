@@ -51,17 +51,6 @@ h3 {
   hyphens: auto;
 }
 
-@media (max-width: 380px) {
-  h1,
-  h2,
-  h3 {
-    overflow-wrap: normal;
-    word-break: normal;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-  }
-}
-
 /* Beteiligungsseite: oben kampagnenartig, darunter bewusst funktional und linksbündig. */
 body:has(.module-page form[data-submit-form]) .module-page {
   overflow: visible;
