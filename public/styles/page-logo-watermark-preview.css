@@ -1,0 +1,39 @@
+/* Issue #77 – Musterstufe: sehr dezentes rundes ZukunftsCheck-Logo als Seiten-Wasserzeichen.
+   Bewusst nur auf drei repräsentativen Seiten aktiv. Kein Vollrollout. */
+
+:where(
+  body:has(.hero[aria-labelledby="hero-title"]),
+  body:has(.module-page form[data-submit-form]),
+  body:has(a[aria-current="page"][href="/kommune.html"])
+) {
+  background-image:
+    linear-gradient(rgba(244, 247, 249, .955), rgba(244, 247, 249, .955)),
+    url('/assets/ZC_Logo_rund.png');
+  background-repeat: repeat, no-repeat;
+  background-size: auto, clamp(420px, 46vw, 760px);
+  background-position: 0 0, calc(100% - 4vw) 56%;
+  background-attachment: scroll, fixed;
+}
+
+@media (max-width: 1000px) {
+  :where(
+    body:has(.hero[aria-labelledby="hero-title"]),
+    body:has(.module-page form[data-submit-form]),
+    body:has(a[aria-current="page"][href="/kommune.html"])
+  ) {
+    background-size: auto, min(68vw, 620px);
+    background-position: 0 0, calc(100% + 7vw) 54%;
+  }
+}
+
+@media (max-width: 760px) {
+  :where(
+    body:has(.hero[aria-labelledby="hero-title"]),
+    body:has(.module-page form[data-submit-form]),
+    body:has(a[aria-current="page"][href="/kommune.html"])
+  ) {
+    background-size: auto, min(92vw, 500px);
+    background-position: 0 0, 122% 52%;
+    background-attachment: scroll, scroll;
+  }
+}
