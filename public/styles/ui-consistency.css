@@ -175,7 +175,7 @@
 .legal-hero{width:min(var(--ui-content),calc(100% - (2 * var(--ui-gutter))))!important;max-width:var(--ui-content)!important}
 
 /* Footer überall gleiche Geometrie. */
-.site-footer{padding:42px 0 55px!important}
+.site-footer{padding:42px 0 55px}
 
 /* -----------------------------------------------------------------
    Runde 3: ruhige Kartenarchitektur.
