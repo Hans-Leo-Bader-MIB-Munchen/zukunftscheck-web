@@ -278,7 +278,6 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
 .hero[aria-labelledby="hero-title"] .hero-card .text-link {
   position: absolute;
   left: 50%;
-  bottom: 8px;
   transform: translateX(-50%);
   z-index: 3;
   display: inline-flex !important;
@@ -319,7 +318,6 @@ body:has(.module-page form[data-submit-form]) .module-page .section {
 
 @media (max-width: 760px) {
   .hero[aria-labelledby="hero-title"] .hero-card .text-link {
-    bottom: 6px;
     min-height: 34px;
     padding: 7px 13px;
     font-size: .82rem;
