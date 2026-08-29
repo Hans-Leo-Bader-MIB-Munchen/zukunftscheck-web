@@ -1,4 +1,4 @@
-/* Issue #77 – Musterstufe: sehr dezentes rundes ZukunftsCheck-Logo als Seiten-Wasserzeichen.
+/* Issue #77 – Musterstufe: dezentes rundes ZukunftsCheck-Logo als Seiten-Wasserzeichen.
    Bewusst nur auf drei repräsentativen Seiten aktiv. Kein Vollrollout. */
 
 :where(
@@ -7,7 +7,7 @@
   body:has(a[aria-current="page"][href="/kommune.html"])
 ) {
   background-image:
-    linear-gradient(rgba(244, 247, 249, .955), rgba(244, 247, 249, .955)),
+    linear-gradient(rgba(244, 247, 249, .90), rgba(244, 247, 249, .90)),
     url('/assets/ZC_Logo_rund.png');
   background-repeat: repeat, no-repeat;
   background-size: auto, clamp(420px, 46vw, 760px);
