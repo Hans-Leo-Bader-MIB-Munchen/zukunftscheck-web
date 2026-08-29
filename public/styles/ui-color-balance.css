@@ -96,4 +96,11 @@ section[aria-labelledby="stages-title"] .text-link{
   #stages-title .desktop-stages-break,
   #limits-title .desktop-limits-break,
   #rechtsentwicklung-title .desktop-rechtsentwicklung-break{display:none}
+
+  /* Mobile Titel sollen natürlich umbrechen, aber keine unschönen Worttrennungen erzeugen. */
+  #stages-title{
+    hyphens:none;
+    word-break:normal;
+    overflow-wrap:normal;
+  }
 }
