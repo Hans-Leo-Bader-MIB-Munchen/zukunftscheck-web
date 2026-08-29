@@ -78,6 +78,15 @@
     );
   }
 
+  const offersTitle = document.querySelector('#offers-title');
+  if (offersTitle && !offersTitle.querySelector('.mobile-offers-break')) {
+    offersTitle.replaceChildren(
+      document.createTextNode('Fünf Anwendungsfelder'),
+      Object.assign(document.createElement('br'), { className: 'mobile-offers-break' }),
+      document.createTextNode(' für unterschiedliche Entscheidungssituationen.')
+    );
+  }
+
   const rechtsentwicklungTitle = document.querySelector('#rechtsentwicklung-title');
   if (rechtsentwicklungTitle && !rechtsentwicklungTitle.querySelector('.desktop-rechtsentwicklung-break')) {
     rechtsentwicklungTitle.replaceChildren(
