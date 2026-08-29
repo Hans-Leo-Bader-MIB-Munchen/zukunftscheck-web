@@ -47,7 +47,7 @@
     definitionTitle.replaceChildren(
       document.createTextNode('Orientierung, Strukturierung und Klärung'),
       Object.assign(document.createElement('br'), { className: 'desktop-definition-break' }),
-      document.createTextNode('des nächsten belastbaren Schritts.')
+      document.createTextNode(' des nächsten belastbaren Schritts.')
     );
   }
 
@@ -56,7 +56,7 @@
     stagesTitle.replaceChildren(
       document.createTextNode('Von der kostenfreien ersten Einordnung'),
       Object.assign(document.createElement('br'), { className: 'desktop-stages-break' }),
-      document.createTextNode('zum passenden nächsten Schritt.')
+      document.createTextNode(' zum passenden nächsten Schritt.')
     );
   }
 
@@ -65,7 +65,7 @@
     limitsTitle.replaceChildren(
       document.createTextNode('Der ZukunftsCheck bleibt vor Fachplanung,'),
       Object.assign(document.createElement('br'), { className: 'desktop-limits-break' }),
-      document.createTextNode('Umsetzung und spezialisierten Beratungsleistungen.')
+      document.createTextNode(' Umsetzung und spezialisierten Beratungsleistungen.')
     );
   }
 
@@ -74,7 +74,27 @@
     questionsTitle.replaceChildren(
       document.createTextNode('Am Anfang stehen Ziel, Rolle,'),
       Object.assign(document.createElement('br'), { className: 'desktop-questions-break' }),
-      document.createTextNode('Zuständigkeit und Entscheidungsbedarf.')
+      document.createTextNode(' Zuständigkeit und Entscheidungsbedarf.')
+    );
+  }
+
+  const offersTitle = document.querySelector('#offers-title');
+  if (offersTitle && !offersTitle.querySelector('.mobile-offers-break')) {
+    offersTitle.replaceChildren(
+      document.createTextNode('Fünf Anwendungsfelder'),
+      Object.assign(document.createElement('br'), { className: 'mobile-offers-break' }),
+      document.createTextNode(' für unterschiedliche Entscheidungssituationen.')
+    );
+  }
+
+  const rechtsentwicklungTitle = document.querySelector('#rechtsentwicklung-title');
+  if (rechtsentwicklungTitle && !rechtsentwicklungTitle.querySelector('.desktop-rechtsentwicklung-break')) {
+    rechtsentwicklungTitle.replaceChildren(
+      document.createTextNode('Was geschieht, wenn bestehende Regeln,'),
+      Object.assign(document.createElement('br'), { className: 'desktop-rechtsentwicklung-break' }),
+      document.createTextNode(' Zuständigkeiten oder Verfahren'),
+      Object.assign(document.createElement('br'), { className: 'desktop-rechtsentwicklung-break' }),
+      document.createTextNode(' erkennbare Probleme nicht lösen?')
     );
   }
 
