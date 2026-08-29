@@ -2,17 +2,17 @@
    Farben und Inhalte des ZukunftsChecks bleiben eigenständig. */
 
 :root{
-  --zs-ink:#123b56;
-  --zs-ink-soft:#3c5b6e;
-  --zs-blue:#0877a8;
-  --zs-blue-dark:#075f87;
-  --zs-blue-soft:#dcecf3;
-  --zs-green:#26733c;
-  --zs-green-soft:#e2f4e7;
-  --zs-gold:#d59b00;
-  --zs-gold-soft:#fff6d9;
-  --zs-paper:#fff;
-  --zs-canvas:#f4f7f9;
+  --zs-ink:var(--ink);
+  --zs-ink-soft:var(--ink-soft);
+  --zs-blue:var(--blue);
+  --zs-blue-dark:var(--blue-dark);
+  --zs-blue-soft:var(--blue-soft);
+  --zs-green:var(--green);
+  --zs-green-soft:var(--green-soft);
+  --zs-gold:var(--gold);
+  --zs-gold-soft:var(--gold-soft);
+  --zs-paper:var(--paper);
+  --zs-canvas:var(--canvas);
   --zs-line:rgba(18,59,86,.17);
   --desktop-content:1240px;
   --desktop-gutter:40px;
