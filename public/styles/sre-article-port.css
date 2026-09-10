@@ -1,0 +1,370 @@
+/* SRE article port for ZukunftsCheck preview.
+   Scoped deliberately so the ordinary ZukunftsCheck UI remains untouched. */
+
+body:has(.article-grid){
+  --sre-bg:#f6f2e8;
+  --sre-surface:#fbf8f1;
+  --sre-text:#21221d;
+  --sre-muted:#5a6159;
+  --sre-line:#aeb6ac;
+  --sre-line-soft:#d4dbd2;
+  --sre-accent:#2f5a4a;
+  --sre-accent-soft:#e5eee8;
+  margin:0;
+  background:var(--sre-bg);
+  color:var(--sre-text);
+  font-family:'Inter','Source Sans 3','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.72;
+}
+
+body:has(.article-grid) main{
+  padding:1.6rem 0 5rem;
+}
+
+body:has(.article-grid) .site-header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  min-height:5.15rem;
+  padding:.95rem max(1rem,calc((100% - 1140px)/2));
+  background:color-mix(in srgb,var(--sre-bg) 92%,white);
+  border-bottom:1px solid var(--sre-line-soft);
+  backdrop-filter:blur(3px);
+  box-shadow:none;
+}
+
+body:has(.article-grid) .site-header .brand{
+  gap:.75rem;
+  color:var(--sre-text);
+  font-size:.93rem;
+  font-weight:500;
+  letter-spacing:.01em;
+}
+
+body:has(.article-grid) .site-header .brand-mark{
+  width:2.3rem;
+  height:2.3rem;
+  border:1px solid var(--sre-line);
+  border-radius:999px;
+  background:transparent;
+  color:var(--sre-accent);
+  font-size:.72rem;
+}
+
+body:has(.article-grid) .hero{
+  display:block;
+  width:auto;
+  max-width:none;
+  margin:0;
+  padding:clamp(2.4rem,6vw,5.2rem) 0 2rem;
+  background:transparent;
+  color:var(--sre-text);
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+
+body:has(.article-grid) .hero-inner,
+body:has(.article-grid) .article-wide,
+body:has(.article-grid) .article-grid,
+body:has(.article-grid) .footer-note,
+body:has(.article-grid) .caption{
+  width:min(1180px,calc(100vw - 3rem));
+  margin-left:auto;
+  margin-right:auto;
+}
+
+body:has(.article-grid) .hero-copy{
+  width:min(920px,100%);
+}
+
+body:has(.article-grid) .kicker{
+  margin:0 0 1rem;
+  color:var(--sre-accent);
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.13em;
+  line-height:1.4;
+  text-transform:uppercase;
+}
+
+body:has(.article-grid) h1.title{
+  max-width:22ch;
+  margin:0;
+  color:var(--sre-text);
+  font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;
+  font-size:clamp(2.1rem,4.8vw,3.9rem);
+  font-weight:600;
+  line-height:1.06;
+  letter-spacing:-.025em;
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
+  text-wrap:balance;
+}
+
+body:has(.article-grid) .dek{
+  max-width:760px;
+  margin:1.6rem 0 0;
+  color:color-mix(in srgb,var(--sre-text) 83%,var(--sre-muted));
+  font-size:clamp(1.08rem,2vw,1.32rem);
+  line-height:1.55;
+}
+
+body:has(.article-grid) .meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem 1rem;
+  margin-top:1.35rem;
+  color:var(--sre-muted);
+  font-size:.9rem;
+}
+
+body:has(.article-grid) .preview-note{
+  width:min(1180px,calc(100vw - 3rem));
+  margin:0 auto 2rem;
+  padding:.9rem 1rem;
+  border:1px solid var(--sre-line-soft);
+  background:color-mix(in srgb,var(--sre-surface) 88%,white);
+  color:var(--sre-muted);
+  font-size:.88rem;
+  line-height:1.55;
+}
+
+body:has(.article-grid) .figure{
+  margin:0;
+  border-top:1px solid var(--sre-line-soft);
+  border-bottom:1px solid var(--sre-line-soft);
+  background:#dfe5de;
+}
+
+body:has(.article-grid) .image-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+}
+
+body:has(.article-grid) .image-wrap img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+}
+
+body:has(.article-grid) .caption{
+  padding:.8rem 0 .95rem;
+  color:var(--sre-muted);
+  font-size:.82rem;
+  line-height:1.5;
+}
+
+body:has(.article-grid) .thesis-band{
+  margin:clamp(2.2rem,6vw,5rem) auto 0;
+  padding:clamp(1.5rem,3.5vw,2.2rem);
+  border:1px solid color-mix(in srgb,var(--sre-accent) 24%,var(--sre-line-soft));
+  border-radius:1.15rem;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--sre-accent-soft) 94%,white),var(--sre-surface));
+  box-shadow:none;
+}
+
+body:has(.article-grid) .thesis-label{
+  margin:0 0 .65rem;
+  color:var(--sre-accent);
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+
+body:has(.article-grid) .thesis{
+  max-width:860px;
+  margin:0;
+  color:var(--sre-text);
+  font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;
+  font-size:clamp(1.5rem,2.8vw,2.05rem);
+  font-weight:600;
+  line-height:1.22;
+  letter-spacing:-.008em;
+}
+
+body:has(.article-grid) .article-grid{
+  display:grid;
+  grid-template-columns:minmax(180px,240px) minmax(0,760px);
+  justify-content:space-between;
+  align-items:start;
+  gap:clamp(2rem,7vw,7rem);
+  padding:clamp(3.5rem,8vw,7rem) 0 2rem;
+}
+
+body:has(.article-grid) .toc{
+  display:block;
+  position:sticky;
+  top:7rem;
+  align-self:start;
+  min-width:0;
+  padding:0;
+  margin:0;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+
+body:has(.article-grid) .toc-title{
+  margin:0 0 .85rem;
+  color:var(--sre-muted);
+  font-size:.76rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+body:has(.article-grid) .toc ol{
+  margin:0;
+  padding:0;
+  list-style:none;
+  columns:auto;
+}
+
+body:has(.article-grid) .toc li{
+  margin:0;
+  padding:0;
+  border-top:1px solid var(--sre-line-soft);
+  list-style:none;
+}
+
+body:has(.article-grid) .toc li:last-child{
+  border-bottom:1px solid var(--sre-line-soft);
+}
+
+body:has(.article-grid) .toc a{
+  display:block;
+  padding:.58rem 0;
+  color:var(--sre-muted);
+  font-size:.82rem;
+  font-weight:400;
+  line-height:1.35;
+  text-decoration:none!important;
+}
+
+body:has(.article-grid) .toc a:hover,
+body:has(.article-grid) .toc a:focus-visible{
+  color:var(--sre-accent);
+}
+
+body:has(.article-grid) article.body{
+  min-width:0;
+  width:auto;
+  max-width:none;
+  margin:0;
+  padding:0;
+}
+
+body:has(.article-grid) .body p,
+body:has(.article-grid) .body li{
+  color:var(--sre-text);
+  font-size:clamp(1.01rem,1.4vw,1.08rem);
+  line-height:1.78;
+}
+
+body:has(.article-grid) .body p{
+  max-width:70ch;
+  margin:0 0 1rem;
+}
+
+body:has(.article-grid) .body h2{
+  max-width:none;
+  margin:clamp(3.4rem,7vw,5.6rem) 0 1rem;
+  padding-top:.35rem;
+  color:var(--sre-text);
+  font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;
+  font-size:clamp(1.55rem,2.7vw,2.05rem);
+  font-weight:600;
+  line-height:1.16;
+  letter-spacing:-.012em;
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
+  text-wrap:balance;
+}
+
+body:has(.article-grid) .body h2:first-of-type{
+  margin-top:clamp(3.4rem,7vw,5.6rem);
+}
+
+body:has(.article-grid) .lead{
+  max-width:70ch;
+  color:var(--sre-text);
+}
+
+body:has(.article-grid) .lead::first-letter{
+  float:left;
+  margin:.1rem .12rem 0 0;
+  color:#24483b;
+  font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;
+  font-size:4.5rem;
+  font-weight:600;
+  line-height:.72;
+}
+
+body:has(.article-grid) .pull-quote{
+  margin:2.4rem 0;
+  padding:1.35rem 0 1.25rem 1.5rem;
+  border:0;
+  border-left:3px solid var(--sre-accent);
+  background:transparent;
+  color:#24483b;
+  font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;
+  font-size:clamp(1.35rem,2.5vw,1.75rem);
+  font-weight:600;
+  line-height:1.28;
+}
+
+body:has(.article-grid) .sources,
+body:has(.article-grid) .license{
+  color:var(--sre-text);
+}
+
+body:has(.article-grid) .sources h2,
+body:has(.article-grid) .license h2{
+  font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;
+}
+
+body:has(.article-grid) .footer-note{
+  margin-top:3rem;
+  padding:1.4rem 0 4rem;
+  border-top:1px solid var(--sre-line-soft);
+  color:var(--sre-muted);
+}
+
+@media(max-width:900px){
+  body:has(.article-grid) .article-grid{
+    grid-template-columns:1fr;
+    gap:1rem;
+  }
+  body:has(.article-grid) .toc{
+    position:static;
+    display:none;
+  }
+}
+
+@media(max-width:640px){
+  body:has(.article-grid) .hero-inner,
+  body:has(.article-grid) .article-wide,
+  body:has(.article-grid) .article-grid,
+  body:has(.article-grid) .footer-note,
+  body:has(.article-grid) .caption,
+  body:has(.article-grid) .preview-note{
+    width:min(100% - 2rem,1180px);
+  }
+  body:has(.article-grid) .hero{
+    padding-top:2rem;
+  }
+  body:has(.article-grid) h1.title{
+    font-size:clamp(1.95rem,9.5vw,2.65rem);
+  }
+  body:has(.article-grid) .thesis-band{
+    border-radius:.85rem;
+  }
+}
