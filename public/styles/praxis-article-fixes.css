@@ -87,14 +87,14 @@ body:has(.article-grid) .site-header{
   width:100%;
 }
 
-/* Tablet / iPad: full-bleed like the SRE articles, but with a controlled visual height. */
+/* Tablet / iPad: full-width stage, but preserve the complete 16:9 infographic. */
 @media(min-width:901px) and (max-width:1440px){
   body:has(.article-grid) .figure{
     width:100%!important;
     max-width:none!important;
     margin:0!important;
     padding:0!important;
-    background:#dfe5de!important;
+    background:#fff!important;
   }
   body:has(.article-grid) .figure .image-wrap{
     width:100%!important;
@@ -104,12 +104,17 @@ body:has(.article-grid) .site-header{
     margin:0!important;
     border-radius:0!important;
     overflow:hidden!important;
+    background:#fff!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
   }
   body:has(.article-grid) .figure .image-wrap img{
     width:100%!important;
     height:100%!important;
-    object-fit:cover!important;
+    object-fit:contain!important;
     object-position:center!important;
+    display:block!important;
   }
   body:has(.article-grid) .figure .caption{
     width:min(1180px,calc(100vw - 3rem))!important;
@@ -141,7 +146,7 @@ body:has(.article-grid) .site-header{
   body:has(.article-grid) .figure .image-wrap img{
     width:100%!important;
     height:100%!important;
-    object-fit:cover!important;
+    object-fit:contain!important;
     object-position:center!important;
   }
 }
