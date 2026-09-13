@@ -1,8 +1,10 @@
 (() => {
-  if (!document.querySelector('link[href="/styles/praxis-article-fixes.css"]')) {
+  const fixesVersion = '20260913-4';
+  if (!document.querySelector('link[data-praxis-article-fixes]')) {
     const layoutFixes = document.createElement('link');
     layoutFixes.rel = 'stylesheet';
-    layoutFixes.href = '/styles/praxis-article-fixes.css';
+    layoutFixes.dataset.praxisArticleFixes = 'true';
+    layoutFixes.href = `/styles/praxis-article-fixes.css?v=${fixesVersion}`;
     document.head.appendChild(layoutFixes);
   }
 
