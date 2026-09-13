@@ -87,16 +87,17 @@ body:has(.article-grid) .site-header{
   width:100%;
 }
 
-/* iPad / tablet widths: keep the 16:9 graphic visually lighter than full-bleed desktop. */
-@media(min-width:901px) and (max-width:1180px){
+/* Tablet / iPad, including landscape viewports above 1180 CSS px. */
+@media(min-width:901px) and (max-width:1366px){
   body:has(.article-grid) .figure{
     background:#fff;
-    padding-top:.75rem;
+    padding:1rem 0;
   }
   body:has(.article-grid) .figure .image-wrap{
-    width:min(calc(100% - 4rem),860px)!important;
+    width:min(78vw,820px)!important;
+    height:auto!important;
     aspect-ratio:16/9!important;
-    margin-inline:auto;
+    margin-inline:auto!important;
     border-radius:.75rem;
     overflow:hidden;
   }
@@ -105,6 +106,9 @@ body:has(.article-grid) .site-header{
     height:100%!important;
     object-fit:cover!important;
     object-position:center!important;
+  }
+  body:has(.article-grid) .figure .caption{
+    width:min(78vw,820px)!important;
   }
 }
 
