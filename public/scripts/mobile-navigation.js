@@ -4,12 +4,13 @@
 
   if (!header || !nav) return;
 
-  /* Globale Navigation: auf allen Inhaltsseiten dieselben fünf Hauptziele. */
+  /* Globale Navigation: auf allen Inhaltsseiten dieselben Hauptziele. */
   const currentPath = window.location.pathname;
   const navItems = [
     { href: '/index.html', label: 'Start', active: currentPath === '/' || currentPath === '/index.html' },
     { href: '/index.html#angebote', label: 'Anwendungsfelder', active: ['/kommune.html','/organisation.html','/gebaeude-energie.html','/kommunikation-veranstaltungen.html','/entscheidung.html'].includes(currentPath) },
     { href: '/projektsteuerung.html', label: 'Projektsteuerung', active: currentPath === '/projektsteuerung.html' },
+    { href: '/praxis.html', label: 'Praxis', active: currentPath === '/praxis.html' || currentPath === '/verfassungsschutz-politisch-steuerbar.html' },
     { href: '/teilnahme.html', label: 'Beteiligung', active: currentPath === '/teilnahme.html' },
     { href: '/veranstaltungen.html', label: 'Veranstaltungen', active: currentPath === '/veranstaltungen.html' || currentPath.startsWith('/veranstaltung-') }
   ];
