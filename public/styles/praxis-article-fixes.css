@@ -22,6 +22,24 @@
   text-align:left;
 }
 #praxis .card p,#praxis .card h3,#praxis .card .text-link{text-align:left}
+#praxis .praxis-preview-image{
+  display:block;
+  margin-top:1.35rem;
+  overflow:hidden;
+  border-radius:.8rem;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  background:#fff;
+  text-decoration:none;
+}
+#praxis .praxis-preview-image img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  object-position:center;
+}
 
 /* Editorial article isolation: undo homepage/module layout rules around article components. */
 body:has(.article-grid) .hero{
@@ -78,8 +96,27 @@ body:has(.article-grid) .site-header{
   }
   body:has(.article-grid) .article-grid>.toc{display:none!important}
   body:has(.article-grid) .article-grid>.body{grid-column:1}
+  body:has(.article-grid) .figure{
+    background:#fff;
+    padding-top:.75rem;
+  }
+  body:has(.article-grid) .figure .image-wrap{
+    width:min(100% - 2rem,680px)!important;
+    height:clamp(180px,46vw,290px)!important;
+    aspect-ratio:auto!important;
+    margin-inline:auto;
+    border-radius:.75rem;
+    overflow:hidden;
+  }
+  body:has(.article-grid) .figure .image-wrap img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
 }
 
 @media(max-width:380px){
   #praxis.section.highlight.split{width:min(100% - 22px,1120px)}
+  #praxis .praxis-preview-image{margin-top:1rem}
 }
