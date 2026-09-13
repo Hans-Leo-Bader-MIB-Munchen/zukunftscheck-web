@@ -87,6 +87,27 @@ body:has(.article-grid) .site-header{
   width:100%;
 }
 
+/* iPad / tablet widths: keep the 16:9 graphic visually lighter than full-bleed desktop. */
+@media(min-width:901px) and (max-width:1180px){
+  body:has(.article-grid) .figure{
+    background:#fff;
+    padding-top:.75rem;
+  }
+  body:has(.article-grid) .figure .image-wrap{
+    width:min(calc(100% - 4rem),860px)!important;
+    aspect-ratio:16/9!important;
+    margin-inline:auto;
+    border-radius:.75rem;
+    overflow:hidden;
+  }
+  body:has(.article-grid) .figure .image-wrap img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+}
+
 @media(max-width:900px){
   #praxis.section.highlight.split{grid-template-columns:1fr}
   body:has(.article-grid) .article-grid{
