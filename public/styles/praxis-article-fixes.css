@@ -1,0 +1,85 @@
+/* Praxis showcase: keep the homepage in the standard ZukunftsCheck visual system. */
+#praxis.section.highlight.split{
+  width:min(1120px,calc(100% - 32px));
+  margin-inline:auto;
+  padding:clamp(3rem,7vw,5.5rem) 0;
+  border-radius:0;
+  background:transparent;
+  color:var(--ink);
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:clamp(2rem,6vw,5rem);
+}
+#praxis .section-label{color:var(--blue-dark)}
+#praxis h2,#praxis h3{color:var(--ink)}
+#praxis p{color:var(--ink-soft)}
+#praxis .text-link{color:var(--blue-dark)}
+#praxis .card{
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  color:var(--ink);
+  align-items:flex-start;
+  text-align:left;
+}
+#praxis .card p,#praxis .card h3,#praxis .card .text-link{text-align:left}
+
+/* Editorial article isolation: undo homepage/module layout rules around article components. */
+body:has(.article-grid) .hero{
+  display:block;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:clamp(2.4rem,6vw,5.2rem) 0 2rem;
+  grid-template-columns:none;
+}
+body:has(.article-grid) .hero-inner,
+body:has(.article-grid) .article-wide,
+body:has(.article-grid) .article-grid,
+body:has(.article-grid) .footer-note,
+body:has(.article-grid) .caption{
+  width:min(1180px,calc(100vw - 3rem));
+  margin-inline:auto;
+}
+body:has(.article-grid) .article-grid{
+  display:grid;
+  grid-template-columns:minmax(190px,240px) minmax(0,760px);
+  justify-content:space-between;
+  align-items:start;
+  gap:clamp(2.5rem,7vw,7rem);
+}
+body:has(.article-grid) .article-grid>.toc{
+  grid-column:1;
+  position:sticky;
+  top:7rem;
+  align-self:start;
+  display:block;
+  min-width:0;
+}
+body:has(.article-grid) .article-grid>.body{
+  grid-column:2;
+  min-width:0;
+  width:100%;
+}
+body:has(.article-grid) .figure{
+  width:100%;
+  max-width:none;
+  margin-inline:0;
+}
+body:has(.article-grid) .site-header{
+  width:100%;
+}
+
+@media(max-width:900px){
+  #praxis.section.highlight.split{grid-template-columns:1fr}
+  body:has(.article-grid) .article-grid{
+    grid-template-columns:1fr;
+    width:min(100% - 2rem,1180px);
+    gap:0;
+  }
+  body:has(.article-grid) .article-grid>.toc{display:none!important}
+  body:has(.article-grid) .article-grid>.body{grid-column:1}
+}
+
+@media(max-width:380px){
+  #praxis.section.highlight.split{width:min(100% - 22px,1120px)}
+}
