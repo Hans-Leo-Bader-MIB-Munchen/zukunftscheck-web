@@ -87,19 +87,19 @@ body:has(.article-grid) .site-header{
   width:100%;
 }
 
-/* Tablet / iPad, including landscape viewports above 1180 CSS px. */
-@media(min-width:901px) and (max-width:1366px){
+/* Tablet / iPad: deliberately compact image, including landscape widths. */
+@media(min-width:901px) and (max-width:1440px){
   body:has(.article-grid) .figure{
-    background:#fff;
-    padding:1rem 0;
+    background:#fff!important;
+    padding:1rem 0 1.2rem!important;
   }
   body:has(.article-grid) .figure .image-wrap{
-    width:min(78vw,820px)!important;
+    width:min(68vw,720px)!important;
     height:auto!important;
     aspect-ratio:16/9!important;
-    margin-inline:auto!important;
-    border-radius:.75rem;
-    overflow:hidden;
+    margin:0 auto!important;
+    border-radius:.75rem!important;
+    overflow:hidden!important;
   }
   body:has(.article-grid) .figure .image-wrap img{
     width:100%!important;
@@ -108,7 +108,7 @@ body:has(.article-grid) .site-header{
     object-position:center!important;
   }
   body:has(.article-grid) .figure .caption{
-    width:min(78vw,820px)!important;
+    width:min(68vw,720px)!important;
   }
 }
 
