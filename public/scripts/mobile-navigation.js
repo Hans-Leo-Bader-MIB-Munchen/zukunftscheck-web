@@ -1,4 +1,11 @@
 (() => {
+  if (!document.querySelector('link[href="/styles/praxis-article-fixes.css"]')) {
+    const layoutFixes = document.createElement('link');
+    layoutFixes.rel = 'stylesheet';
+    layoutFixes.href = '/styles/praxis-article-fixes.css';
+    document.head.appendChild(layoutFixes);
+  }
+
   const header = document.querySelector('.site-header');
   const nav = header?.querySelector('nav');
 
