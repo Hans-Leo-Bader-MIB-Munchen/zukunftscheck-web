@@ -87,18 +87,22 @@ body:has(.article-grid) .site-header{
   width:100%;
 }
 
-/* Tablet / iPad: deliberately compact image, including landscape widths. */
+/* Tablet / iPad: full-bleed like the SRE articles, but with a controlled visual height. */
 @media(min-width:901px) and (max-width:1440px){
   body:has(.article-grid) .figure{
-    background:#fff!important;
-    padding:1rem 0 1.2rem!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+    background:#dfe5de!important;
   }
   body:has(.article-grid) .figure .image-wrap{
-    width:min(68vw,720px)!important;
-    height:auto!important;
-    aspect-ratio:16/9!important;
-    margin:0 auto!important;
-    border-radius:.75rem!important;
+    width:100%!important;
+    max-width:none!important;
+    height:clamp(280px,36vw,430px)!important;
+    aspect-ratio:auto!important;
+    margin:0!important;
+    border-radius:0!important;
     overflow:hidden!important;
   }
   body:has(.article-grid) .figure .image-wrap img{
@@ -108,7 +112,8 @@ body:has(.article-grid) .site-header{
     object-position:center!important;
   }
   body:has(.article-grid) .figure .caption{
-    width:min(68vw,720px)!important;
+    width:min(1180px,calc(100vw - 3rem))!important;
+    margin-inline:auto!important;
   }
 }
 
