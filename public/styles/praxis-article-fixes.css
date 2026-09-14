@@ -87,7 +87,8 @@ body:has(.article-grid) .site-header{
   width:100%;
 }
 
-/* Tablet / iPad: full-width stage, but preserve the complete 16:9 infographic. */
+/* Tablet / iPad: use the image's natural aspect ratio. This keeps every element visible
+   while still letting the graphic span the full content width. */
 @media(min-width:901px) and (max-width:1440px){
   body:has(.article-grid) .figure{
     width:100%!important;
@@ -99,21 +100,19 @@ body:has(.article-grid) .site-header{
   body:has(.article-grid) .figure .image-wrap{
     width:100%!important;
     max-width:none!important;
-    height:clamp(280px,36vw,430px)!important;
+    height:auto!important;
     aspect-ratio:auto!important;
     margin:0!important;
     border-radius:0!important;
-    overflow:hidden!important;
+    overflow:visible!important;
     background:#fff!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
   }
   body:has(.article-grid) .figure .image-wrap img{
     width:100%!important;
-    height:100%!important;
-    object-fit:contain!important;
-    object-position:center!important;
+    height:auto!important;
+    max-width:none!important;
+    object-fit:unset!important;
+    object-position:initial!important;
     display:block!important;
   }
   body:has(.article-grid) .figure .caption{
@@ -137,7 +136,7 @@ body:has(.article-grid) .site-header{
   }
   body:has(.article-grid) .figure .image-wrap{
     width:min(100% - 2rem,680px)!important;
-    height:clamp(180px,46vw,290px)!important;
+    height:auto!important;
     aspect-ratio:auto!important;
     margin-inline:auto;
     border-radius:.75rem;
@@ -145,9 +144,9 @@ body:has(.article-grid) .site-header{
   }
   body:has(.article-grid) .figure .image-wrap img{
     width:100%!important;
-    height:100%!important;
-    object-fit:contain!important;
-    object-position:center!important;
+    height:auto!important;
+    object-fit:unset!important;
+    object-position:initial!important;
   }
 }
 
