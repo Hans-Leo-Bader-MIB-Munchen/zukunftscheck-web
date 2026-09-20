@@ -75,3 +75,27 @@ Mögliche spätere Form: „Aktueller ZukunftsCheck – Prüfung läuft“. Kein
 ## 8. ALK-Gate
 Informationsarchitektur: B / TESTFÄHIG.
 Keine Veröffentlichung. Keine Sachentscheidung zum Essen-Fall. Nächster Schritt ist ein interner Seitenprototyp auf dem Feature-Branch, der ausschließlich diese Status- und Informationsebenen testet.
+
+## 9. LAIEN-GATE v0.1 – Ergebnis 20.09.2026
+
+Der interne Essen-Prototyp wurde um eine vorgeschaltete Ebene **„Kurz erklärt“** ergänzt. Sie erklärt Gegenstand, Relevanz räumlicher Unterschiede und die Reihenfolge Prüfung → Gegencheck → Befund ohne methodische Fachbegriffe.
+
+**Gate-Entscheidung:** Die derzeitige Reduktion wird für den Pilotstand als ausreichend behandelt. Weitere Vereinfachung erfolgt nicht vorsorglich, sondern feedbackbasiert im laufenden Test.
+
+**Beobachtungsgate:** Rückmeldungen von Personen ohne fachliches Vorwissen werden ausdrücklich als Testsignal genutzt. Wiederkehrende Verständnishürden lösen eine erneute Prüfung der Darstellung aus.
+
+**Option, derzeit nicht aktiviert:** Eine zusätzliche Fassung in sehr einfacher Sprache kann später als eigene Verständnisebene entwickelt werden. Sie wird nicht automatisch angelegt und ersetzt nicht die fachlich präzise Hauptfassung.
+
+**Status:** LAIEN-GATE v0.1 = PASS FÜR PILOT / BEOBACHTUNG OFFEN.
+
+## 10. NÄCHSTER ARBEITSSCHRITT
+
+Der Darstellungsprototyp wird an dieser Stelle nicht weiter vereinfacht. Nächster Schwerpunkt ist wieder der **inhaltliche Essen-Prüfprozess** gemäß § 23 des führenden Essen-Dokuments:
+
+1. ausstehenden Sabina-Input zum Hambach-/Sophienhöhe-Komplex gegen den vorhandenen Stand prüfen;
+2. daraus nur bei relevantem Delta die vorbereitete Ibisch-Anfrage anpassen;
+3. anschließend das Versand-Gate für die Ibisch-Anfrage entscheiden;
+4. parallel den Rücklauf der bereits versandten Amt62/Open-Data-Anfrage abwarten.
+
+Die öffentliche Freigabe des Essen-Falls bleibt bis zu einem gesonderten PUBLIC-ZUKUNFTSCHECK-GATE blockiert.
+
