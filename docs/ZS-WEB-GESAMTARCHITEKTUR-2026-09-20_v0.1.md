@@ -99,3 +99,21 @@ Der Vergleich main gegen feature/gesamtarchitektur-v0-1 ergab einen sauberen Bra
 
 **Status:** PRE-MERGE-/PUBLICATION-GATE = PASS MIT KORREKTUR; Korrektur am Praxis-Essen-Sichtbarkeitsblock umgesetzt.
 
+
+
+## POST-PUBLICATION-STAND – 20.09.2026
+
+**Produktionsstand:** VERÖFFENTLICHT / TECHNISCH BESTÄTIGT.
+
+- PRE-MERGE-/PUBLICATION-GATE wurde umgesetzt; die freigegebene Gesamtarchitektur wurde nach main gemergt.
+- Merge-Commit: `c12b34eaefe10248736953ec029ef31eee04967e`.
+- Nachgelagerte Praxiskorrektur: `efda93059a144de79754fe67113654f5d57514e8`.
+- Das zu `efda93059…` gehörende Vercel-Produktionsdeployment ist READY.
+- Die Praxisübersicht ist nun als allgemeine Fallübersicht ausgebildet.
+- Essen ist öffentlich ausschließlich als zurückgenommene, nicht verlinkte Vorschau sichtbar: **„IN VORBEREITUNG · PRÜFUNG LÄUFT“**. Diese Sichtbarkeit ist ausdrücklich **keine Veröffentlichung des Essen-Falls**.
+- Der interne Detailprototyp `public/praxis-essen.html` bleibt unverlinkt und `noindex,nofollow`.
+- Der zuvor auf der allgemeinen Praxisübersicht vorhandene Kasten **„Der Systemtest – Trägt die Regel auch nach einem Machtwechsel?“** wurde nach dem Live-Gang entfernt. Der Regierungswechsel-/Systemtest bleibt fallspezifische Methodik des Verfassungsschutz-Praxisfalls und ist kein allgemeiner Bestandteil jedes ZukunftsChecks.
+- Regenerative Region bleibt weiterhin außerhalb der öffentlichen Darstellung.
+- Die Option einer zusätzlichen Darstellung in sehr einfacher Sprache bleibt feedbackbasiert offen und ist nicht aktiviert.
+
+**Abschlussbefund:** WEB-ARCHITEKTURBLOCK = GESCHLOSSEN / POST-PUBLICATION-GATE PASS. Weitere Änderungen nur aufgrund eines neuen fachlichen, technischen oder Nutzerfeedback-Deltas.
