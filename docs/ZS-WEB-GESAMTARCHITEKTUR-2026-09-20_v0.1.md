@@ -83,3 +83,19 @@ Keine Grundmodelländerung erforderlich. Die bestehende Website kann durch eine 
 
 ## 8. Operativer nächster Schritt
 Auf feature/gesamtarchitektur-v0-1 zunächst nur strukturelle, nicht veröffentlichte Webfassung vorbereiten. Keine Essen-Veröffentlichung und keine Außenfreigabe Regenerative Region. Danach Code-Readback, Konsistenzcheck und visuelle Desktop-/Mobilprüfung. Erst nach bestandenem Gegencheck Entscheidung über Merge bzw. weitere Freigabegates.
+
+## PRE-MERGE-/PUBLICATION-GATE – 20.09.2026
+
+**Befund:** Die überarbeitete ZukunftsCheck-Website kann als Gesamtarchitektur grundsätzlich veröffentlicht werden. Der Essen-Fall und die Regenerative-Region-Architektur bleiben davon getrennte, weiterhin blockierte Außenfreigaben.
+
+Der Vergleich main gegen feature/gesamtarchitektur-v0-1 ergab einen sauberen Branch-Stand ohne Rückstand gegenüber main. Beim Gegencheck wurde ein relevanter Veröffentlichungsfehler gefunden: public/praxis.html enthielt bereits einen sichtbaren Essen-Block mit dem internen Status „keine Außenfreigabe“. Dieser Block wurde vor einer Veröffentlichung vollständig aus der öffentlichen Praxisübersicht entfernt. Der unverbundene Prototyp public/praxis-essen.html bleibt noindex,nofollow und wird nicht öffentlich verlinkt.
+
+**Freigabelogik:**
+- ZukunftsCheck-Webarchitektur: PUBLICATION-GATE grundsätzlich PASS.
+- Essen-Fall: BLOCKIERT bis separates PUBLIC-ZUKUNFTSCHECK-GATE.
+- Regenerative Region: BLOCKIERT bis separates Authority-/Außenfreigabe-Gate.
+- Option einfache Sprache: kein Veröffentlichungsblocker; feedbackbasiert später prüfbar.
+- Vor Merge nach main: aktualisierten Branch erneut technisch/visuell gegenprüfen; kein Merge allein aufgrund dieses Architektur-Befunds.
+
+**Status:** PRE-MERGE-/PUBLICATION-GATE = PASS MIT KORREKTUR; Korrektur am Praxis-Essen-Sichtbarkeitsblock umgesetzt.
+
