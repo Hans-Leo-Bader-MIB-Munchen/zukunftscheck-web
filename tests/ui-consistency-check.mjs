@@ -22,7 +22,7 @@ const colorBalance=read('styles/ui-color-balance.css');
 const events=read('veranstaltungen.html');
 const participation=read('participation.js');
 
-for(const label of ['Start','Anwendungsfelder','Projektsteuerung','Beteiligung','Veranstaltungen']){
+for(const label of ['Start','Anwendungsfelder','Projektsteuerung','Praxis','Beteiligung','Veranstaltungen']){
   assert.ok(nav.includes(`label: '${label}'`),`Globale Navigation fehlt: ${label}`);
 }
 assert.match(nav,/nav\.replaceChildren/,'Navigation wird nicht zentral normalisiert');
