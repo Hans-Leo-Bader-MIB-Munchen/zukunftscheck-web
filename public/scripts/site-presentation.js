@@ -92,7 +92,7 @@
       <div>
         <p class="section-label">ZukunftsCheck in der Praxis</p>
         <h2 id="praxis-title">Von der Behauptung zur belastbaren Regel.</h2>
-        <p>Der ZukunftsCheck prüft Ausgangsthese, Gegenposition, Faktenlage und Folgen – und entwickelt daraus einen tragfähigen nächsten Schritt.</p>
+        <p>Der ZukunftsCheck prüft Ausgangsthese, Gegenposition, Faktenlage und Folgen – und macht sichtbar, welche Fragen oder nächsten Prüfschritte sich daraus ergeben.</p>
         <a class="text-link" href="/praxis.html">Weitere Praxisfälle →</a>
         <a class="praxis-preview-image" href="/verfassungsschutz-politisch-steuerbar.html" aria-label="Zum ZukunftsCheck über die politische Steuerbarkeit des Verfassungsschutzes">
           <img src="/assets/31CCDA11-9FD8-4924-ABF5-1AA8708FF736.png" alt="Redaktionelle Darstellung von Innenministerium, Verfassungsschutz und demokratischer Kontrolle">
