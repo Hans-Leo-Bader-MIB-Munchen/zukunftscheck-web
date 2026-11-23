@@ -8,19 +8,63 @@
 <meta name="description" content="Interne Musteransicht ohne Datenübermittlung.">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/styles/brand.css">
-<script src="/scripts/site-presentation.js" defer></script>
-<script src="/scripts/mobile-navigation.js" defer></script>
 <script src="/events.js" defer></script>
 <script src="/scripts/event-entry.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Zum Hauptinhalt</a>
-<header class="site-header"><a class="brand" href="/index.html"><span class="brand-mark">ZC</span><span>ZukunftsCheck</span></a><nav aria-label="Hauptnavigation"><a href="/index.html">Start</a><a href="/index.html#angebote">Anwendungsfelder</a><a href="/projektsteuerung.html">Projektsteuerung</a><a href="/teilnahme.html">Beteiligung</a><a href="/veranstaltungen.html">Veranstaltungen</a></nav></header>
+<header class="site-header">
+  <a class="brand" href="/waermewende-vor-ort.html"><span class="brand-mark">ZC</span><span>ZukunftsCheck</span></a>
+  <nav aria-label="Vorschau">
+    <a href="/waermewende-caldoa.html">Caldoa-Konzept</a>
+    <a href="/waermewende-vor-ort.html">Veranstaltungsformat</a>
+    <a href="/waermewende-teilnahme-muster.html" aria-current="page">Beteiligung ausprobieren</a>
+  </nav>
+</header>
 <main id="main">
-<section class="section"><p class="eyebrow">ZukunftsCheck · Interne Vorschau</p><h1>Wärmewende vor Ort</h1><p class="lead"><span id="event-title">Musterveranstaltung · Beispielregion</span></p><p>Vielen Dank, dass Sie heute dabei sind. Bringen Sie Ihre Fragen und Erfahrungen ein oder bleiben Sie mit uns in Kontakt.</p><p><strong>Testansicht:</strong> Keine echte Veranstaltung. Die folgenden Links zeigen lediglich die vorgesehenen Formularwege. Bitte keine Daten übermitteln. <span id="event-status" role="status"></span></p></section>
-<section class="section"><h2>Wie möchten Sie sich beteiligen?</h2><div class="cards"><article class="card"><h3>Meine Frage oder Idee einbringen</h3><p>Fachliche Hinweise, Fragen und Erfahrungen – auch ohne persönliche Kontaktdaten.</p><a class="button" data-event-route="beitrag" href="/teilnahme.html#beitrag">Beitragsformular ansehen</a></article><article class="card"><h3>In Kontakt bleiben</h3><p>Hinterlassen Sie bei einer echten Veranstaltung freiwillig Ihre Kontaktdaten. Der bestehende Kontaktweg dient der Bearbeitung Ihrer Anfrage; eine Anmeldung für regelmäßige Informationen ist noch nicht eingerichtet.</p><a class="button" href="#kontakt-muster">Kurze Kontakterfassung ansehen</a><p><a data-event-route="kontakt" href="/teilnahme.html#kontakt">Bestehendes allgemeines Kontaktformular ansehen</a></p></article><article class="card"><h3>Ich habe ein konkretes Vorhaben</h3><p>Kostenfreie erste Prüfung des Klärungsbedarfs, unabhängig von der Veranstaltung.</p><a class="button" href="/teilnahme.html#stufe-0">Stufe-0-Formular ansehen</a></article></div></section>
-<section class="section" id="kontakt-muster"><h2>In Kontakt bleiben</h2><p>Interne Designvorschau. Dieses Muster erfasst und übermittelt keine Daten. Bitte keine echten Kontaktdaten eingeben.</p><div class="card"><fieldset disabled><legend>Ihre Kontaktdaten</legend><p><label for="demo-name">Name</label><br><input id="demo-name" type="text" autocomplete="off" placeholder="Vor- und Nachname"></p><p><label for="demo-email">E-Mail-Adresse</label><br><input id="demo-email" type="email" autocomplete="off" placeholder="name@beispiel.de"></p><p><label for="demo-region">Kommune / Region</label><br><input id="demo-region" type="text" placeholder="Ihre Kommune"></p><p><label for="demo-org">Organisation (freiwillig)</label><br><input id="demo-org" type="text"></p><p><label><input type="checkbox"> Ich möchte per E-Mail Informationen zur Nachbereitung dieser Veranstaltung erhalten.</label></p><p><label><input type="checkbox"> Ich möchte darüber hinaus Informationen zu weiteren ZukunftsCheck-Veranstaltungen zur Wärmewende erhalten.</label></p><button class="button" type="button" disabled>Kontaktdaten übermitteln</button></fieldset><p>Beide Auswahlmöglichkeiten sind freiwillig. Ein Widerruf muss jederzeit möglich sein. <a href="/datenschutz.html">Bestehende Datenschutzhinweise</a> (Ergänzung vor Freigabe erforderlich).</p></div></section><section class="section"><p>Freiwillige Beteiligung. Keine automatische Weitergabe an Fachpartner vorgesehen. <a href="/datenschutz.html">Datenschutzhinweise</a></p><a href="/waermewende-vor-ort.html">Zum Veranstaltungsformat</a></section>
+  <section class="section">
+    <p class="eyebrow">Interne Vorschau</p>
+    <h1>Wärmewende vor Ort</h1>
+    <p class="lead" id="event-title">Musterveranstaltung · Beispielregion</p>
+    <p id="event-status" role="status">Allgemeines Beispiel ohne Veranstaltungszuordnung.</p>
+    <p>Die drei Beispiele zeigen, welche Angaben bei einer Veranstaltung oder einem konkreten Vorhaben sinnvoll sein können. In dieser Vorschau werden keine Daten erfasst oder übermittelt.</p>
+  </section>
+  <section class="section" aria-labelledby="wege">
+    <h2 id="wege">Wie möchten Sie sich beteiligen?</h2>
+    <div class="cards three">
+      <article class="card">
+        <h3>Fachlich beitragen</h3>
+        <p>Hinweise, Fragen oder Erfahrungen einbringen. Kontaktdaten sind dafür nicht erforderlich.</p>
+        <a class="button" href="#beitrag-muster">Beitragsbeispiel ansehen</a>
+      </article>
+      <article class="card">
+        <h3>Interesse oder Kontakt mitteilen</h3>
+        <p>Interesse an einer Veranstaltung bekunden oder eine allgemeine Rückfrage stellen.</p>
+        <a class="button" href="#kontakt-muster">Kontaktbeispiel ansehen</a>
+      </article>
+      <article class="card">
+        <h3>Konkretes Vorhaben klären</h3>
+        <p>In Stufe 0 kostenfrei und manuell klären lassen, ob der ZukunftsCheck für ein konkretes Anliegen passt.</p>
+        <a class="button" href="#stufe-0-muster">Stufe-0-Beispiel ansehen</a>
+      </article>
+    </div>
+  </section>
+  <section class="section" id="beitrag-muster">
+    <h2>Fachlicher Beitrag</h2>
+    <p><strong>Beispiel:</strong> Welche Daten zur nutzbaren Abwärme liegen für das Quartier bereits vor?</p>
+    <p>Ein fachlicher Hinweis kann in die Nachbereitung einfließen. Dieser Weg löst keine Stufe-0-Prüfung aus.</p>
+  </section>
+  <section class="section" id="kontakt-muster">
+    <h2>Veranstaltungsinteresse oder allgemeiner Kontakt</h2>
+    <p><strong>Beispiel:</strong> Unsere Initiative möchte mehr über das Veranstaltungsformat erfahren.</p>
+    <p>Die einmalige Nachbereitung eines Termins und freiwillige Hinweise auf spätere Veranstaltungen sind getrennte Zwecke. Die interne Vorschau zeigt sie ohne Eingabefelder.</p>
+  </section>
+  <section class="section" id="stufe-0-muster">
+    <h2>Konkrete Stufe-0-Anfrage</h2>
+    <p><strong>Beispiel:</strong> Eine Wohnungsgenossenschaft will klären, welche Informationen vor der Entscheidung über ein gemeinsames Wärmekonzept fehlen.</p>
+    <p>Stufe 0 ist eine erste Passungsprüfung ohne automatische Veranstaltungszuordnung. Eine mögliche Stufe 1 oder ein Fachanschluss setzt einen gesonderten Auftrag voraus.</p>
+  </section>
 </main>
-<footer class="site-footer"><p><a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></p><p>ZukunftsCheck · Informations- und Beteiligungsangebot</p><p>Formulare aktiv · keine Uploads · kein Tracking</p></footer>
+<footer class="site-footer"><p>ZukunftsCheck · Interne Vorschau ohne Datenübermittlung</p></footer>
 </body>
 </html>

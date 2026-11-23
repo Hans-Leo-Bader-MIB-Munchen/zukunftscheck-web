@@ -70,29 +70,65 @@ assert.match(client,/document\.querySelectorAll\('\[name=eventContext\]'\)/,'Kon
 for(const phrase of ['Drei getrennte Formularwege','konkreten Stufe-0-Anfrage','Eine allgemeine Kontaktanfrage löst keine Stufe-0-Prüfung aus','keine Zustimmung zu Werbung','keine Upload-Funktion','nicht automatisch bewertet'])assert.ok(privacy.includes(phrase),`Datenschutzhinweis fehlt: ${phrase}`);
 assert.match(privacy,/Stand: 21\. Juli 2026/,'Datenschutzstand wurde nicht fortgeschrieben');
 
-assert.match(apiSource,/\['contribution','stage0','contact'\]/,'Server akzeptiert nicht genau die drei Formulartypen');
-assert.match(apiSource,/formType === 'stage0'/,'Eigene serverseitige Stufe-0-Verarbeitung fehlt');
-assert.match(apiSource,/STAGE0_PROJECT_TYPES/,'Anwendungsbereiche werden nicht serverseitig geprüft');
-assert.match(apiSource,/Manuelle Bedarfs- und Passungsprüfung; keine automatische Ergebniszuweisung/,'Interne manuelle Bearbeitungsgrenze fehlt');
-assert.match(apiSource,/Ihre Stufe-0-Anfrage wurde übermittelt/,'Sachliche Eingangsbestätigung fehlt');
-assert.match(apiSource,/\.replace\(\/\[<>\]\/g, ''\)/,'HTML- und Scriptzeichen werden nicht neutralisiert');
-assert.match(apiSource,/text:`\$\{content\}/,'E-Mails müssen als Klartext versendet werden');
-assert.doesNotMatch(apiSource,/\bhtml\s*:/,'HTML-E-Mail darf nicht erzeugt werden');
+// Die öffentlich genutzte Formularverarbeitung wird auf main separat geprüft.
+const previewEnvironment = {
+  VERCEL_ENV: 'preview',
+  GMAIL_USER: 'sender@example.invalid',
+  GMAIL_APP_PASSWORD: 'test-only',
+  MAIL_TO: 'recipient@example.invalid',
+  TURNSTILE_SITE_KEY: 'test-only',
+  TURNSTILE_SECRET_KEY: 'test-only',
+};
 
-const sent=[];
-const sandbox={module:{exports:{}},exports:{},require:name=>{if(name!=='nodemailer')throw new Error(`Unerwartetes Modul: ${name}`);return {createTransport:()=>({sendMail:async message=>{sent.push(message)}})};},process:{env:{GMAIL_USER:'sender@example.org',GMAIL_APP_PASSWORD:'secret',MAIL_TO:'receiver@example.org'}},console,URL,Date,Map,Set,String,Number,Array,Object,RegExp};
-vm.runInNewContext(apiSource,sandbox,{filename:'api/submit.js'});
-const handler=sandbox.module.exports;
-function request(body,ip){return {method:'POST',headers:{'content-type':'application/json','origin':'https://www.zukunftscheck.org','x-forwarded-for':ip},socket:{remoteAddress:ip},body:{...body,formStartedAt:Date.now()-3000,privacy:true}};}
-function response(){return {statusCode:200,payload:null,headers:{},setHeader(key,value){this.headers[key]=value},status(code){this.statusCode=code;return this},json(payload){this.payload=payload;return payload}};}
-const validStage0={formType:'stage0',projectTitle:'Kommunales Wärmeprojekt',projectType:'Kommune',projectDescription:'Kurze Beschreibung',pendingDecision:'Grundsatzentscheidung steht an',requesterRole:'Projektverantwortung',involvedParties:'Verwaltung und Fachstelle',existingChecks:'Fachplanung liegt vor',openQuestion:'Sind langfristige Abhängigkeiten ausreichend abgedeckt?',name:'Test Person',email:'test@example.org'};
-let res=response();await handler(request(validStage0,'198.51.100.1'),res);assert.equal(res.statusCode,200,'Vollständige Stufe-0-Anfrage wird nicht angenommen');assert.match(res.payload.message,/manuell darauf geprüft/,'Eingangsbestätigung behauptet keine manuelle Prüfung');assert.equal(sent.length,1,'Stufe-0-Anfrage erzeugt nicht genau eine Nachricht');assert.match(sent[0].subject,/neue Stufe-0-Anfrage/,'Eigene Betreffkennzeichnung fehlt');assert.match(sent[0].text,/Datenweg: Stufe-0-Anfrage/,'Eigener Datenweg fehlt in der Nachricht');assert.doesNotMatch(sent[0].text,/Veranstaltungskennung/,'Stufe-0-Anfrage wurde einer Veranstaltung zugeordnet');
-res=response();await handler(request({...validStage0,openQuestion:''},'198.51.100.2'),res);assert.equal(res.statusCode,400,'Unvollständige Stufe-0-Anfrage muss abgewiesen werden');
-res=response();await handler(request({...validStage0,projectDescription:'<script>alert(1)</script>'},'198.51.100.3'),res);assert.equal(res.statusCode,200,'Bereinigter Klartext darf verarbeitet werden');assert.doesNotMatch(sent.at(-1).text,/[<>]/,'HTML-Zeichen wurden nicht neutralisiert');
-res=response();await handler(request({formType:'contact',eventContext:'ALLGEMEIN',purpose:'Sonstige Kontaktaufnahme',name:'Kontakt Test',email:'kontakt@example.org'},'198.51.100.4'),res);assert.equal(res.statusCode,200,'Allgemeine Kontaktanfrage funktioniert nicht');assert.match(sent.at(-1).text,/Datenweg: Allgemeiner Kontakt/,'Kontaktweg ist serverseitig nicht getrennt');
-res=response();await handler(request({formType:'contribution',eventContext:'ALLGEMEIN',type:'Hinweis',text:'Ein fachlicher Hinweis'},'198.51.100.5'),res);assert.equal(res.statusCode,200,'Fachlicher Beitrag funktioniert nicht');assert.match(sent.at(-1).text,/Datenweg: Fachlicher Beitrag/,'Beitragsweg ist serverseitig nicht getrennt');
-const mailsBeforeHoneypot=sent.length;res=response();await handler(request({...validStage0,website:'bot'},'198.51.100.6'),res);assert.equal(res.statusCode,200,'Honeypot soll neutral antworten');assert.equal(sent.length,mailsBeforeHoneypot,'Honeypot-Anfrage darf keine Nachricht erzeugen');
-res=response();await handler(request({formType:'unknown'},'198.51.100.7'),res);assert.equal(res.statusCode,400,'Unerwarteter Formulartyp muss abgewiesen werden');
+function failOnAccess(operation) {
+  return () => assert.fail(operation);
+}
+
+for (const [file, method, message] of [
+  ['submit.js', 'POST', 'Die interne Vorschau nimmt keine Formulardaten entgegen.'],
+  ['turnstile-config.js', 'GET', 'In der internen Vorschau ist die Sicherheitsprüfung für Formulare deaktiviert.'],
+]) {
+  const sandbox = {
+    module: { exports: {} },
+    process: { env: previewEnvironment },
+    require: failOnAccess('Die Sperre darf keine externe Bibliothek laden.'),
+    fetch: failOnAccess('Die Sperre darf keine Netzwerkanfrage auslösen.'),
+  };
+  const filename = path.resolve('api', file);
+  vm.runInNewContext(fs.readFileSync(filename, 'utf8'), sandbox, { filename });
+  const handler = sandbox.module.exports;
+
+  const request = {
+    method,
+    get body() {
+      assert.fail('Die Sperre darf den Anfrageinhalt nicht auslesen.');
+    },
+  };
+  const headers = new Map();
+  let status;
+  let payload;
+  const response = {
+    setHeader(key, value) {
+      headers.set(key, value);
+    },
+    status(code) {
+      status = code;
+      return this;
+    },
+    json(result) {
+      payload = result;
+      return this;
+    },
+  };
+
+  await handler(request, response);
+  assert.equal(status, 503, file);
+  assert.equal(headers.get('Cache-Control'), 'no-store', file);
+  assert.equal(payload?.ok, false, file);
+  assert.equal(payload?.message, message, file);
+  assert.equal(Object.hasOwn(payload, 'siteKey'), false, file);
+}
+
 const technicalAll=[part,client,apiSource].join('\n');
 for(const forbidden of ['localStorage','sessionStorage','XMLHttpRequest','sendBeacon','WebSocket','type="file"'])assert.ok(!technicalAll.includes(forbidden),`Verbotener Bestandteil gefunden: ${forbidden}`);
 console.log('ZS-WEB-KK1: Formular-, Datenschutz-, Stufen- und Abgrenzungsprüfung bestanden.');
